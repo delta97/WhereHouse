@@ -1,0 +1,471 @@
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Roboto Condensed', sans-serif;
+
+}
+.flexbox-wrapper {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+}
+.flex-box {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+}
+.footer-content-center {
+	margin: 10px;
+	color: white;
+	text-align: center;
+}
+.footer-content-left {
+	margin: 10px;
+	color: white;
+	text-align: center;
+	margin-right: 50px;
+}
+.footer-content-right {
+	margin: 10px;
+	color: white;
+	text-align: center;
+	margin-left: 50px;
+}
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+.footer-content-left a, .footer-content-left a:visited, .footer-content-left a:link, .footer-content-left a:active {
+	text-decoration: none;
+	color: white;
+}
+.footer-content-right a, .footer-content-right a:visited, .footer-content-right a:link, .footer-content-right a:active {
+	text-decoration: none;
+	color: white;
+}
+.footer-content-right span a:hover .footer-content-left span a:hover {
+	color: #86eae3;
+}
+
+h1 {
+	font-family: 'Roboto Condensed', sans-serif;
+	color: black;
+}
+
+.header {
+	display: flex;
+	display: flex;
+	height: 75px;
+	width: 100%;
+	background-color: #4d4d4d;
+	justify-content: space-between;
+	align-items: center;
+}
+.logo {
+	height: 60px;
+	margin: 10px;
+}
+.logo-text {
+	font-family: 'Righteous', cursive;
+	color: rgb(250, 176, 17);
+	font-size: 35px;
+	margin-left: 10px;
+	margin-right: 20px;
+	text-shadow: -2px -2px #4d4d4d, -2px -2px #4d4d4d, -2px -2px #4d4d4d, -2px -2px #4d4d4d;
+}
+.company-name {
+	font-family: 'Righteous', cursive;
+	color: rgb(250, 176, 17);
+	font-size: 25px;
+	background-color: white;
+	padding-left: 2px;
+	padding-right: 2px;
+
+}
+.flex-logo {
+	display: flex;
+	align-items: center;
+}
+.nav {
+	display: flex;
+	height: 50px;
+	background-color: #86eae3;
+}
+.navbar-item {
+	padding: 10px;
+/*	font-family: 'Roboto', sans-serif; */
+	font-family: 'Roboto Condensed', sans-serif;
+	background-color: #86eae3;
+	color: #4d4d4d;
+	font-size: 22px;
+	height: 100%;
+	margin-bottom: 15px;
+}
+
+.navbar-item:hover {
+	background-color: #7cdbd5;
+	cursor: pointer;
+}
+.navbar-item a, .navbar-item a:visited, .navbar-item a:link, .navbar-item a:active {
+	text-decoration: none;
+	color: #4d4d4d;
+}
+.logo-text a, .logo-text a:visited, .logo-text a:link, .logo-text a:active {
+	text-decoration: none;
+	font-family: 'Righteous', cursive;
+	color: rgb(250, 176, 17);
+	font-size: 30px;
+	margin-left: 10px;
+	margin-right: 20px;
+}
+
+.user-desig-radio {
+	margin-left: 20px;
+	margin-top: 5px;
+}
+.login-button {
+	display: flex;
+	height: 45px;
+	width: 90px;
+	background-color: #4d4d4d;
+	color: white;
+	align-content: center;
+	align-self: center;
+	margin-right: 25px;
+	border: 2px solid white;
+	border-radius: 8px;
+	font-family: 'Roboto Condensed', sans-serif;
+
+}
+.logout-button {
+	display: flex;
+	height: 45px;
+	width: 90px;
+	background-color: #4d4d4d;
+	color: white;
+	align-content: center;
+	align-self: center;
+	margin-right: 25px;
+	border: 2px solid white;
+	border-radius: 8px;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.logout-button:hover {
+	cursor: pointer;
+	background-color: #ff5661;
+	border: 2px solid white;
+}
+.login-button-text {
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	flex-grow: 1;
+}
+.login-button:hover{
+	background-color: #86eae3;
+	color: #4d4d4d;
+	border: 2px solid white;
+	cursor: pointer;
+}
+.footer {
+	height: 100px;
+	width: 100%;
+	background-color: #4d4d4d;
+}
+.body {
+	display: flex;
+	min-height: 100vh;
+	margin-bottom: 25px;
+}
+.main-page-slogan {
+	position: absolute;
+	margin-top: 25px;
+	margin-left: 15px;
+	text-align: left;
+	color: white !important;
+	z-index: 100;
+	min-width: 100%;
+	
+}
+.slogan-title {
+	color: white;
+	font-size: 80px;
+}
+.slogan-content {
+	color: white;
+	font-size: 30px;
+
+}
+
+.main-content {
+	display: flex;
+	background-color: #E8E8E8;
+	flex-grow: 1;
+	height: 100vh;
+	justify-content: flex-end;
+	align-content: flex-start;
+}
+.background-image {
+	position: absolute;
+	background-image: url("./images/warehouse2.jpeg");
+	filter: blur(2px) brightness(70%) grayscale(85%);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: -1;
+	min-height: 100vh;
+	min-width: 100vw;
+}
+
+.no-space {
+	margin: 0px;
+	padding: 0px;
+}
+.signup-text {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.btn-next {
+	background-color: #f9be02;
+	color: white;
+}
+.btn-close {
+	background-color: #f53240;
+	color: white;
+}
+.modal-formatting {
+	background-color: #86eae3;
+	color: black;
+}
+
+
+.form-spacing {
+	margin-bottom: 10px;
+}
+
+/*owner-registration.html*/
+#owner-registration-title {
+	text-align: center;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+.red {
+	background-color: #ff5661;
+}
+.red-left {
+	background-image: linear-gradient(to right, #ff5661 , white);
+	z-index: 2;
+}
+.red-right {
+	background-image: linear-gradient(to left, #ff5661 , white);
+	z-index: 2;
+}
+.white {
+	background-color: white;
+}
+
+.max-height{
+	min-height: 100%;
+}
+
+.btn-submit {
+	background-color: white;
+	color: #4d4d4d;
+	border: 2px solid #4d4d4d;
+	border-radius: 8px;
+}
+.btn-submit:hover {
+	background-color: #86eae3;
+	color: #4d4d4d;
+	border: 2px solid #86eae3;
+}
+
+
+/*dashboard formatting*/
+
+.dashboard-flex {
+	display: flex;
+	flex-direction: row;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	background-color: grey;
+	width: 250px;
+	min-height: 100%;
+}
+
+.page-content {
+	display: flex;
+	background-color: white;
+	flex-grow: 1;
+	min-height: 100%;
+}
+
+.sidebar-btn {
+	display: flex;
+	align-self: center;
+	width: 100%;
+	height: 40px;
+	background-color: #86eae3;
+	color: #4d4d4d;
+	padding: 5px;
+	justify-content: center;
+	align-content: center;
+	cursor: pointer;
+}
+
+.sidebar-btn:hover {
+	background-color: #a8f0eb;
+}
+.active-btn{
+	background-color: #86eae3;
+	-webkit-box-shadow:0px 0px 11px 2px #4d4d4d inset;
+	-moz-box-shadow:0px 0px 11px 2px #4d4d4d inset;
+	box-shadow:0px 0px 11px 2px #4d4d4d inset;
+}
+
+
+.sidebar-btn-text {
+	color: #4d4d4d;
+	align-self: center;
+}
+
+.header-username {
+	margin-right: 15px;
+	color: white;
+	font-size: 20px;
+}
+
+
+
+.flex-center {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-content: center;
+}
+
+
+/*lessee registration page*/
+.lessee-reg-progress {
+	text-align: left;
+	margin-top: 5px;
+}
+#lessee-registration-title {
+	margin-top: 10px;
+	text-align: center;
+}
+.bg-info {
+	background-color: rgb(250, 176, 17) !important;
+}
+
+#lessee-form {
+	margin-top: 10px;
+}
+
+/*Search content*/
+.search {
+	display: flex;
+	min-width: 500px;
+	min-height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+.search-input {
+	background-color: #4d4d4d;
+	text-align: center;
+	color: white;
+	height: 45px;
+	border: 2px solid white;
+	opacity: 1;
+	margin-left: 50px;
+
+}
+.search-input::placeholder{
+	color: white;
+}
+
+#zip-search-button {
+	margin-left: 15px;
+	border: 2px solid white;
+	height: 45px;
+	background-color: #4d4d4d;
+}
+#zip-search-button:hover {
+	background-color: #86eae3;
+	color: #4d4d4d;
+	border: 2px solid #4d4d4d;
+	cursor: pointer;
+}
+
+.search-flex {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	background-color: rgba(0,0,0,.025);
+}
+.search-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	min-width: 100%;
+	min-height: 100%;
+	background-color: rgba(0,0,0,.025);
+	flex-grow: 1;
+	align-self: center;
+}
+
+.search-item {
+	width: 80%;
+	height: 100px;
+	background-color: white;
+	margin: 20px;
+	align-self: center;
+	padding: 10px;
+	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
+}
+
+.search-header {
+	font-size: 60px;
+	width: 100%;
+	max-height: 80px;
+	align-self: center;
+	justify-content: baseline;
+	background-color: rgba(0,0,0,.025);
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-top: 10px;
+
+
+}
+
+
+.search-body{ 
+	display: flex;
+	min-height: 100vh;
+	margin-bottom: 25px;
+	background-color: rgba(0,0,0,.025);
+}
+
+.search-filter-options {
+	width: 100%;
+	height: 50px;
+	align-self: center;
+	padding-top: 10px;
+	padding-left: 10%;
+	padding-right: 10%;
+	background-color: rgba(0,0,0,.025);
+
+}
+
+
+
+
