@@ -165,6 +165,14 @@
 										<input type="text" class="form-control" name="user-zip" id="user-zip" aria-describedby="enterZip" placeholder="Zipcode"></input>
 									</div>
 								</div>
+								<h2>Payment Information</h2>
+								<div class="form-row form-spacing">
+									<div class="col">
+										<label for="user-credit-card">Credit Card Number</label>
+										<input type="text" class="form-control" name="user-credit-card" id="user-credit-card" aria-describedby="enterCreditCardNumber" placeholder="Credit Card Number">
+										<small class="form-text text-muted">This information will be used to pay for rented warehouse space.</small>
+									</div>
+								</div>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
 										<button action="validation()" id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
