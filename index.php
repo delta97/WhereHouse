@@ -159,7 +159,11 @@
 		});
 
 		$("#zip-search-button").on("click", function(event){
-			window.location = "basicsearch.php";
+			search_value = $("#zip-search").val();
+			if((search_value != null) && (search_value != "")) {
+				sessionStorage.setItem("searchQuery", search_value);
+				window.location = "basicsearch.php";
+			}
 		});
 		
 		

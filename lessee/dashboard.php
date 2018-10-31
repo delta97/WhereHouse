@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- lessee tashboard -->
 <html>
 	<head>
 		<!-- Righteous Font -->
@@ -57,15 +56,13 @@
 					</div>
 				</div>
 				<div class="page-content">
-					<h1 class="dashboard-heading">Dashboard</h1>
-					<div class="lessee-warehouse-search">
-						<h1>Find your next warehouse with search...</h1>
-					</div>
+					<h1>Dashboard</h1>
 				</div>
 			</div>
 		</div>
 		<div class="footer">Footer</div>
 	</body>
+
 	<script type="text/javascript">
 		$("#dashboard-btn").click(function() {
 			window.location = "dashboard.php";

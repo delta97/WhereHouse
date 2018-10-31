@@ -74,7 +74,6 @@
 										<label for="user-password">Password</label>
 										<input type="password" class="form-control" name="user-password" id="user-password" aria-describedby="enter password" placeholder="Password"/>
 										<small id="password-prompt" class="form-text text-muted">Passwords must be between 8 and 20 characters and contain at least one capital letter and one special character.</small>
-
 									</div>
 									<div class="col">
 										<label for="user-password-confirm">Confirm Password</label>

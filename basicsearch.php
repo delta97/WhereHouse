@@ -134,6 +134,25 @@
 			$("#zip-search").val(searchQuery);
 			$(".search-header").text("Search For: " + searchQuery);
 		});
+
+		//login and registration buttons and modals
+		$("#btn-login-lessee").on('click touch', function() {
+			window.location = "lessee/dashboard.php";
+		});
+		$("#btn-login-owner").on('click touch', function() {
+			window.location = "owner/dashboard.php";
+		});
+		$("#btn-register-owner").on('click touch', function() {
+			window.location = "./home/registration/owner-registration.php"; 
+			sessionStorage.setItem("user_type", "1"); //user_type is set to 1 for owners
+		});
+		$("#btn-register-lessee").on('click touch', function() {
+			window.location = "./home/registration/lessee-registration.php";
+			sessionStroage.setItem("user_type", "0"); //user_type is set to 0 for lessees
+		});
+
+
+
 		$("#zip-search").on("focusout", function(event){
 			var search_value = $("#zip-search").val();
 			sessionStorage.setItem("searchQuery", search_value);

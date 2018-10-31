@@ -343,7 +343,11 @@ h1 {
 	font-size: 20px;
 }
 
-
+.dashboard-heading {
+	font-size: 24;
+	font-weight: 900;
+	margin-left: 100px;
+}
 
 .flex-center {
 	display: flex;

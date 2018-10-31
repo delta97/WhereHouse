@@ -67,6 +67,17 @@
 								</div>
 								<div class="form-row form-spacing">
 									<div class="col">
+										<label for="user-password">Password</label>
+										<input type="password" class="form-control" name="user-password" id="user-password" aria-describedby="enter password" placeholder="Password"/>
+										<small id="password-prompt" class="form-text text-muted">Passwords must be between 8 and 20 characters and contain at least one capital letter and one special character.</small>
+									</div>
+									<div class="col">
+										<label for="user-password-confirm">Confirm Password</label>
+										<input type="password" class="form-control" name="user-password-confirm" id="user-password-confirm" aria-describedby="re enter your password" placeholder="Confirm Your Password"/>
+									</div>
+								</div>
+								<div class="form-row form-spacing">
+									<div class="col">
 										<label for="user-dob">Birth Date</label>
 										<input type="date" class="form-control" id="user-dob" aria-describedby="enterDateOfBirth">
 									</div>
@@ -144,6 +155,23 @@
 											<option value="WI">Wisconsin</option>
 											<option value="WY">Wyoming</option>
 										</select>
+									</div>
+									<div class="col">
+										<label for="user-zip">Zipcode</label>
+										<input type="text" class="form-control" name="user-zip" id="user-zip" aria-describedby="enterZip" placeholder="Zipcode"></input>
+									</div>
+								</div>
+								<h2>Payment Information</h2>
+								<div class="form-row form-spacing">
+									<div class="col">
+										<label for="user-bank-account">Account Number</label>
+										<input type="text" class="form-control" name="user-bank-account" id="user-bank-account" aria-describedby="enterBankAccountNum" placeholder="Account Number">
+										<small id="bank-acccount-prompt" class="form-text text-muted">This information will be used to receive payment from warehouse renters</small>
+									</div>
+									<div class="col">
+										<label for="user-bank-routing">Routing Number
+										</label>
+										<input type="text" class="form-control" name="user-bank-routing" id="user-bank-routing" aria-describedby="enterRoutingNumber" placeholder="Routing Number">
 									</div>
 								</div>
 								<div class="form-row form-spacing">
