@@ -160,6 +160,10 @@
 		$("#zip-search").on("focusout", function(event){
 			var search_value = $("#zip-search").val();
 			sessionStorage.setItem("searchQuery", search_value);
+			<?php 
+				session_start();
+				$_SESSION["search_zipcode"] = $_GET["zip-search"];
+			?>
 			console.log(sessionStorage.getItem("searchQuery"));
 		});
 
