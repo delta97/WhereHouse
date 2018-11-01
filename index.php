@@ -100,15 +100,35 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form>
+								<form method="post">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
-								    	<input type="text" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
+								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
 								  	</div>
 								  	<div class="form-group">
 								    	<label for="login-modal-password">Password</label>
-								    	<input type="password" class="form-control" id="login-modal-password" placeholder="Password">
+								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
 								  </div>
+								</form>
+								<script type="text/javascript">
+									<?php 
+										$email = $_POST["login-modal-email"];
+										$password = $_POST["login-modal-password"];
+
+										$servername = "g1040924";
+										$username = "g1040924";
+										$password = "*password*";
+
+										$connection = mysqli_connect($servername, $username, $password);
+										$query = "SELECT password FROM user WHERE email = ".$email.";"
+										if($password != $query){
+											echo "Please enter a valid email and password."	
+										}
+										else {
+											
+										}
+									?>
+								</script>
 							</div>
 							<div class="modal-footer">
    								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
