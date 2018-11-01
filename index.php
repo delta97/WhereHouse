@@ -35,8 +35,10 @@
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
 				<div class="search">
-					<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search" onfocusout="<?php $_SESSION["zipcode-search"] = $_GET["zip-search"];?>">
-					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
+					<form method="get">
+						<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search" onfocusout="setsessionsearch.php">
+						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
+					</form>
 				</div>
 				<div class="flex-logo">
 					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
