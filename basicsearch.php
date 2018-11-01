@@ -52,7 +52,7 @@
 				<span id="FAQ" class="navbar-item"><a href="./home/FAQ.php">FAQ</a></span>
 			</div>
 			<div class="search-body no-space search-flex">
-				<div class="search-header">Search For: <!--the sessionStorage variable searchQuery is being shown here--></div>
+				<div class="search-header"><?php echo "Search For: " . $_SESSION["search_zipcode"]; ?> <!--the sessionStorage variable searchQuery is being shown here--></div>
 				<div class="search-filter-options">
 					<form class="form-inline">
 						<label class="my-1 mr-2" for="wh-search-options"><b>Search Options</b></label>
@@ -156,13 +156,15 @@
 		$("#zip-search").on("focusout", function(event){
 			var search_value = $("#zip-search").val();
 			sessionStorage.setItem("searchQuery", search_value);
+			<?php 
+				session_start();
+				$_SESSION["search_zipcode"] = $_GET["zip-search"];
+			?>
 			console.log(sessionStorage.getItem("searchQuery"));
 		});
 
 		//when the zip-search button is clicked
 		$("#zip-search-button").on("click", function(event) {
-			search_value = $("#zip-search").val();
-			sessionStorage.setItem("searchQuery", search_value);
 			$(".search-header").text("Search For: " + search_value);
 		});
 	</script>
