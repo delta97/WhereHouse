@@ -36,7 +36,7 @@
 				</div>
 				<div class="search">
 					<form method="get">
-						<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search" onfocusout="setsessionsearch.php">
+						<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search" onfocusout="./PHP/setsessionsearch.php">
 						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
 					</form>
 				</div>
