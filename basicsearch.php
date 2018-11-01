@@ -65,9 +65,24 @@
 					</form>
 				</div>
 				<div class="search-container">
-					<div class="search-item">
-						Warehouse 1
-					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">
+									Name
+								</th>
+								<th scope="col">
+									Rating
+								</th>
+								<th scope="col">
+									Price (Per Skid)
+								</th>
+								<th scope="col">
+									Distance From <?php $_SESSION["search_zipcode"]; ?>
+								</th>
+							</tr>
+						</thead>
+					</table>
 				</div>
 			</div>
 			<!-- registration modal -->

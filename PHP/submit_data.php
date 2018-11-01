@@ -9,6 +9,8 @@
 	//check connection
 	if (!$connection) {
 		die("The server connection failed: " . mysqli_connect_error());
+   		echo '<script>console.log("Connection to server failed...")</script>';
+	
 	}
 	//Get form data and save into php variables
 	$first_name = $_POST['user-first-name'];
