@@ -26,13 +26,16 @@
 		<link rel="stylesheet" href="style.css"> 
 	</head>
 	<body>
+		<?php 
+			session_start(); //starting session so that we can save global variables
+		?>
 		<div class="flexbox-wrapper">
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
 				<div class="search">
-					<input id="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
+					<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search" onfocusout="<?php $_SESSION["zipcode-search"] = $_GET["zip-search"];?>">
 					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
 				</div>
 				<div class="flex-logo">
