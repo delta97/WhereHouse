@@ -26,9 +26,6 @@
 		<link rel="stylesheet" href="style.css"> 
 	</head>
 	<body>
-		<?php 
-			session_start(); //starting session so that we can save global variables
-		?>
 		<div class="flexbox-wrapper">
 			<div class="header">
 				<div class="flex-logo">
@@ -157,6 +154,11 @@
 			window.location = "lessee/dashboard.php";
 		});
 		$("#btn-login-owner").on('click touch', function() {
+			<?php
+				$email = $_POST["login-modal-email"];
+				$password = $_POST["login-modal-password"];
+				 
+			?>
 			window.location = "owner/dashboard.php";
 		});
 		$("#btn-register-owner").on('click touch', function() {
