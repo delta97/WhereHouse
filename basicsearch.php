@@ -52,37 +52,55 @@
 				<span id="FAQ" class="navbar-item"><a href="./home/FAQ.php">FAQ</a></span>
 			</div>
 			<div class="search-body no-space search-flex">
-				<div class="search-header"> <!--the sessionStorage variable searchQuery is being shown here--></div>
-				<div class="search-filter-options">
-					<form class="form-inline">
-						<label class="my-1 mr-2" for="wh-search-options"><b>Search Options</b></label>
-						<select class="custom-select my-1 mr-sm-2" id="wh-search-options">
-							<option selected>Distance Ascending</option>
-							<option>Distance Descending</option>
-							<option>Price Ascending</option>
-							<option>Price Descending</option>
-						</select>
-					</form>
+				<div class="flex-header">
+					<div class="search-header">Search For: <!--the sessionStorage variable searchQuery is being shown here--></div>
+					<div class="search-filter-options">
+						<form class="form-inline">
+							<label class="my-1 mr-2" for="wh-search-options"><b>Search Options</b></label>
+							<select class="custom-select my-1 mr-sm-2" id="wh-search-options">
+								<option selected>Distance Ascending</option>
+								<option>Distance Descending</option>
+								<option>Price Ascending</option>
+								<option>Price Descending</option>
+							</select>
+						</form>
+					</div>
 				</div>
 				<div class="search-container">
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">
-									Name
-								</th>
-								<th scope="col">
-									Rating
-								</th>
-								<th scope="col">
-									Price (Per Skid)
-								</th>
-								<th scope="col">
-									Distance From <?php $_SESSION["search_zipcode"]; ?>
-								</th>
-							</tr>
-						</thead>
-					</table>
+						<table class="search-item table">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">
+										Name
+									</th>
+									<th class="text-center" scope="col">
+										Rating
+									</th>
+									<th class="text-center" scope="col">
+										Price (Per Skid)
+									</th>
+									<th class="text-center" scope="col">
+										Distance From (Zipcode will be entered by PHP)<?php $_SESSION["search_zipcode"]; ?>
+									</th>
+								</tr>
+								<tbody>
+									<tr>
+										<td class="text-center">
+											Warehouse Name
+										</td>
+										<td class="text-center">
+											5 Stars
+										</td>
+										<td class="text-center">
+											$5
+										</td>
+										<td class="text-center">
+											8 miles
+										</td>
+									</tr>
+								</tbody>
+							</thead>
+						</table>
 				</div>
 			</div>
 			<!-- registration modal -->
@@ -138,6 +156,35 @@
 						</div>
 					</div>
 				</div>
+				<!-- generic search result modal -->
+				<div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-labelledby="search-modal-title" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content modal-formatting">
+							<div class="modal-header">
+								<h4 class="modal-title" id="login-modal-title">  <!--This is where the Warehouse title will go --> </h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="form-group">
+								    	<label for="login-modal-email">Email address</label>
+								    	<input type="text" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
+								  	</div>
+								  	<div class="form-group">
+								    	<label for="login-modal-password">Password</label>
+								    	<input type="password" class="form-control" id="login-modal-password" placeholder="Password">
+								  </div>
+							</div>
+							<div class="modal-footer">
+   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+   								<button type="button" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
+   								<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
+ 							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="footer">Footer</div>
 		</div>
@@ -169,18 +216,20 @@
 
 
 		$("#zip-search").on("focusout", function(event){
-			var search_value = $("#zip-search").val();
-			sessionStorage.setItem("searchQuery", search_value);
-			<?php 
-				session_start();
+			<?php
+				//session already started in the index
 				$_SESSION["search_zipcode"] = $_GET["zip-search"];
+				echo "console.log(".$_SESSION["search_zipcode"].");";
 			?>
-			console.log(sessionStorage.getItem("searchQuery"));
 		});
 
 		//when the zip-search button is clicked
 		$("#zip-search-button").on("click", function(event) {
 			$(".search-header").text(<?php echo "Search For: " . $_SESSION["search_zipcode"]; ?>);
+		});
+
+		$("tr").on("click", function(event) {
+
 		});
 	</script>
 </html>
