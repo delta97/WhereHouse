@@ -53,9 +53,109 @@
 					</div>
 				</div>
 				<div class="page-content">
-					<h1>Your Rentals</h1>
+					<div class="current-rentals">
+						<h1 style="text-align: center;">Current Rentals</h1>
+						<table id="current-rentals-table" class="table">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">
+										Warehouse Rented
+									</th>
+									<th class="text-center" scope="col">
+										Rental Duration
+									</th>
+									<th class="text-center" scope="col">
+										Cost Total
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">
+										1st Warehouse Rented From Server
+									</td>
+									<td class="text-center">
+										Date Range From Server
+									</td>
+									<td class="text-center">
+										Cost Total From Server
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+
+					</div>
+
+					<!-- <?php 
+						//query the open rental contracts 
+						//if query returns number of results equal to zero then do the following:
+
+						echo "Oh no, you don't have any current rentals! You can fix that by searching for a warehouse to rent on our <a href="searchpage.html">search page</a>."
+					?> -->
+					<div class="past-rentals">
+						<h1 style="text-align: center;">Past Rentals</h1>
+						<table id="past-rentals-table" class="table">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">
+										Warehouse Rented
+									</th>
+									<th class="text-center" scope="col">
+										Rental Duration
+									</th>
+									<th class="text-center" scope="col">
+										Cost Total
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">
+										1st Warehouse Rented From Server
+									</td>
+									<td class="text-center">
+										Date Range From Server
+									</td>
+									<td class="text-center">
+										Cost Total From Server
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- <?php
+						//query the history of the user for ALL rentals over time
+						//display results in a table 
+
+						//on click for each result, toggle a modal that displays the information surrounding a particular rental
+
+						//possible feature if there is time: add a print to pdf button that prints and downloads a pdf of the rental in question
+
+						//fields to include in modal: warehouse rented, duration, final cost, rating the user gave the warehouse, average rating for the warehouse, search for this result again button
+					?> -->
 				</div>
 			</div>
+			<div class="modal fade" id="edit-information-modal" tabindex="-1" role="dialog" aria-labelledby="edit-information-modal" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
+					<div class="modal-content edit-info-modal">
+						<div class="modal-header">
+							<h4 class="modal-title" id="registration-modal-title">Rental</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							
+						</div>
+						<div class="modal-footer">
+								<button type="button" class="btn btn-submit">Submit</button>
+								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		</div>
 		<div class="footer">Footer</div>
 	</body>

@@ -243,6 +243,13 @@ h1 {
 }
 
 
+.edit-info-modal {
+	background-color: white;
+	color: black;
+	min-width: 700px;
+	align-self: center;
+}
+
 .form-spacing {
 	margin-bottom: 10px;
 }
@@ -297,13 +304,25 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	background-color: grey;
-	width: 250px;
+	min-width: 275px;
 	min-height: 100%;
+}
+
+.page-content-dashboard {
+	display: flex;
+	flex-direction: row;
+	background-color: white;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
 }
 
 .page-content {
 	display: flex;
+	flex-direction: column;
 	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
 	flex-grow: 1;
 	min-height: 100%;
 	padding: 50px;
@@ -528,5 +547,10 @@ h1 {
 	border-bottom: 1px solid black;
 }
 
+
+.current-rentals {
+	min-width: 100%;
+
+}
 
 

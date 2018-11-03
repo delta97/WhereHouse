@@ -8,7 +8,7 @@
 		<!-- Roboto Condensed Font -->
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
-		<title>Wherehouse | Lessee Dashboard</title>
+		<title>Wherehouse | My Space Rentals</title>
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -23,29 +23,26 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 		<!-- Link to the style sheet -->
-		<link rel="stylesheet" href="../style.css"> 
-
-		<!-- javascript click functions -->
-		<script src="../javascript/click_functions.js"></script>
+		<link rel="stylesheet" href="../style.css">
 	</head>
 	<body>
 		<div class="flexbox-wrapper">
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
-					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
+					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
-					<span class="header-username"><?php echo "Welcome, " . $_SESSION["first_name"]; ?></span>
+					<span class="header-username">Doe, John</span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
 			<div class="body dashboard-flex">
 				<div class="sidebar">
-					<div id="dashboard-btn" class="sidebar-btn active-btn">
+					<div id="dashboard-btn" class="sidebar-btn">
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
-					<div id="rentals-btn" class="sidebar-btn">
+					<div id="rentals-btn" class="sidebar-btn active-btn">
 						<span class="sidebar-btn-text">Your Rentals</span>
 					</div>
 					<div id="requests-btn" class="sidebar-btn">
@@ -55,50 +52,118 @@
 						<span class="sidebar-btn-text">Inbox</span>
 					</div>
 				</div>
-				<div class="page-content flexbox-dashboard">
-					<div id="user-information" class="dashboard-tile">
-						<div class="dashboard-tile-header">User Information</div>		
-						<div class="dashboard-tile-content">
-							<div id="user-name"><b>Name:</b> John Doe</div>
-							<div id="user-email"><b>Email:</b> <a href="mailto:jdoe@purdue.edu">jdoe@purdue.edu</a></div>
-							<div id="billing-address"><b>Billing Address:</b> 400 McCutcheon Dr.<br>West Lafayette, IN 47906</div>
-							<div id="user-phone-num"><b>Phone Number:</b> (123) 456-7890</div>
-							<div id="user-rating"><b>User Rating:</b> -6 Stars</div>
-							<div id=""></div>
-							<div class="dashboard-btn-flex">
-								<button class="btn btn-primary dashboard-tile-edit">Edit</button>
-							</div>
-						</div>
+				<div class="page-content">
+					<div class="current-rentals">
+						<h1 style="text-align: center;">Current Rentals</h1>
+						<table id="current-rentals-table" class="table">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">
+										Warehouse Rented
+									</th>
+									<th class="text-center" scope="col">
+										Rental Duration
+									</th>
+									<th class="text-center" scope="col">
+										Cost Total
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">
+										1st Warehouse Rented From Server
+									</td>
+									<td class="text-center">
+										Date Range From Server
+									</td>
+									<td class="text-center">
+										Cost Total From Server
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+
 					</div>
-					<div id="user-rentals" class="dashboard-tile dashboard-tile-clickable">
-						<div class="dashboard-tile-header">Your Rentals</div>
-						<div class="dashboard-tile-content">
-							<div id="warehouse-1" class="rented-warehouse">
-								<span><b>Warehouse Name</b></span> <br>
-								&nbsp; &nbsp;<span id="contract-from-1"><b>From: </b>August 23</span> <br>
-								&nbsp; &nbsp;<span id="contract-to-1"><b>To: </b> September 14</span>
-							</div>
-						</div>
+
+					<!-- <?php 
+						//query the open rental contracts 
+						//if query returns number of results equal to zero then do the following:
+
+						echo "Oh no, you don't have any current rentals! You can fix that by searching for a warehouse to rent on our <a href="searchpage.html">search page</a>."
+					?> -->
+					<div class="past-rentals">
+						<h1 style="text-align: center;">Past Rentals</h1>
+						<table id="past-rentals-table" class="table">
+							<thead>
+								<tr>
+									<th class="text-center" scope="col">
+										Warehouse Rented
+									</th>
+									<th class="text-center" scope="col">
+										Rental Duration
+									</th>
+									<th class="text-center" scope="col">
+										Cost Total
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">
+										1st Warehouse Rented From Server
+									</td>
+									<td class="text-center">
+										Date Range From Server
+									</td>
+									<td class="text-center">
+										Cost Total From Server
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<div id="current-requests" class="dashboard-tile dashboard-tile-clickable">
-						<div class="dashboard-tile-header">Pending Requests</div>
-						<div class="dashboard-tile-content">
-							<div id="request-1"><b>Warehouse Name</b></div>
-							<div id="request-1-date">August 16, 2018</div>
-							<div id="request-time">8:52 PM</div>
+					<!-- <?php
+						//query the history of the user for ALL rentals over time
+						//display results in a table 
+
+						//on click for each result, toggle a modal that displays the information surrounding a particular rental
+
+						//possible feature if there is time: add a print to pdf button that prints and downloads a pdf of the rental in question
+
+						//fields to include in modal: warehouse rented, duration, final cost, rating the user gave the warehouse, average rating for the warehouse, search for this result again button
+					?> -->
+				</div>
+			</div>
+			<div class="modal fade" id="rental-info-modal" tabindex="-1" role="dialog" aria-labelledby="rental-info-modal" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
+					<div class="modal-content rental-info-modal">
+						<div class="modal-header">
+							<h4 class="modal-title" id="registration-modal-title">Rental</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
 		<div class="footer">Footer</div>
 	</body>
 
 	<script type="text/javascript">
-		$("#dashboard-btn").click(function(event) {
+		$("#dashboard-btn").click(function() {
 			window.location = "dashboard.php";
 		});
-		$("#rentals-btn").click(function(event) {
+		$("#rentals-btn").click(function() {
 			window.location = "rentals.php";
 		});
 		$("#requests-btn").click(function() {
@@ -108,15 +173,12 @@
 			window.location = "inbox.php";
 		});
 		$(".logout-button").click(function() {
-			<?php session_destroy();?>
-
 			window.location = "../index.php";
 		});
 
 
-		//my rentals redirect
-		$("#user-rentals").on("click", function(event) {
-			window.location = "rentals.php";
+		$("tr").click(function(event){ 
+			//add data-toggle="modal" and data-target="#edit-information-modal" to the meta section
 		});
 	</script>
 </html>
