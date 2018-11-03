@@ -55,8 +55,39 @@
 						<span class="sidebar-btn-text">Inbox</span>
 					</div>
 				</div>
-				<div class="page-content">
-					<h1>Dashboard</h1>
+				<div class="page-content flexbox-dashboard">
+					<div id="user-information" class="dashboard-tile">
+						<div class="dashboard-tile-header">User Information</div>		
+						<div class="dashboard-tile-content">
+							<div id="user-name"><b>Name:</b> John Doe</div>
+							<div id="user-email"><b>Email:</b> <a href="mailto:jdoe@purdue.edu">jdoe@purdue.edu</a></div>
+							<div id="billing-address"><b>Billing Address:</b> 400 McCutcheon Dr.<br>West Lafayette, IN 47906</div>
+							<div id="user-phone-num"><b>Phone Number:</b> (123) 456-7890</div>
+							<div id="user-rating"><b>User Rating:</b> -6 Stars</div>
+							<div id=""></div>
+							<div class="dashboard-btn-flex">
+								<button class="btn btn-primary dashboard-tile-edit">Edit</button>
+							</div>
+						</div>
+					</div>
+					<div id="user-rentals" class="dashboard-tile dashboard-tile-clickable">
+						<div class="dashboard-tile-header">Your Rentals</div>
+						<div class="dashboard-tile-content">
+							<div id="warehouse-1" class="rented-warehouse">
+								<span><b>Warehouse Name</b></span> <br>
+								&nbsp; &nbsp;<span id="contract-from-1"><b>From: </b>August 23</span> <br>
+								&nbsp; &nbsp;<span id="contract-to-1"><b>To: </b> September 14</span>
+							</div>
+						</div>
+					</div>
+					<div id="current-requests" class="dashboard-tile dashboard-tile-clickable">
+						<div class="dashboard-tile-header">Pending Requests</div>
+						<div class="dashboard-tile-content">
+							<div id="request-1"><b>Warehouse Name</b></div>
+							<div id="request-1-date">August 16, 2018</div>
+							<div id="request-time">8:52 PM</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -64,10 +95,10 @@
 	</body>
 
 	<script type="text/javascript">
-		$("#dashboard-btn").click(function() {
+		$("#dashboard-btn").click(function(event) {
 			window.location = "dashboard.php";
 		});
-		$("#rentals-btn").click(function() {
+		$("#rentals-btn").click(function(event) {
 			window.location = "rentals.php";
 		});
 		$("#requests-btn").click(function() {
@@ -77,9 +108,15 @@
 			window.location = "inbox.php";
 		});
 		$(".logout-button").click(function() {
-			<?php session_destroy();>
+			<?php session_destroy();?>
 
 			window.location = "../index.php";
+		});
+
+
+		//my rentals redirect
+		$("#user-rentals").on("click", function(event) {
+			window.location = "rentals.php";
 		});
 	</script>
 </html>

@@ -306,6 +306,7 @@ h1 {
 	background-color: white;
 	flex-grow: 1;
 	min-height: 100%;
+	padding: 50px;
 }
 
 .sidebar-btn {
@@ -479,6 +480,53 @@ h1 {
 }
 
 
+
+.dashboard-tile-header {
+	font-size: 25px;
+	text-align: center;
+	background-color: grey;
+	border-bottom: 2px solid black;
+	border-radius: 2px;
+}
+.dashboard-tile-content {
+	padding: 15px;
+}
+.dashboard-tile {
+	width: 300px;
+	height: 270px;
+	border: 3px solid black;
+	border-radius: 5px;
+	margin: 20px;
+}
+
+.dashboard-tile-clickable {
+	cursor: pointer;
+}
+
+.dashboard-btn-flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.dashboard-tile-edit {
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+
+.flexbox-dashboard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: space-around;
+
+}
+
+.rented-warehouse {
+	border-bottom: 1px solid black;
+}
 
 
 
