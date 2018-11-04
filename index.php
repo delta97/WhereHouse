@@ -1,7 +1,3 @@
-<?php include(/PHP/login.php); ?>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -37,10 +33,8 @@
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
 				<div class="search">
-					<form method="get">
-						<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
-					</form>
+					<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
+					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
 				</div>
 				<div class="flex-logo">
 					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
@@ -112,25 +106,7 @@
 								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
 								  </div>
 								</form>
-								<script type="text/javascript">
-									<?php 
-										$email = $_POST["login-modal-email"];
-										$password = $_POST["login-modal-password"];
-
-										$servername = "g1040924";
-										$username = "g1040924";
-										$password = "*password*";
-
-										$connection = mysqli_connect($servername, $username, $password);
-										$query = "SELECT password FROM user WHERE email = ".$email.";"
-										if($password != $query){
-											echo "Please enter a valid email and password."	
-										}
-										else {
-											
-										}
-									?>
-								</script>
+								
 							</div>
 							<div class="modal-footer">
    								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
@@ -146,33 +122,34 @@
 	</body>
 
 	<script type="text/javascript">
-		$("#home").on('click touch', function() {
+		$("#home").on('click touch', function(event) {
 			window.location = "index.php";
 		});
-		$("#about").on('click touch', function() {
+		$("#about").on('click touch', function(event) {
 			window.location = "./home/about.php";
 		});
-		$("#FAQ").on('click touch', function() {
+		$("#FAQ").on('click touch', function(event) {
 			window.location = "./home/FAQ.php";
 		});
-		$("#btn-login-lessee").on('click touch', function() {
+		$("#btn-login-lessee").on('click touch', function(event) {
 			window.location = "lessee/dashboard.php";
 		});
-		$("#btn-login-owner").on('click touch', function() {
-			<?php
-				$email = $_POST["login-modal-email"];
-				$password = $_POST["login-modal-password"];
+		$("#btn-login-owner").on('click touch', function(event) {
+			// <?php
+			// 	$email = $_POST["login-modal-email"];
+			// 	$password = $_POST["login-modal-password"];
 				 
-			?>
+			// ?>
+			
 			window.location = "owner/dashboard.php";
 		});
-		$("#btn-register-owner").on('click touch', function() {
+		$("#btn-register-owner").on('click touch', function(event) {
 			window.location = "./home/registration/owner-registration.php"; 
 			sessionStorage.setItem("user_type", "1"); //user_type is set to 1 for owners
 		});
-		$("#btn-register-lessee").on('click touch', function() {
+		$("#btn-register-lessee").on('click touch', function(event) {
 			window.location = "./home/registration/lessee-registration.php";
-			sessionStroage.setItem("user_type", "0"); //user_type is set to 0 for lessees
+
 		});
 		sessionStorage.setItem("user_type", "1");
 		var user_type = sessionStorage.getItem("user_type");
@@ -187,11 +164,11 @@
 		$("#zip-search").on("focusout", function(event){
 			var search_value = $("#zip-search").val();
 			sessionStorage.setItem("searchQuery", search_value);
-			<?php 
-				session_start();
-				$_SESSION["search_zipcode"] = $_GET["zip-search"];
-			?>
-			console.log(sessionStorage.getItem("searchQuery"));
+			// <?php 
+			// 	session_start();
+			// 	$_SESSION["search_zipcode"] = $_GET["zip-search"];
+			// ?>
+			
 		});
 
 		$("#zip-search-button").on("click", function(event){

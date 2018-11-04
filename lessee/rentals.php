@@ -91,7 +91,7 @@
 						//query the open rental contracts 
 						//if query returns number of results equal to zero then do the following:
 
-						echo "Oh no, you don't have any current rentals! You can fix that by searching for a warehouse to rent on our <a href="searchpage.html">search page</a>."
+						//echo "Oh no, you don't have any current rentals! You can fix that by searching for a warehouse to rent on our <a href="searchpage.html">search page</a>."
 					?> -->
 					<div class="past-rentals">
 						<h1 style="text-align: center;">Past Rentals</h1>
@@ -161,19 +161,19 @@
 	</body>
 
 	<script type="text/javascript">
-		$("#dashboard-btn").click(function() {
+		$("#dashboard-btn").click(function(event) {
 			window.location = "dashboard.php";
 		});
-		$("#rentals-btn").click(function() {
+		$("#rentals-btn").click(function(event) {
 			window.location = "rentals.php";
 		});
-		$("#requests-btn").click(function() {
+		$("#requests-btn").click(function(event) {
 			window.location = "requests.php";
 		});
-		$("#inbox-btn").click(function() {
+		$("#inbox-btn").click(function(event) {
 			window.location = "inbox.php";
 		});
-		$(".logout-button").click(function() {
+		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
 		});
 	</script>

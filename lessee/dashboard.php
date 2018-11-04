@@ -36,7 +36,7 @@
 					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
-					<span class="header-username"><?php echo "Welcome, " . $_SESSION["first_name"]; ?></span>
+					<span class="header-username">Welcome, *name*</span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
@@ -228,14 +228,14 @@
 		$("#rentals-btn").click(function(event) {
 			window.location = "rentals.php";
 		});
-		$("#requests-btn").click(function() {
+		$("#requests-btn").click(function(event) {
 			window.location = "requests.php";
 		});
-		$("#inbox-btn").click(function() {
+		$("#inbox-btn").click(function(event) {
 			window.location = "inbox.php";
 		});
-		$(".logout-button").click(function() {
-			<?php session_destroy();?>
+		$(".logout-button").click(function(event) {
+		
 
 			window.location = "../index.php";
 		});
