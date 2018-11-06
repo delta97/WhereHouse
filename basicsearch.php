@@ -223,7 +223,7 @@
 			?>
 		});
 
-		//when the zip-search button is clicked
+		when the zip-search button is clicked
 		$("#zip-search-button").on("click", function(event) {
 			$(".search-header").text(<?php echo "Search For: " . $_SESSION["search_zipcode"]; ?>);
 		});
