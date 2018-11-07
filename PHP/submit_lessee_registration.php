@@ -1,5 +1,5 @@
 <?php
-	require(serverconnect.php);
+	require "serverconnect.php";
 	$connection = serverConnect();
 
 	$user_first_name = $_POST["user-first-name"];
@@ -21,17 +21,10 @@
 	$result = mysqli_query($connection, $query);
 	if(!$result) {
 		echo "There was an error inserting the data into the database. Please try again.";
+		die;
 	}
 	mysqli_close($connection);
 	
-
-
-	// $query -> bindParam(fn, $user_first_name);
-	// $query -> bindParam(ln, $user_last_name);
-	// $query -> bindParam(dob, $user_dob);
-	// $query -> bindParam(phone, $user_phone_number);
-	// $query -> bindParam(email, $user_email);
-	// $query -> bindParam(password, $user_password);
-
-
+	header('Location: http://web.ics.purdue.edu/~g1090429/home/registration/registration_success.php', true);
+	exit;
 ?>

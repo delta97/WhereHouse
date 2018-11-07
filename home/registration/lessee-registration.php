@@ -47,7 +47,7 @@
 							<div class="progress lessee-reg-progress">
 								<div class="progress-bar progress-bar-striped bg-info" role="progressbar progress-bar " style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
-							<form id="lessee-form" name="form-type" value="1" method="post">
+							<form action="../../PHP/submit_lessee_registration.php" id="lessee-form" name="form-type" value="1" method="post">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -175,7 +175,7 @@
 								</div>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
-										<button onclick="../../PHP/submit_lessee_registration.php" id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
+										<button id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
 									</div>
 								</div>
 							</form>
