@@ -67,6 +67,9 @@
 									<th style="width: 25%" class="text-center" scope="col">
 										Cost Total
 									</th>
+									<th style="width: 25%" class="text-center" scope="col">
+										View Current Availability
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -79,6 +82,10 @@
 									</td>
 									<td style="width: 25%" class="text-center">
 										Cost Total From Server
+									</td>
+									<td style="width: 25%" class="text-center">
+										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn btn-info">View Details</button>
+										<button data-toggle="modal" data-target="#rent-again" class="btn btn-primary">Rent Again</button>
 									</td>
 								</tr>
 							</tbody>
@@ -107,6 +114,9 @@
 									<th style="width: 25%" class="text-center" scope="col">
 										Cost Total
 									</th>
+									<th style="width: 25%" class="text-center" scope="col">
+										View Current Availability
+									</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -119,6 +129,10 @@
 									</td>
 									<td style="width: 25%" class="text-center">
 										Cost Total From Server
+									</td>
+									<td style="width: 25%" class="text-center">
+										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn btn-info">View Details</button>
+										<button data-toggle="modal" data-target="#rent-again" class="btn btn-primary">Rent Again</button>
 									</td>
 								</tr>
 							</tbody>
@@ -136,11 +150,13 @@
 					?> -->
 				</div>
 			</div>
-			<div class="modal fade" id="edit-information-modal" tabindex="-1" role="dialog" aria-labelledby="edit-information-modal" aria-hidden="true">
+
+			<!-- Rental View Details Modal - Pops up on clicking one of the past or current rentals -->
+			<div class="modal fade" id="rental-view-details" tabindex="-1" role="dialog" aria-labelledby="rental-view-details" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
 					<div class="modal-content edit-info-modal">
 						<div class="modal-header">
-							<h4 class="modal-title" id="registration-modal-title">Rental</h4>
+							<h3 class="modal-title" id="registration-modal-title">Rental Details</h3>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -149,12 +165,35 @@
 							
 						</div>
 						<div class="modal-footer">
-								<button type="button" class="btn btn-submit">Submit</button>
-								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-							</div>
+							<button type="button" data-dismiss="modal" data-toggle="modal" data-target="#rent-again" class="btn btn-info">Rent Again</button>
+							<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>
+
+
+			<!-- Rent Again Modal -->
+			<div class="modal fade" id="rent-again" tabindex="-1" role="dialog" aria-labelledby="rent-again" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
+					<div class="modal-content edit-info-modal">
+						<div class="modal-header">
+							<h3 class="modal-title" id="registration-modal-title">Rent Again</h3>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
 		</div>
 		<div class="footer">Footer</div>
