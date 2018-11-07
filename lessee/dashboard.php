@@ -43,18 +43,17 @@
 			<div class="body dashboard-flex">
 				<div class="sidebar">
 					<div id="dashboard-btn" class="sidebar-btn active-btn">
-						<span class="sidebar-btn-text">Dashboard</span>
+						<span class="sidebar-btn-text"><i class="fas fa-tachometer-alt"></i> Dashboard</span>
 					</div>
 					<div id="rentals-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Your Rentals</span>
+						<span class="sidebar-btn-text"><i class="fas fa-warehouse"></i> Your Rentals</span>
 					</div>
 					<div id="requests-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Manage Requests</span>
+						<span class="sidebar-btn-text"><i class="far fa-envelope"></i> Manage Requests</span>
 					</div>
 					<div id="inbox-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Inbox</span>
+						<span class="sidebar-btn-text"><i class="fas fa-mail-bulk"></i> Inbox</span>
 					</div>
-				</div>
 				<div class="page-content flexbox-dashboard">
 					<div id="user-information" class="dashboard-tile">
 						<div class="dashboard-tile-header">User Information</div>		
