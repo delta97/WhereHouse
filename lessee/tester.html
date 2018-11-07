@@ -23,17 +23,14 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 		<!-- Link to the style sheet -->
-		<link rel="stylesheet" href="../style.css"> 
-		
-		<!-- javascript click functions -->
-		<script src="../javascript/click_functions.js"></script>
+		<link rel="stylesheet" href="../style.css">
 	</head>
 	<body>
 		<div class="flexbox-wrapper">
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
-					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
+					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
 					<span class="header-username">Doe, John</span>
@@ -45,97 +42,138 @@
 					<div id="dashboard-btn" class="sidebar-btn">
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
-					<div id="rentals-btn" class="sidebar-btn">
+					<div id="rentals-btn" class="sidebar-btn active-btn">
 						<span class="sidebar-btn-text">Your Rentals</span>
 					</div>
 					<div id="requests-btn" class="sidebar-btn">
 						<span class="sidebar-btn-text">Manage Requests</span>
 					</div>
-					<div id="inbox-btn" class="sidebar-btn active-btn">
+					<div id="inbox-btn" class="sidebar-btn">
 						<span class="sidebar-btn-text">Inbox</span>
 					</div>
 				</div>
-				<div class="page-content-inbox">
-					<div class="inbox-header">
-						<h1>Your Inbox</h1>
+				<div class="page-content">
+					<div class="current-rentals">
+						<h1 style="text-align: center;">Current Rentals</h1>
+						<table id="current-rentals-table" class="table">
+							<thead>
+								<tr>
+									<th style="width: 25%" class="text-center" scope="col">
+										Warehouse Rented
+									</th>
+									<th style="width: 25%" class="text-center" scope="col">
+										Rental Duration
+									</th>
+									<th style="width: 25%" class="text-center" scope="col">
+										Cost Total
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="width: 25%" class="text-center">
+										1st Warehouse Rented From Server
+									</td>
+									<td style="width: 25%" class="text-center">
+										Date Range From Server
+									</td>
+									<td style="width: 25%" class="text-center">
+										Cost Total From Server
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+
 					</div>
-					<div class="inbox-navbar">
-						<div class="inbox-buttons">
-							<div id="new-message-btn" class="inbox-btn" data-toggle="modal" data-target="#new-message-modal">
-								<span class="inbox-btn-text">New Message</span>
-							</div>
-							<div id="refresh-btn" class="inbox-btn">
-								<span class="inbox-btn-text">Refresh</span>
-							</div>
-						</div>
-						<div class="inbox-search">
-							<form class="inbox-search-flex" id="inbox-search" name="inbox-search" method="get">
-								<label for="inbox-search-box"><h2 class="search-label">Search: </h2></label>
-								<input type="text" class="form-control" name="inbox-search-box"" id="inbox-search-box" placeholder="Search Messages">
-							</form>
-						</div>
+
+					<!-- <?php 
+						//query the open rental contracts 
+						//if query returns number of results equal to zero then do the following:
+
+						//echo "Oh no, you don't have any current rentals! You can fix that by searching for a warehouse to rent on our <a href="searchpage.html">search page</a>."
+					?> -->
+					<div class="past-rentals">
+						<h1 style="text-align: center;">Past Rentals</h1>
+						<table id="past-rentals-table" class="table">
+							<thead>
+								<tr>
+									<th style="width: 25%" class="text-center" scope="col">
+										Warehouse Rented
+									</th>
+									<th style="width: 25%" class="text-center" scope="col">
+										Rental Duration
+									</th>
+									<th style="width: 25%" class="text-center" scope="col">
+										Cost Total
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td style="width: 25%" class="text-center">
+										1st Warehouse Rented From Server
+									</td>
+									<td style="width: 25%" class="text-center">
+										Date Range From Server
+									</td>
+									<td style="width: 25%" class="text-center">
+										Cost Total From Server
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-					<div class="inbox-flex">
-						<div class="inbox">
-							<table>
-							</table>
-						</div>
-					</div>
+					<!-- <?php
+						//query the history of the user for ALL rentals over time
+						//display results in a table 
+
+						//on click for each result, toggle a modal that displays the information surrounding a particular rental
+
+						//possible feature if there is time: add a print to pdf button that prints and downloads a pdf of the rental in question
+
+						//fields to include in modal: warehouse rented, duration, final cost, rating the user gave the warehouse, average rating for the warehouse, search for this result again button
+					?> -->
 				</div>
 			</div>
-			<!-- New Message Modal -->
-			<div class="modal fade" id="new-message-modal" tabindex="-1" role="dialog" aria-labelledby="new-message-modal" aria-hidden="true">
+			<div class="modal fade" id="edit-information-modal" tabindex="-1" role="dialog" aria-labelledby="edit-information-modal" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
 					<div class="modal-content edit-info-modal">
 						<div class="modal-header">
-							<h4 class="modal-title" id="registration-modal-title">Edit Account Information</h4>
+							<h4 class="modal-title" id="registration-modal-title">Rental</h4>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="message-recipient">Message Recipient:</label>
-										<input type="text" class="form-control" name="message-recipient" id="message-recipient" placeholder="Message Recipient">
-									</div>
-								</div>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="message-subject">Subject:</label>
-										<input type="text" class="form-control" name="message-subject" id="message-subject" placeholder="Subject">
-									</div>
-								</div>
-								<label for="message-body">Message:</label>
-								<textarea id="message-body" class="message-body form-control">
-								</textarea>
-							</form>
+							
 						</div>
 						<div class="modal-footer">
-								<button type="button" class="btn btn-submit">Send</button>
+								<button type="button" class="btn btn-submit">Submit</button>
 								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 							</div>
 					</div>
 				</div>
+			</div>
+		</div>
 		</div>
 		<div class="footer">Footer</div>
 	</body>
 
 	<script type="text/javascript">
-		$("#dashboard-btn").click(function() {
+		$("#dashboard-btn").click(function(event) {
 			window.location = "dashboard.php";
 		});
-		$("#rentals-btn").click(function() {
+		$("#rentals-btn").click(function(event) {
 			window.location = "rentals.php";
 		});
-		$("#requests-btn").click(function() {
+		$("#requests-btn").click(function(event) {
 			window.location = "requests.php";
 		});
-		$("#inbox-btn").click(function() {
+		$("#inbox-btn").click(function(event) {
 			window.location = "inbox.php";
 		});
-		$(".logout-button").click(function() {
+		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
 		});
 	</script>

@@ -81,7 +81,7 @@
 						</div>
 					</div>
 					<div id="personalized-search" class="dashboard-tile dashboard-tile-clickable">
-						<div class="dashboard-tile-header">Warehouse Search Tailored to You!</div>
+						<div class="dashboard-tile-header">Warehouse Search Tailored For You!</div>
 						<div class="dashboard-tile-content">
 							<div class="personalized-search-results">Result 1</div>
 						</div>
@@ -211,7 +211,7 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-								<button type="button" class="btn btn-submit">Submit</button>
+								<button type="button" class="btn btn-submit" onclick="../../PHP/edit_userinfo_lessee.php">Submit</button>
 								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 							</div>
 					</div>

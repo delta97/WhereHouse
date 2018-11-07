@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="preload" href="./images/warehouse2.jpeg">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->

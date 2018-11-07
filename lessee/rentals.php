@@ -58,26 +58,26 @@
 						<table id="current-rentals-table" class="table">
 							<thead>
 								<tr>
-									<th class="text-center" scope="col">
+									<th style="width: 25%" class="text-center" scope="col">
 										Warehouse Rented
 									</th>
-									<th class="text-center" scope="col">
+									<th style="width: 25%" class="text-center" scope="col">
 										Rental Duration
 									</th>
-									<th class="text-center" scope="col">
+									<th style="width: 25%" class="text-center" scope="col">
 										Cost Total
 									</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td class="text-center">
+									<td style="width: 25%" class="text-center">
 										1st Warehouse Rented From Server
 									</td>
-									<td class="text-center">
+									<td style="width: 25%" class="text-center">
 										Date Range From Server
 									</td>
-									<td class="text-center">
+									<td style="width: 25%" class="text-center">
 										Cost Total From Server
 									</td>
 								</tr>
@@ -98,26 +98,26 @@
 						<table id="past-rentals-table" class="table">
 							<thead>
 								<tr>
-									<th class="text-center" scope="col">
+									<th style="width: 25%" class="text-center" scope="col">
 										Warehouse Rented
 									</th>
-									<th class="text-center" scope="col">
+									<th style="width: 25%" class="text-center" scope="col">
 										Rental Duration
 									</th>
-									<th class="text-center" scope="col">
+									<th style="width: 25%" class="text-center" scope="col">
 										Cost Total
 									</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td class="text-center">
+									<td style="width: 25%" class="text-center">
 										1st Warehouse Rented From Server
 									</td>
-									<td class="text-center">
+									<td style="width: 25%" class="text-center">
 										Date Range From Server
 									</td>
-									<td class="text-center">
+									<td style="width: 25%" class="text-center">
 										Cost Total From Server
 									</td>
 								</tr>
