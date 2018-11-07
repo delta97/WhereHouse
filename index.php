@@ -151,6 +151,8 @@
 			window.location = "./home/registration/lessee-registration.php";
 
 		});
+		
+
 		sessionStorage.setItem("user_type", "1");
 		var user_type = sessionStorage.getItem("user_type");
 		var user_type_int = parseInt(user_type);
@@ -164,16 +166,12 @@
 		$("#zip-search").on("focusout", function(event){
 			var search_value = $("#zip-search").val();
 			sessionStorage.setItem("searchQuery", search_value);
-			// <?php 
-			// 	session_start();
-			// 	$_SESSION["search_zipcode"] = $_GET["zip-search"];
-			// ?>
 			
 		});
 
 		$("#zip-search-button").on("click", function(event){
 			search_value = $("#zip-search").val();
-			if((search_value != null) && (search_value != "")) {
+			if((search_value != null) && (search_value != " ")) {
 				sessionStorage.setItem("searchQuery", search_value);
 				window.location = "basicsearch.php";
 			}

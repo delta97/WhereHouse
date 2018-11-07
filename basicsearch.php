@@ -192,9 +192,9 @@
 	<script type="text/javascript">
 		//add the "searchQuery" 
 		$(document).ready(function() {
-			var searchQuery = sessionStorage.getItem("searchQuery");
-			$("#zip-search").val(searchQuery);
-			$(".search-header").text("Search For: " + searchQuery);
+			var search_value = sessionStorage.getItem("searchQuery");
+			$("#zip-search").val(search_value);
+			$(".search-header").text("Search For: " + search_value);
 		});
 
 		//login and registration buttons and modals
@@ -216,21 +216,15 @@
 
 
 		$("#zip-search").on("focusout", function(event){
-			<?php
-				//session already started in the index
-				$_SESSION["search_zipcode"] = $_GET["zip-search"];
-				echo "console.log(".$_SESSION["search_zipcode"].");";
-			?>
+			var search_value = $("#zip-search").val();
+			sessionStorage.setItem("searchQuery", search_value);
 		});
 
-		when the zip-search button is clicked
+	
 		$("#zip-search-button").on("click", function(event) {
-			$(".search-header").text(<?php echo "Search For: " . $_SESSION["search_zipcode"]; ?>);
+			$(".search-header").text("Search For: " + search_value);
 		});
 
-		$("tr").on("click", function(event) {
-
-		});
 	</script>
 </html>
 
