@@ -27,11 +27,6 @@
 		
 		<!-- javascript click functions -->
 		<script src="../javascript/click_functions.js"></script>
-
-		<!-- font awesome icons -->
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
-
 	</head>
 	<body>
 		<div class="flexbox-wrapper">
@@ -48,21 +43,20 @@
 			<div class="body dashboard-flex">
 				<div class="sidebar">
 					<div id="dashboard-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text"><i class="fas fa-tachometer-alt"></i> Dashboard</span>
+						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
 					<div id="rentals-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text"><i class="fas fa-warehouse"></i> Your Rentals</span>
+						<span class="sidebar-btn-text">Your Rentals</span>
 					</div>
 					<div id="requests-btn" class="sidebar-btn active-btn">
-						<span class="sidebar-btn-text"><i class="far fa-envelope"></i> Manage Requests</span>
+						<span class="sidebar-btn-text">Manage Requests</span>
 					</div>
 					<div id="inbox-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text"><i class="fas fa-mail-bulk"></i> Inbox</span>
+						<span class="sidebar-btn-text">Inbox</span>
 					</div>
 				</div>
 				<div class="page-content">
 					<h1>Requests</h1>
-
 				</div>
 			</div>
 		</div>

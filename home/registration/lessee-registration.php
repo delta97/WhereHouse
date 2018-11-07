@@ -175,7 +175,7 @@
 								</div>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
-										<button action="validation()" id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
+										<button onclick="../../PHP/submit_lessee_registration.php" id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
 									</div>
 								</div>
 							</form>
