@@ -37,14 +37,57 @@
 				<span class="navbar-item"><a href="../about.php">About</a></span>
 				<span class="navbar-item"><a href="../FAQ.php">FAQ</a></span>
 			</div>
-			<div class="registration-flex-container body no-space">	
-				<div class="registration-flex">
-					<h1 class="registration-message">Congratulations! You have successfully created a <span class="logo-text">WhereHouse</span> account. </h1>
+			<div class="flexbox-wrapper-success body max-height">
+				<div class="success">
+					<h1>Congrats, you are now a registered member of <span class="logo-text">WhereHouse Inc.</span></h1>
+					<h2>Return to the home page to log in with your credentials</h2>
+					<div class="success-buttons">
+						<button type="button" class="btn success-home-btn">Return Home</button>
+
+						<script type="text/javascript">
+							$(".success-home-btn").on("click",function(event) {
+								window.location = "../../index.php";
+							});				
+						</script>
+						
+						<button type="button" class="btn success-login-btn" data-toggle="modal" data-target="#login-modal">Log In</button>
+					</div>
 				</div>
 			</div>
+			<!-- login modal -->
+			<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content modal-formatting">
+							<div class="modal-header">
+								<h2 class="modal-title" id="login-modal-title">Log In</h2>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form method="post">
+									<div class="form-group">
+								    	<label for="login-modal-email">Email address</label>
+								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
+								  	</div>
+								  	<div class="form-group">
+								    	<label for="login-modal-password">Password</label>
+								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
+								  </div>
+								</form>
+								
+							</div>
+							<div class="modal-footer">
+   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+   								<button type="button" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
+   								<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
+ 							</div>
+						</div>
+					</div>
+				</div>
 			<div class="footer">
-				footer
 			</div>
 		</div>
 	</body>
+	
 </html>
