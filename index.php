@@ -98,23 +98,23 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form method="post">
+								<iframe name="submit-redirect" style="display: none;"></iframe>
+								<form method="post" action="login.php">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
 								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
 								  	</div>
-								  	<div class="form-group">
+								  	<div id="modal-pass" class="form-group">
 								    	<label for="login-modal-password">Password</label>
 								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
-								  </div>
+								    </div>
+								    <div class="modal-footer">
+										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
+										<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
+ 									</div>
 								</form>
-								
 							</div>
-							<div class="modal-footer">
-   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-   								<button type="button" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
-   								<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
- 							</div>
 						</div>
 					</div>
 				</div>
@@ -122,8 +122,10 @@
 			<div class="footer">Footer</div>
 		</div>
 	</body>
-
+	
 	<script type="text/javascript">
+
+
 		$("#home").on('click touch', function(event) {
 			window.location = "index.php";
 		});
@@ -134,17 +136,20 @@
 			window.location = "./home/FAQ.php";
 		});
 		$("#btn-login-lessee").on('click touch', function(event) {
-			window.location = "lessee/dashboard.php";
+			<?php include "login.php"?>
+			var user_type = <?php $_SESSION['user_type']; ?>;
+			if(user_type === 0) {
+				window.location = "lessee/dashboard.php";
+			}
+			else if(user_type === 1) {
+				window.location = "owner/dashboard.php";
+			}
+			else {
+				$('#modal-pass').append("<div style=\"margin-top:10px;\"class=\"alert alert-danger\" role=\"alert\"><strong>Oh no!</strong> The combination of your password and email is incorrect. Try again!</div>");
+			}
 		});
-		$("#btn-login-owner").on('click touch', function(event) {
-			// <?php
-			// 	$email = $_POST["login-modal-email"];
-			// 	$password = $_POST["login-modal-password"];
-				 
-			// ?>
-			
-			window.location = "owner/dashboard.php";
-		});
+		
+		
 		$("#btn-register-owner").on('click touch', function(event) {
 			window.location = "./home/registration/owner-registration.php"; 
 			sessionStorage.setItem("user_type", "1"); //user_type is set to 1 for owners

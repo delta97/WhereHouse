@@ -3,6 +3,7 @@ body {
 	margin: 0px;
 	padding: 0px;
 	font-family: 'Roboto Condensed', sans-serif;
+	min-height: 100%;
 
 }
 .flexbox-wrapper {
@@ -692,9 +693,46 @@ h1 {
 	align-self: center;
 	flex-grow: 5;
 	text-align: center;
-	min-height: 100% !important;
+	height: 100% !important;
 	width: 60%;
 }
-.registration-message {
-	min-height: 100%;
+
+.success {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 100;
+	width: 60%;
+	justify-content: center;
+	align-self: center;
+	text-align: center;
+	min-height: 80vh;
+
+}
+
+.flexbox-wrapper-success {
+	display: flex;
+	flex-direction: column;
+	min-width: 100%;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+}
+
+.success-buttons {
+	margin: 10px;
+}
+
+
+.success-home-btn {
+	margin: 10px;
+	background-color: #86eae3;
+	color: #4d4d4d;
+	font-size: 22px;
+}
+
+.success-login-btn {
+	margin: 10px;
+	background-color: rgb(250, 176, 17);
+	color: #4d4d4d;
+	font-size: 22px;
 }

@@ -3,9 +3,6 @@
 
 function getStars($rating){
 
-	$_SESSION["stars"] = 0;
-	$_SESSION["half"] = 0;
-
 	if (fmod($rating, 1)<0.25){
 	  $_SESSION["stars"] = $rating - fmod($rating, 1);
 	  $_SESSION["half"] = 0;
