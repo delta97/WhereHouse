@@ -12,11 +12,15 @@
 	$user_street_2 = $_POST["user-street-2"];
 	$user_city = $_POST["user-city"];
 	$user_state = $_POST["user-state"];
-	//$bank_account_num = $
-	//$bank_routing_num = $
+	$user_zipcode = $_POST["user-zip"];
+	$user_bank_account = $_POST["user-bank-account"];
+	$user_bank_routing = $_POST["user-routing"];
 
 
-	$query = "INSERT INTO User (First_name, Last_name, DOB, Phone_num, User_type, Email, password) VALUES ('$user_first_name', '$user_last_name', '$user_dob', '$user_phone_number', 0, '$user_email', '$user_password')";
+
+
+	$query = "INSERT INTO User (first_name, last_name, DOB, phone_num, user_type, email, [password], address_1, address_2, city, [state], zipcode, routing_num, bank_acc) 
+				VALUES ('$user_first_name', '$user_last_name', '$user_dob', '$user_phone_number', 0, '$user_email', '$user_password', '$user_street_1', '$user_street_2','$user_city', '$user_state', '$user_zipcode', '$user_bank_routing', '$user_bank_account')";
 
 	$result = mysqli_query($connection, $query);
 	if(!$result) {

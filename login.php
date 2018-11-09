@@ -1,5 +1,6 @@
 <?php 
 
+
 require "serverconnect.php";
 $connection = serverConnect();
 
@@ -23,7 +24,8 @@ if($assoc_array["password"] == $user_password){
 	}
 }
 else {
-	$_SESSION['user_type'] = -1;
+	$_SESSION['user_type'] = -1; 
+	//must remember to close the session after the error is issued
 }
 
 

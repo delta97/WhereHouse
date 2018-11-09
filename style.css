@@ -736,3 +736,74 @@ h1 {
 	color: #4d4d4d;
 	font-size: 22px;
 }
+
+.rentals-over-time-chart {
+	min-width: 75%;
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+#rentals-over-time {
+	min-width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.selection-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	margin: 10px;
+}
+
+.selection-btn {
+	background-color: #86eae3;	
+	color: #4d4d4d;
+	margin: 5px;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+.jc-center {
+	justify-content: center;
+}
+.jc-space-between {
+	justify-content: space-between;
+}
+
+.jc-space-around {
+	justify-content: space-around;
+}
+
+.ac-center {
+	align-content: center;
+	align-items: center;
+}
+.ac-space-around {
+	align-content: space-around;
+	align-items: space-around;
+}
+
+.ac-space-between {
+	align-content: space-between;
+	align-items: space-between;
+}
+
+.add-warehouse-btn {
+	max-height: 45px;
+
+}
+
