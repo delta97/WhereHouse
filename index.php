@@ -1,6 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="preload" href="./images/warehouse2.jpeg">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -26,19 +29,14 @@
 		<link rel="stylesheet" href="style.css"> 
 	</head>
 	<body>
-		<?php 
-			session_start(); //starting session so that we can save global variables
-		?>
 		<div class="flexbox-wrapper">
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
 				<div class="search">
-					<form method="get">
-						<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
-					</form>
+					<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
+					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
 				</div>
 				<div class="flex-logo">
 					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
@@ -100,21 +98,23 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form>
+								<iframe name="submit-redirect" style="display: none;"></iframe>
+								<form method="post" action="login.php">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
-								    	<input type="text" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
+								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
 								  	</div>
-								  	<div class="form-group">
+								  	<div id="modal-pass" class="form-group">
 								    	<label for="login-modal-password">Password</label>
-								    	<input type="password" class="form-control" id="login-modal-password" placeholder="Password">
-								  </div>
+								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
+								    </div>
+								    <div class="modal-footer">
+										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
+										<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
+ 									</div>
+								</form>
 							</div>
-							<div class="modal-footer">
-   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-   								<button type="button" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
-   								<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
- 							</div>
 						</div>
 					</div>
 				</div>
@@ -122,31 +122,44 @@
 			<div class="footer">Footer</div>
 		</div>
 	</body>
-
+	
 	<script type="text/javascript">
-		$("#home").on('click touch', function() {
+
+
+		$("#home").on('click touch', function(event) {
 			window.location = "index.php";
 		});
-		$("#about").on('click touch', function() {
+		$("#about").on('click touch', function(event) {
 			window.location = "./home/about.php";
 		});
-		$("#FAQ").on('click touch', function() {
+		$("#FAQ").on('click touch', function(event) {
 			window.location = "./home/FAQ.php";
 		});
-		$("#btn-login-lessee").on('click touch', function() {
-			window.location = "lessee/dashboard.php";
+		$("#btn-login-lessee").on('click touch', function(event) {
+			<?php include "login.php"?>
+			var user_type = <?php $_SESSION['user_type']; ?>;
+			if(user_type === 0) {
+				window.location = "lessee/dashboard.php";
+			}
+			else if(user_type === 1) {
+				window.location = "owner/dashboard.php";
+			}
+			else {
+				$('#modal-pass').append("<div style=\"margin-top:10px;\"class=\"alert alert-danger\" role=\"alert\"><strong>Oh no!</strong> The combination of your password and email is incorrect. Try again!</div>");
+			}
 		});
-		$("#btn-login-owner").on('click touch', function() {
-			window.location = "owner/dashboard.php";
-		});
-		$("#btn-register-owner").on('click touch', function() {
+		
+		
+		$("#btn-register-owner").on('click touch', function(event) {
 			window.location = "./home/registration/owner-registration.php"; 
 			sessionStorage.setItem("user_type", "1"); //user_type is set to 1 for owners
 		});
-		$("#btn-register-lessee").on('click touch', function() {
+		$("#btn-register-lessee").on('click touch', function(event) {
 			window.location = "./home/registration/lessee-registration.php";
-			sessionStroage.setItem("user_type", "0"); //user_type is set to 0 for lessees
+
 		});
+		
+
 		sessionStorage.setItem("user_type", "1");
 		var user_type = sessionStorage.getItem("user_type");
 		var user_type_int = parseInt(user_type);
@@ -160,16 +173,12 @@
 		$("#zip-search").on("focusout", function(event){
 			var search_value = $("#zip-search").val();
 			sessionStorage.setItem("searchQuery", search_value);
-			<?php 
-				session_start();
-				$_SESSION["search_zipcode"] = $_GET["zip-search"];
-			?>
-			console.log(sessionStorage.getItem("searchQuery"));
+			
 		});
 
 		$("#zip-search-button").on("click", function(event){
 			search_value = $("#zip-search").val();
-			if((search_value != null) && (search_value != "")) {
+			if((search_value != null) && (search_value != " ")) {
 				sessionStorage.setItem("searchQuery", search_value);
 				window.location = "basicsearch.php";
 			}

@@ -3,13 +3,15 @@ body {
 	margin: 0px;
 	padding: 0px;
 	font-family: 'Roboto Condensed', sans-serif;
+	min-height: 100%;
 
 }
 .flexbox-wrapper {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-	width: 100%;
+	min-height: 100%;
+	min-width: 100%;
+	flex-grow: 1;
 }
 .flex-box {
 	display: flex;
@@ -38,6 +40,14 @@ body {
 	display: flex;
 	flex-direction: column;
 }
+
+
+.footer {
+	display: flex;
+	min-width: 100%;
+	height: 150px;
+
+}
 .footer-content-left a, .footer-content-left a:visited, .footer-content-left a:link, .footer-content-left a:active {
 	text-decoration: none;
 	color: white;
@@ -56,7 +66,6 @@ h1 {
 }
 
 .header {
-	display: flex;
 	display: flex;
 	height: 75px;
 	width: 100%;
@@ -178,7 +187,7 @@ h1 {
 .body {
 	display: flex;
 	min-height: 100vh;
-	margin-bottom: 25px;
+	
 }
 .main-page-slogan {
 	position: absolute;
@@ -243,6 +252,13 @@ h1 {
 }
 
 
+.edit-info-modal {
+	background-color: white;
+	color: black;
+	min-width: 700px;
+	align-self: center;
+}
+
 .form-spacing {
 	margin-bottom: 10px;
 }
@@ -297,15 +313,40 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	background-color: grey;
-	width: 250px;
+	min-width: 275px;
 	min-height: 100%;
+}
+
+.page-content-dashboard {
+	display: flex;
+	flex-direction: row;
+	background-color: white;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
 }
 
 .page-content {
 	display: flex;
+	flex-direction: column;
 	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
 	flex-grow: 1;
 	min-height: 100%;
+	padding: 50px;
+}
+
+.page-content-inbox {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
+	background-color: rgba(0,0,0,.025);
 }
 
 .sidebar-btn {
@@ -470,6 +511,299 @@ h1 {
 
 }
 
+.flex-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+}
 
 
+
+.dashboard-tile-header {
+	font-size: 25px;
+	text-align: center;
+	/*background-color: grey;*/
+	border-bottom: 1px solid grey;
+	border-radius: 2px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.dashboard-tile-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	min-width: 100%;
+	padding: 15px;
+
+}
+.dashboard-tile {
+	display: flex;
+	flex-direction: column;
+	min-width: 400px;
+	max-width: 400px;
+	min-height: 300px;
+	width: auto;
+	height: auto;
+
+	/*border: 3px solid black;
+	border-radius: 5px;
+	margin: 20px;*/
+	background-color: white;
+	margin: 20px;
+	align-self: center;
+	padding: 10px;
+	box-shadow: 0px 0px 24px 5px rgba(107,107,107,1);
+}
+
+.dashboard-tile-clickable {
+	cursor: pointer;
+}
+
+.dashboard-btn-flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-width: 100%;
+}
+.dashboard-tile-edit {
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	align-self: center;
+	text-align: center;
+}
+
+
+.flexbox-dashboard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: space-around;
+
+}
+
+.rented-warehouse {
+	border-bottom: 1px solid black;
+	min-width: 100%;
+}
+
+
+.current-rentals {
+	min-width: 100%;
+
+}
+
+
+.inbox-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: baseline;
+}
+
+.inbox-search-flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: baseline;
+	min-width: 500px;
+}
+
+
+.search-label {
+	margin-right: 20px;
+}
+
+.inbox-buttons {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	margin-top: 15px;
+}
+.inbox-btn {
+	display: flex;
+	height: 45px;
+	width: 125px;
+	background-color: white;
+	justify-content: center;
+	align-content: center;
+	border: 2px solid black;
+	color: black;
+	border-radius: 8px;
+	padding: 5px;
+	margin-right: 15px;
+}
+.inbox-btn:hover {
+	background-color: #86eae3;
+	cursor: pointer;
+}
+.inbox-btn-text {
+	align-self: center;
+}
+
+.inbox-navbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+
+.inbox-flex {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-content: flex-start;
+	margin-top: 35px;
+}
+
+.inbox {
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
+
+}
+
+
+.message-body {
+	width: 100%;
+	min-height: 200px;
+	/*fix text align with the input text being in the center of the text area*/
+}
+
+
+.registration-flex-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	flex-grow: 5 !important;
+	min-height: 100% !important;
+
+}
+.registration-flex {
+	align-self: center;
+	flex-grow: 5;
+	text-align: center;
+	height: 100% !important;
+	width: 60%;
+}
+
+.success {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 100;
+	width: 60%;
+	justify-content: center;
+	align-self: center;
+	text-align: center;
+	min-height: 80vh;
+
+}
+
+.flexbox-wrapper-success {
+	display: flex;
+	flex-direction: column;
+	min-width: 100%;
+	flex-grow: 1;
+	justify-content: center;
+	align-items: center;
+}
+
+.success-buttons {
+	margin: 10px;
+}
+
+
+.success-home-btn {
+	margin: 10px;
+	background-color: #86eae3;
+	color: #4d4d4d;
+	font-size: 22px;
+}
+
+.success-login-btn {
+	margin: 10px;
+	background-color: rgb(250, 176, 17);
+	color: #4d4d4d;
+	font-size: 22px;
+}
+
+.rentals-over-time-chart {
+	min-width: 75%;
+	height: 300px;
+	border: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+#rentals-over-time {
+	min-width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+
+.selection-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	margin: 10px;
+}
+
+.selection-btn {
+	background-color: #86eae3;	
+	color: #4d4d4d;
+	margin: 5px;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+.jc-center {
+	justify-content: center;
+}
+.jc-space-between {
+	justify-content: space-between;
+}
+
+.jc-space-around {
+	justify-content: space-around;
+}
+
+.ac-center {
+	align-content: center;
+	align-items: center;
+}
+.ac-space-around {
+	align-content: space-around;
+	align-items: space-around;
+}
+
+.ac-space-between {
+	align-content: space-between;
+	align-items: space-between;
+}
+
+.add-warehouse-btn {
+	max-height: 45px;
+
+}
 

@@ -55,10 +55,69 @@
 						<span class="sidebar-btn-text">Inbox</span>
 					</div>
 				</div>
-				<div class="page-content">
-					<h1>Inbox</h1>
+				<div class="page-content-inbox">
+					<div class="inbox-header">
+						<h1>Your Inbox</h1>
+					</div>
+					<div class="inbox-navbar">
+						<div class="inbox-buttons">
+							<div id="new-message-btn" class="inbox-btn" data-toggle="modal" data-target="#new-message-modal">
+								<span class="inbox-btn-text">New Message</span>
+							</div>
+							<div id="refresh-btn" class="inbox-btn">
+								<span class="inbox-btn-text">Refresh</span>
+							</div>
+						</div>
+						<div class="inbox-search">
+							<form class="inbox-search-flex" id="inbox-search" name="inbox-search" method="get">
+								<label for="inbox-search-box"><h2 class="search-label">Search: </h2></label>
+								<input type="text" class="form-control" name="inbox-search-box"" id="inbox-search-box" placeholder="Search Messages">
+							</form>
+						</div>
+					</div>
+					<div class="inbox-flex">
+						<div class="inbox">
+							<table>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
+			<!-- New Message Modal -->
+			<div class="modal fade" id="new-message-modal" tabindex="-1" role="dialog" aria-labelledby="new-message-modal" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
+					<div class="modal-content edit-info-modal">
+						<div class="modal-header">
+							<h4 class="modal-title" id="registration-modal-title">Edit Account Information</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="form-row form-spacing">
+									<div class="col">
+										<label for="message-recipient">Message Recipient:</label>
+										<input type="text" class="form-control" name="message-recipient" id="message-recipient" placeholder="Message Recipient">
+									</div>
+								</div>
+								<div class="form-row form-spacing">
+									<div class="col">
+										<label for="message-subject">Subject:</label>
+										<input type="text" class="form-control" name="message-subject" id="message-subject" placeholder="Subject">
+									</div>
+								</div>
+								<label for="message-body">Message:</label>
+								<textarea id="message-body" class="message-body form-control">
+								</textarea>
+							</form>
+						</div>
+						<div class="modal-footer">
+								<button type="button" class="btn btn-submit">Send</button>
+								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+							</div>
+					</div>
+				</div>
 		</div>
 		<div class="footer">Footer</div>
 	</body>

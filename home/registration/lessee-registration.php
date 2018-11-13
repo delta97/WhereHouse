@@ -47,7 +47,7 @@
 							<div class="progress lessee-reg-progress">
 								<div class="progress-bar progress-bar-striped bg-info" role="progressbar progress-bar " style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
-							<form id="lessee-form" name="form-type" value="1" method="post">
+							<form action="../../PHP/submit_lessee_registration.php" id="lessee-form" name="form-type" value="1" method="post">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -168,14 +168,18 @@
 								<h2>Payment Information</h2>
 								<div class="form-row form-spacing">
 									<div class="col">
-										<label for="user-credit-card">Credit Card Number</label>
-										<input type="text" class="form-control" name="user-credit-card" id="user-credit-card" aria-describedby="enterCreditCardNumber" placeholder="Credit Card Number">
+										<label for="user-bank-account">Bank Account Number</label>
+										<input type="text" class="form-control" name="user-bank-account" id="user-bank-account" aria-describedby="enterBankAccountNumber" placeholder="Bank Account Number">
 										<small class="form-text text-muted">This information will be used to pay for rented warehouse space.</small>
+									</div>
+									<div class="col">
+										<label for="user-routing">Bank Routing Number</label>
+										<input type="text" class="form-control" name="user-routing" id="user-routing" aria-describedby="enterBankRoutingNumber" placeholder="Bank Routing Number">
 									</div>
 								</div>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
-										<button action="validation()" id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
+										<button id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
 									</div>
 								</div>
 							</form>
