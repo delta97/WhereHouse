@@ -18,12 +18,17 @@ install.packages("rvest")
 ```
 
 ```{r}
+library(tidyverse) 
 library(generator)
 library(zipcode)
 library(tidyr)
 library(dplyr)
 library(sampling)
 library(ggmap)
+library(rvest)
+library(stringr)  
+library(ggplot2)
+library(data.table)
 ```
 
 ```{r data}

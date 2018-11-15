@@ -3,11 +3,10 @@ library(stringr)
 library(tidyverse) 
 library(dplyr)
 library(zipcode)
-
-
-data(zipcode.civicspace) 
-zipcode_city <- dplyr::left_join(city_state, zipcode, by= "city")
-
+library(ggplot2)
+library(data.table)
+library(xml2)
+library(tidyr)
 
 #Street Adress
 Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
@@ -22,7 +21,7 @@ Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,se
 
 Street <- unlist(Street)
 Street <- as.data.frame(Street)
-View(Street)
+
 
 #City and State 
 city_state <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
@@ -36,7 +35,6 @@ city_state <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:2
 
 city_state <- unlist(city_state)
 city_state <- as.data.frame(city_state)
-View(city_state)
 city_state <- city_state %>% separate(city_state, sep = "," ,c("city","State"))
 
 #Attributes 
@@ -72,22 +70,40 @@ Size <- as.numeric(building_size$Size)
 Size <- as.data.frame(Size)
 
 
-#Available Size 
-available_size <- df1 %>% filter(str_detect(df1, "Space Available")) %>%
+#Available Space 
+available_space <- df1 %>% filter(str_detect(df1, "Space Available")) %>%
   separate(df1, sep = ":", c("Text" ,"Space")) %>%
   separate(Space, sep = "-", c("Min", "Max"))
 
-available_size$Text <- NULL
-available_size$Max <- NULL
-available_size$Space <- gsub("[^0-9\\]", "", available_size$Min) 
-Space <- as.numeric(available_size$Space)
+available_space$Text <- NULL
+available_space$Max <- NULL
+available_space$Min <- NULL
+available_space$Space <- gsub("[^0-9\\]", "", available_space$Min) 
+Space <- as.numeric(available_space$Space)
 Space <- as.data.frame(Space)
 
+#Temperature control 
 
 #Warehouse data frame 
 warehouse <- bind_cols(Street,city_state, price, Size, Space) 
-warehouse <- as.data.frame(warehouse) %>% na.omit()
-View(warehouse)
-state_price <- warehouse %>% group_by(State) %>% summarise(mean(price)) 
+warehouse <- as.data.frame(warehouse) %>%
+  mutate(price = price * 12) %>% 
+  mutate(price, replace(price, price > 20, NA)) %>%
+  na.omit
+warehouse$`replace(price, price > 20, NA)` <- NULL
+
+avg_price <- warehouse %>% summarise(mean(price), mean(Size), mean(Space))
+a <- warehouse %>% summarise(sd(Size))
+
+warehouse <- tibble::rowid_to_column(warehouse, "ID")
+
+#Outlier Replacer with NA 
+#replacing outliers with NA in order to reach statistical clarity 
+outlierReplace = function(dataframe, cols, rows, newValue = NA) {
+  if (any(rows)) {
+    set(dataframe, rows, cols, newValue)
+  }
+}
+
 
 
