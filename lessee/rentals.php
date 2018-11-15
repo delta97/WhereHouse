@@ -84,7 +84,7 @@
 										Cost Total From Server
 									</td>
 									<td style="width: 25%" class="text-center">
-										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn btn-info">View Details</button>
+										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn view-details-btn btn-info">View Details</button>
 										<button data-toggle="modal" data-target="#rent-again" class="btn btn-primary">Rent Again</button>
 									</td>
 								</tr>
@@ -131,7 +131,7 @@
 										Cost Total From Server
 									</td>
 									<td style="width: 25%" class="text-center">
-										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn btn-info">View Details</button>
+										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn view-details-btn btn-info">View Details</button>
 										<button data-toggle="modal" data-target="#rent-again" class="btn btn-primary">Rent Again</button>
 									</td>
 								</tr>

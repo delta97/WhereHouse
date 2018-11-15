@@ -53,7 +53,7 @@
 			</div>
 			<div class="search-body no-space search-flex">
 				<div class="flex-header">
-					<div class="search-header">Search For: <!--the sessionStorage variable searchQuery is being shown here--></div>
+					<div class="search-header"><?php echo"Search for: ".$_SESSION['zip_search_query']."";?></div>
 					<div class="search-filter-options">
 						<form class="form-inline">
 							<label class="my-1 mr-2" for="wh-search-options"><b>Search Options</b></label>
