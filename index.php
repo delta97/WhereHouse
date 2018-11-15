@@ -1,4 +1,4 @@
-
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -34,10 +34,11 @@
 				<div class="flex-logo">
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
-				<div class="search">
+				<form class="search" action="searchquery.php">
 					<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
-				</div>
+					<button id="zip-search-button" type="submit" class="btn btn-dark">Search</button>
+				</form>
+
 				<div class="flex-logo">
 					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
 					<div class="login-button" id="register" data-toggle="modal" data-target="#registration-modal"><span class="login-button-text">Register</span></div>
@@ -172,16 +173,17 @@
 		});
 
 		$("#zip-search-button").on("click", function(event){
-			search_value = $("#zip-search").val();
+			var search_value = $("#zip-search").val();
 			if((search_value != null) && (search_value != " ")) {
 				sessionStorage.setItem("searchQuery", search_value);
 				window.location = "basicsearch.php";
 			}
 		});
-		
-		
-
 	</script>
+	<!-- PHP local functions -->
+	
+
+
 </html>
 
 

@@ -201,8 +201,15 @@
 
 		//password validation
 		$("#submit-button").on("click", function(event){
+			// empty any leftover warnings from previous submit attempts
 			$("#submit-div").empty();
-
+			// check every input field to make sure that they are filled out
+			var field_ids = ['user-first-name', 'user-last-name', 'user-email', 'user-phone', 'user-password', 'user-password-confirm', 'user-dob', 'user-street-1', 'user-street-2', 'user-city', 'user-zip', 'user-bank-account', 'user-bank-routing'];
+			for(var j = 0; j < field_ids.length; j++){
+				if(field_ids[j] === null) {
+					$("'#"+field_ids[j]+"'")
+				}
+			}
 			var user_password = $("#user-password").val();
 			var user_password_confirm = $("#user-password-confirm").val();
 
@@ -214,18 +221,20 @@
 			else {
 				//checking to make sure the password is between 8 and 20 characters
 				if(user_password.length >= 8 && user_password.length <= 20){
-					console.log("user_password.length" + user_password.length);
-					console.log("user_password_confirm.length" + user_password_confirm.length);
+					console.log("user_password.length " + user_password.length);
+					console.log("user_password_confirm.length " + user_password_confirm.length);
 					var special_char = false; //false means there are no special characters in the password
 					var capital_letter = false; //false means there are no capital letters in the password
 					var i = 0;
-					while (capital_letter === false || special_char === false || i < user_password.length) {
+					while (i < user_password.length) {
 						var letter = user_password.charAt(i);
 						if(letter === '!' || letter ==='@' || letter === '#' || letter === '$' || letter  === '%' || letter === '^' || letter === '&' || letter === '*'){
 							special_char = true;
 						}
-						if(letter.toUpperCase() === letter){
+						if(!(letter === '!' || letter ==='@' || letter === '#' || letter === '$' || letter  === '%' || letter === '^' || letter === '&' || letter === '*')) {
+							if(letter.toUpperCase() === letter){
 							capital_letter = true;
+							}
 						}
 						i++;
 					}
