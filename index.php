@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php 
+session_destroy(); //destroys any session that is currently running
+session_start(); //starts a new session so we can start to store session variables
+?>
 <!DOCTYPE html>
 <html>
 	<head>
