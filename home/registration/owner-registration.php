@@ -44,7 +44,7 @@
 						</div>
 						<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 white">
 							<h1 id="owner-registration-title">WhereHouse Owner Registration</h1>
-							<form>
+							<form id="owner-registration-form" name="owner-registration-form" action="PHP/submit_owner_registration.php">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -176,7 +176,12 @@
 								</div>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
-										<button type="submit" class="btn btn-submit">Submit</button>
+										<button id="submit-button" type="button" class="btn btn-submit">Submit</button>
+									</div>
+									<div class="col-auto">
+										<div id="submit-div">
+											<!-- where alerts are appended for password-related issues -->
+										</div>
 									</div>
 								</div>
 							</form>
@@ -193,6 +198,52 @@
 	<script type="text/javascript">
 		//input mask for the phone number field
 		$("#user-phone").inputmask({"mask": "(999) 999-9999"});
+
+		//password validation
+		$("#submit-button").on("click", function(event){
+			$("#submit-div").empty();
+
+			var user_password = $("#user-password").val();
+			var user_password_confirm = $("#user-password-confirm").val();
+
+
+			//checking to make sure that both password fields match
+			if(user_password != user_password_confirm) {
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Check to make sure both of your passwords match!</div>");
+			}
+			else {
+				//checking to make sure the password is between 8 and 20 characters
+				if(user_password.length >= 8 && user_password.length <= 20){
+					console.log("user_password.length" + user_password.length);
+					console.log("user_password_confirm.length" + user_password_confirm.length);
+					var special_char = false; //false means there are no special characters in the password
+					var capital_letter = false; //false means there are no capital letters in the password
+					var i = 0;
+					while (capital_letter === false || special_char === false || i < user_password.length) {
+						var letter = user_password.charAt(i);
+						if(letter === '!' || letter ==='@' || letter === '#' || letter === '$' || letter  === '%' || letter === '^' || letter === '&' || letter === '*'){
+							special_char = true;
+						}
+						if(letter.toUpperCase() === letter){
+							capital_letter = true;
+						}
+						i++;
+					}
+					if(special_char === false) {
+						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has at least one of the following characters: <strong>!, @, #, $, %, ^, &, or *</strong>.</div>");
+					}
+					if(capital_letter === false){
+						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital leter</strong>.</div>");
+					}
+					if(capital_letter === true && special_char === true){
+						$("#owner-registration-form").submit();
+					}
+				}
+				else {
+					$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password is <strong>between 8 and 20 characters</strong> in length. </div>");
+				}
+			}
+		});
 
 	</script>
 </html>

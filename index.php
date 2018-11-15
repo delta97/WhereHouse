@@ -160,12 +160,7 @@
 		});
 		
 
-		sessionStorage.setItem("user_type", "1");
-		var user_type = sessionStorage.getItem("user_type");
-		var user_type_int = parseInt(user_type);
-		user_type = user_type_int;
-		console.log(user_type);
-		console.log(typeof(user_type));
+		
 
 
 
