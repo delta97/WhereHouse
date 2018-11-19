@@ -1,5 +1,4 @@
 <?php 
-session_destroy(); //destroys any session that is currently running
 session_start(); //starts a new session so we can start to store session variables
 ?>
 <!DOCTYPE html>
@@ -80,8 +79,8 @@ session_start(); //starts a new session so we can start to store session variabl
 							<div class="modal-body">
 								<form>
 									<div class="form-group flex-center">
-										<button value="0" type="button" class="btn btn-next" id="btn-register-lessee">I want to lease a warehouse</button>
-	   									<button value="1" type="button" class="btn btn-next" id="btn-register-owner">I want to rent my warehouse</button>
+										<button value="0" type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
+	   									<button value="1" type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
 									</div>
 								</form>
 							</div>
@@ -139,19 +138,19 @@ session_start(); //starts a new session so we can start to store session variabl
 		$("#FAQ").on('click touch', function(event) {
 			window.location = "./home/FAQ.php";
 		});
-		$("#btn-login-lessee").on('click touch', function(event) {
-			<?php include "login.php"?>
-			var user_type = <?php $_SESSION['user_type']; ?>;
-			if(user_type === 0) {
-				window.location = "lessee/dashboard.php";
-			}
-			else if(user_type === 1) {
-				window.location = "owner/dashboard.php";
-			}
-			else {
-				$('#modal-pass').append("<div style=\"margin-top:10px;\"class=\"alert alert-danger\" role=\"alert\"><strong>Oh no!</strong> The combination of your password and email is incorrect. Try again!</div>");
-			}
-		});
+		// $("#btn-login-lessee").on('click touch', function(event) {
+		// 	<?php include "login.php"?>
+		// 	var user_type = <?php $_SESSION['user_type']; ?>;
+		// 	if(user_type === 0) {
+		// 		window.location = "lessee/dashboard.php";
+		// 	}
+		// 	else if(user_type === 1) {
+		// 		window.location = "owner/dashboard.php";
+		// 	}
+		// 	else {
+		// 		$('#modal-pass').append("<div style=\"margin-top:10px;\"class=\"alert alert-danger\" role=\"alert\"><strong>Oh no!</strong> The combination of your password and email is incorrect. Try again!</div>");
+		// 	}
+		// });
 		
 		
 		$("#btn-register-owner").on('click touch', function(event) {

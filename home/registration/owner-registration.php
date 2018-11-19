@@ -48,11 +48,11 @@
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
-										<input type="text" class="form-control" id="user-first-name" aria-describedby="enterFirstName" placeholder="First Name">
+										<input type="text" class="form-control capitalize" id="user-first-name" aria-describedby="enterFirstName" placeholder="First Name">
 									</div>
 									<div class="col">
 										<label for="user-last-name">Last Name</label>
-										<input type="text" class="form-control" id="user-last-name" aria-describedby="enterLastName" placeholder="Last Name">
+										<input type="text" class="form-control capitalize" id="user-last-name" aria-describedby="enterLastName" placeholder="Last Name">
 									</div>
 								</div>
 								<div class="form-row form-spacing">

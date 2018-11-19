@@ -812,3 +812,11 @@ h1 {
 	margin: 5px;
 }
 
+
+.btn-reg {
+	margin: 5px;
+}
+
+.capitalize {
+	text-transform: capitalize;
+}

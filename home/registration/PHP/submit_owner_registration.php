@@ -1,4 +1,5 @@
 <?php
+
 	require "serverconnect.php";
 	$connection = serverConnect();
 
@@ -19,12 +20,13 @@
 
 
 
-	$query = "INSERT INTO User (first_name, last_name, DOB, phone_num, user_type, email, [password], address_1, address_2, city, [state], zipcode, routing_num, bank_acc) 
-				VALUES ('$user_first_name', '$user_last_name', '$user_dob', '$user_phone_number', 1, '$user_email', '$user_password', '$user_street_1', '$user_street_2','$user_city', '$user_state', '$user_zipcode', '$user_bank_routing', '$user_bank_account')";
+	$query = "INSERT INTO User (first_name, last_name, DOB, phone_num, user_type, email, password, address_1, address_2, city, state, zipcode, routing_num, bank_acc) 
+				VALUES ('".$user_first_name."', '".$user_last_name."', ".$user_dob.", ".$user_phone_number.", 1, '".$user_email."', '".$user_password."', '".$user_street_1."', '".$user_street_2."','".$user_city."', '".$user_state."', ".$user_zipcode.", ".$user_bank_routing.", ".$user_bank_account.");";
 
 	$result = mysqli_query($connection, $query);
 	if(!$result) {
 		echo "There was an error inserting the data into the database. Please try again.";
+		mysqli_close($connection);
 		die;
 	}
 	mysqli_close($connection);

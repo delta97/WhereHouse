@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <!-- owner dashboard -->
 <?php
-	include "serverconnect.php";
+	include "../serverconnect.php";
 
 	$connection = serverConnect();
 	$query = "SELECT first_name, last_name FROM User WHERE email = '".$_SESSION['user_email']."'";
-	$result = msqli_query($connection, $query);
-	$assoc_array = mysqli_assoc($result);
-	$_SESSION['user_first_name'] = $assoc_array['first_name'];
-	$_SESSION['user_last_name'] = $assoc_array['last_name'];
-	msqli_close($connection);
+	$result = mysqli_query($connection, $query);
+
+	if($result) {
+		$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+		$_SESSION['user_first_name'] = $assoc_array['first_name'];
+		$_SESSION['user_last_name'] = $assoc_array['last_name'];
+	}
+	else {
+		echo"<script>console.log('There was an error retrieving data from the database');</script>";
+	}
+	
+	mysqli_free_result($result);
+	mysqli_close($connection);
 
 
 ?>
@@ -109,9 +117,9 @@
 			window.location = "analytics.php";
 		});
 		$(".logout-button").click(function() {
-			<?php 
-				session_destroy(); //clears all session variables so that they no longer store user information after logout
-			?>
+			// <?php 
+			// 	session_destroy(); //clears all session variables so that they no longer store user information after logout
+			// ?>
 			window.location = "../index.php";
 		});
 	</script>

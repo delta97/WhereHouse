@@ -276,7 +276,7 @@
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
 		});
-		
+
 
 		function reloadOnSubmit() {
 			window.location = "warehouses.php";
