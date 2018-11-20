@@ -6,6 +6,32 @@ body {
 	min-height: 100%;
 
 }
+
+#sensitive-information {
+	position: relative !important;
+	background-color: white;
+	height: 45px;
+	text-align: center;
+	align-self: center;
+	color: black;
+	border: 2px solid black;
+	border-radius: 8px;
+	margin-left: 60px !important;
+	margin-bottom: 10px	!important;
+}
+#sensitive-information:hover {
+	position: relative !important;
+	cursor: pointer;
+	background-color: #86eae3;
+	color: black;
+	border: none;
+}
+
+
+
+
+
+
 .flexbox-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -820,3 +846,6 @@ h1 {
 .capitalize {
 	text-transform: capitalize;
 }
+
+
+

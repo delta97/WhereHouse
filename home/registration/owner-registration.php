@@ -7,7 +7,7 @@
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<!-- AJAX -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 		<!-- Link to the style sheet -->
@@ -44,7 +44,7 @@
 						</div>
 						<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 white">
 							<h1 id="owner-registration-title">WhereHouse Owner Registration</h1>
-							<form id="owner-registration-form" name="owner-registration-form" action="submit_owner_registration.php">
+							<form id="owner-registration-form" name="owner-registration-form">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -204,12 +204,7 @@
 			// empty any leftover warnings from previous submit attempts
 			$("#submit-div").empty();
 			// check every input field to make sure that they are filled out
-			var field_ids = ['user-first-name', 'user-last-name', 'user-email', 'user-phone', 'user-password', 'user-password-confirm', 'user-dob', 'user-street-1', 'user-street-2', 'user-city', 'user-zip', 'user-bank-account', 'user-bank-routing'];
-			for(var j = 0; j < field_ids.length; j++){
-				if(field_ids[j] === null) {
-					$("'#"+field_ids[j]+"'")
-				}
-			}
+		
 			var user_password = $("#user-password").val();
 			var user_password_confirm = $("#user-password-confirm").val();
 
@@ -244,7 +239,10 @@
 					if(capital_letter === false){
 						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital leter</strong>.</div>");
 					}
-					if(capital_letter === true && special_char === true){
+					if(verifyFilled() === false) {
+						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>All fields are required. Make sure you didn't miss any!</strong></div>");
+					}
+					if(capital_letter === true && special_char === true && verifyFilled() === true){
 						$("#owner-registration-form").submit();
 					}
 				}
@@ -254,5 +252,54 @@
 			}
 		});
 
+		function verifyFilled() {
+			var first_name = $('#user-first-name').value;
+			var last_name = $('#user-last-name').value;
+			var email = $('#user-email').value;
+			var phone_num = $('#user-phone').value;
+			var password = $('#user-password').value;
+			var birth_date = $('#user-dob').value;
+			var address1 = $('#user-street-1').value;
+			var address2 = $('#user-street-2').value;
+			var city = $('#user-city').value;
+			var state = $('#user-state').value;
+			var zipcode = $('#user-zip').value;
+			var bank_account = $('#user-bank-account').value;
+			var routing = $('#user-routing').value;
+
+
+			if((first_name === null || first_name === "" || first_name === " ") || (last_name === null || last_name === "" || last_name === " ") || (email === null || email === "" || email === " ") || (phone_num === null || phone_num === "" || phone_num === " ") || (password === null || pasword === "" || password === " ") || (birth_date === null || birth_date === "" || birth_date === " ") || (address1 === null || address1 === "" || address1 === " ") || (address2 === null || address2 === "" || address2 === " ") || (city === null || city === "" || city === " ") || (state === null || state === "" || state === " ") || (zipcode === null || zipcode === "" || zipcode === " ") || (bank_account === null || bank_account === "" || bank_account === " ") || (routing === null || routing === "" || routing === " ")){
+				var submit_okay = false;
+			}
+			else {
+				submit_okay = true;
+			}
+			return submit_okay;
+		}
+
+		$('#form-submit-btn').on('click', function(event) {
+			if(verifyFilled() == true){
+				$('#owner-registration-form').submit();
+			}
+			else {
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Make sure all fields are filled before submission</strong></div>");
+			}
+
+		});
+
+
+		$('#owner-registration-form').on('submit', function(event) {
+			event.preventDefault();
+			$('#submit-div').empty();
+			$.ajax({
+				type: 'POST',
+				method: 'POST',
+				url: 'submit_owner_registration.php',
+				data: $('#owner-registration-form').serialize(), 
+				success: function() {
+					window.location = "registration_success.php";
+				}
+			});
+		});
 	</script>
 </html>

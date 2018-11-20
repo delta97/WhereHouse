@@ -39,7 +39,9 @@
 			</div>
 			<div class="flexbox-wrapper-success body max-height">
 				<div class="success">
-					<h1>Congrats, <?php echo "$_SESSION['user_first_name']";?> you are now a registered member of <span class="logo-text">WhereHouse Inc.</span></h1>
+					<div class="success-message">
+						
+					</div>
 					<h2>Return to the home page to log in with your credentials</h2>
 					<div class="success-buttons">
 						<button type="button" class="btn success-home-btn">Return Home</button>
@@ -89,5 +91,20 @@
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+		$(window).on('load', function(event) {
+			event.preventDefault();
+			$.ajax({
+				type: 'GET',
+				method: 'GET',
+				url: 'get_user_name.php',
+				success: function() {
+					var user_first_name = <?php print($_SESSION('user-first-name')); ?>;
+					var user_last_name - <?php print($_SESSION('user-last-name'));?>;
+					$('.success-message').append("<h1>Congratulations, " + user_first_name + " you are now a registered member of <span class=\"logo-text\"WhereHouse Inc.</span></h1>");
+				}
+			});
+
+		});
 	
 </html>

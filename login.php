@@ -9,7 +9,7 @@ $connection = serverConnect();
 $user_email = $_POST["login-modal-email"];
 $user_password = $_POST["login-modal-password"];
 
-$query = "SELECT password, user_type, id FROM User WHERE email = '".$user_email."';";
+$query = "SELECT password, user_type, id, first_name, last_name FROM User WHERE email = '".$user_email."';";
 $result = mysqli_query($connection, $query);
 if($result) {
 	$assoc_array = mysqli_fetch_assoc($result);
@@ -21,6 +21,8 @@ if($result) {
 		$_SESSION['user_email'] = $user_email;
 		$_SESSION['user_id'] = $user_id;
 		$_SESSION['user_type'] = $user_type;
+		$_SESSION['user_first_name'] = $assoc_array['first_name'];
+		$_SESSION['user_last_name'] - $assoc_array['last_name'];
 	}
 	else {
 		//password doesn't match, but email exists

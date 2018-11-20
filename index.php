@@ -174,7 +174,6 @@
 			}
 		});
 
-		$('')
 		$('#login-modal-form').on('submit', function(event){
 			event.preventDefault();
 			$('.alerts').empty(); //gets rid of any existing alerts on re-submission

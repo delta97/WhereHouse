@@ -17,7 +17,7 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 		<!-- AJAX -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -25,8 +25,7 @@
 		<!-- Link to the style sheet -->
 		<link rel="stylesheet" href="../style.css"> 
 
-		<!-- javascript click functions -->
-		<script src="../javascript/click_functions.js"></script>
+		
 	</head>
 	<body>
 		<div class="flexbox-wrapper">
@@ -36,7 +35,7 @@
 					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
-					<span class="header-username">Welcome, *name*</span>
+					<span class="header-username">Welcome, <?php print($_SESSION['user_first_name'])?></span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
@@ -103,12 +102,15 @@
 					<div class="modal-content edit-info-modal">
 						<div class="modal-header">
 							<h4 class="modal-title" id="registration-modal-title">Edit Account Information</h4>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							
+							<button id="sensitive-information">Change Financial Information and Password</button>
+		
+							<button id="edit-information" type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 						<div class="modal-body">
-							<form>
+							<form id="edit-information-form">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -211,9 +213,9 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-								<button type="button" class="btn btn-submit" onclick="../../PHP/edit_userinfo_lessee.php">Submit</button>
-								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-							</div>
+							<button type="button" class="btn btn-submit" onclick="../../PHP/edit_userinfo_lessee.php">Submit</button>
+							<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -245,5 +247,22 @@
 		$("#user-rentals").on("click", function(event) {
 			window.location = "rentals.php";
 		});
+
+
+		console.log(<?php print($_SESSION['first_name']);?>);
+
+		//ajax script to retrieve information about a user when they click the edit button
+		$('#edit-information').on('click', function(event) {
+			$.ajax({
+				method: 'GET', 
+				type: 'GET', 
+				url: 'get_user_information.php', 
+				data: $('#edit-information-form').serialize(), 
+				success: function () {
+					
+				}
+			});
+		});
+
 	</script>
 </html>

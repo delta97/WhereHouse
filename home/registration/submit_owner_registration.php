@@ -24,7 +24,7 @@
 
 	$result = mysqli_query($connection, $query);
 	if(!$result) {
-		$query = "SELECT email FROM User WHERE email = '".$user_email."';";
+		$query = "SELECT email FROM User WHERE email = ".$user_email.";";
 		$result2 = mysqli_query($connection, $query);
 		if(result2){
 			echo "There already exists a user with this email. Please register again with a different email";
@@ -35,10 +35,15 @@
 		mysqli_close($connection);
 		die;
 	}
+	else {
+		if(session_status() == PHP_SESSION_NONE){
+			session_start();
+		}
+		$_SESSION['user_first_name'] = $user_first_name;
+		$_SESSION['user_last_name'] = $user_last_name;
+		$_SESSION['user-email'] = $user_email;
+		header('Location: http://web.ics.purdue.edu/~g1090429/home/registration/registration_success.php', true);
+		exit;
+	}
 	mysqli_close($connection);
-	session_start();
-	$_SESSION['user_first_name'] = $user_first_name;
-	$_SESSION['user_last_name'] = $user_last_name;
-	header('Location: http://web.ics.purdue.edu/~g1090429/home/registration/registration_success.php', true);
-	exit;
 ?>
