@@ -1,10 +1,12 @@
 <?php 
-session_start(); //starts a new session so we can start to store session variables
+	if(session_status() == PHP_SESSION_NONE) {
+		session_start(); //starts a new session so we can start to store session variables
+	}
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="preload" href="./images/warehouse2.jpeg">
+	
 
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
@@ -22,7 +24,7 @@ session_start(); //starts a new session so we can start to store session variabl
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 		<!-- AJAX -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -101,8 +103,8 @@ session_start(); //starts a new session so we can start to store session variabl
 								</button>
 							</div>
 							<div class="modal-body">
-								<iframe name="submit-redirect" style="display: none;"></iframe>
-								<form method="post" action="login.php">
+								<!-- <iframe name="submit-redirect" style="display: none;"></iframe> -->
+								<form id="login-modal-form" method="post">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
 								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
@@ -111,10 +113,13 @@ session_start(); //starts a new session so we can start to store session variabl
 								    	<label for="login-modal-password">Password</label>
 								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
 								    </div>
+								    <div class="alerts">
+								    </div>
 								    <div class="modal-footer">
 										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
-										<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
+										<button type="submit" class="btn btn-next" id="submit-button">Log In</button>
+										<!-- <button type="submit" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
+										<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button> -->
  									</div>
 								</form>
 							</div>
@@ -138,19 +143,7 @@ session_start(); //starts a new session so we can start to store session variabl
 		$("#FAQ").on('click touch', function(event) {
 			window.location = "./home/FAQ.php";
 		});
-		// $("#btn-login-lessee").on('click touch', function(event) {
-		// 	<?php include "login.php"?>
-		// 	var user_type = <?php $_SESSION['user_type']; ?>;
-		// 	if(user_type === 0) {
-		// 		window.location = "lessee/dashboard.php";
-		// 	}
-		// 	else if(user_type === 1) {
-		// 		window.location = "owner/dashboard.php";
-		// 	}
-		// 	else {
-		// 		$('#modal-pass').append("<div style=\"margin-top:10px;\"class=\"alert alert-danger\" role=\"alert\"><strong>Oh no!</strong> The combination of your password and email is incorrect. Try again!</div>");
-		// 	}
-		// });
+		
 		
 		
 		$("#btn-register-owner").on('click touch', function(event) {
@@ -169,20 +162,47 @@ session_start(); //starts a new session so we can start to store session variabl
 
 		//saves the value of the search query to a session variable called "searchQuery"
 		$("#zip-search").on("focusout", function(event){
-			var search_value = $("#zip-search").val();
+			var search_value = $("#zip-search").value;
 			sessionStorage.setItem("searchQuery", search_value);
 			
 		});
 
 		$("#zip-search-button").on("click", function(event){
-			var search_value = $("#zip-search").val();
-			if((search_value != null) && (search_value != " ")) {
-				sessionStorage.setItem("searchQuery", search_value);
+			var search_value = $("#zip-search").value;
+			if((search_value != null) && (search_value != "")) {
 				window.location = "basicsearch.php";
 			}
 		});
+
+		$('')
+		$('#login-modal-form').on('submit', function(event){
+			event.preventDefault();
+			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
+			$.ajax({
+				type: 'POST',
+				method: 'POST', 
+				url: 'login.php',
+				data: $('#login-modal-form').serialize(),
+				success: function() {
+ 					var user_type = <?php print($_SESSION['user_type']);?>;
+ 					console.log(user_type);
+ 					if(user_type === -1){
+ 						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
+ 					}
+ 					else if(user_type === -2){
+ 						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
+ 					}
+ 					else if(user_type === 0){
+ 						window.location = "./lessee/dashboard.php";
+ 					}
+ 					else if(user_type === 1) {
+ 						window.location = "./owner/dashboard.php";
+ 					}
+				}
+			});
+		});
 	</script>
-	<!-- PHP local functions -->
+
 	
 
 

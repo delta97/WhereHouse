@@ -44,7 +44,7 @@
 						</div>
 						<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 white">
 							<h1 id="owner-registration-title">WhereHouse Owner Registration</h1>
-							<form id="owner-registration-form" name="owner-registration-form" action="PHP/submit_owner_registration.php">
+							<form id="owner-registration-form" name="owner-registration-form" action="submit_owner_registration.php">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>

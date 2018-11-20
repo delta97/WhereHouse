@@ -47,7 +47,7 @@
 							<div class="progress lessee-reg-progress">
 								<div class="progress-bar progress-bar-striped bg-info" role="progressbar progress-bar " style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
-							<form action="../../PHP/submit_lessee_registration.php" id="lessee-form" name="form-type" value="1" method="post">
+							<form action="submit_lessee_registration.php" id="lessee-form" name="form-type" value="1" method="post">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -179,7 +179,11 @@
 								</div>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
-										<button id="form-submit-btn" type="submit" class="btn btn-submit">Submit</button>
+										<button id="form-submit-btn" class="btn btn-submit">Submit</button>
+									</div>
+								</div>
+								<div class="form-row form-spacing">
+									<div id="submit-div" class="col-auto">
 									</div>
 								</div>
 							</form>
@@ -198,8 +202,51 @@
 	
 
 		$("#user-phone").inputmask({"mask": "(999) 999 - 9999"});
+		function verifyFilled() {
+			var first_name = $('#user-first-name').value;
+			var last_name = $('#user-last-name').value;
+			var email = $('#user-email').value;
+			var phone_num = $('#user-phone').value;
+			var password = $('#user-password').value;
+			var birth_date = $('#user-dob').value;
+			var address1 = $('#user-street-1').value;
+			var address2 = $('#user-street-2').value;
+			var city = $('#user-city').value;
+			var state = $('#user-state').value;
+			var zipcode = $('#user-zip').value;
+			var bank_account = $('#user-bank-account').value;
+			var routing = $('#user-routing').value;
 
 
+			if((first_name === null || first_name === "" || first_name === " ") || (last_name === null || last_name === "" || last_name === " ") || (email === null || email === "" || email === " ") || (phone_num === null || phone_num === "" || phone_num === " ") || (password === null || pasword === "" || password === " ") || (birth_date === null || birth_date === "" || birth_date === " ") || (address1 === null || address1 === "" || address1 === " ") || (address2 === null || address2 === "" || address2 === " ") || (city === null || city === "" || city === " ") || (state === null || state === "" || state === " ") || (zipcode === null || zipcode === "" || zipcode === " ") || (bank_account === null || bank_account === "" || bank_account === " ") || (routing === null || routing === "" || routing === " ")){
+				var submit_okay = false;
+			}
+			else {
+				submit_okay = true;
+			}
+			return submit_okay;
+		}
+
+		$('#form-submit-btn').on('click', function(event) {
+			if(verifyFilled() == true){
+				$('#lessee-form').submit();
+			}
+			else {
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Make sure all fields are filled before submission</strong></div>");
+			}
+		}
+		$('#lessee-form').on('submit', function(event) {
+			event.preventDefault();
+			$('#submit-div').empty();
+			$.ajax({
+				type: 'POST', 
+				url: 'submit_lessee_registration.php', 
+				data: $('#lessee-form').serialize(), 
+				success: function() {
+					window.location = "registration_success.php";
+				}
+			});
+		});
 
 		//password validation function
 
