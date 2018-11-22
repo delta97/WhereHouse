@@ -83,6 +83,9 @@
 					<div id="analytics" class="sidebar-btn">
 						<span class="sidebar-btn-text">Analytics Portal</span>
 					</div>
+					<div id="account-info" class="sidebar-btn">
+						<span class="sidebar-btn-text">Account Information</span>
+					</div>
 				</div>
 				<div class="page-content">
 					<div class="flex-row jc-space-around">
@@ -275,6 +278,9 @@
 		});
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
+		});
+		$("#account-info").click(function(event) {
+			window.location = "account_info.php";
 		});
 		
 

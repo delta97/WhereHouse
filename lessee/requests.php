@@ -54,6 +54,9 @@
 					<div id="inbox-btn" class="sidebar-btn">
 						<span class="sidebar-btn-text">Inbox</span>
 					</div>
+					<div id="account-info" class="sidebar-btn">
+						<span class="sidebar-btn-text">Account Information</span>
+					</div>
 				</div>
 				<div class="page-content">
 					<h1>Requests</h1>
@@ -78,6 +81,9 @@
 		});
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
+		});
+		$("#account-info").click(function(event) {
+			window.location = "account_info.php";
 		});
 	</script>
 </html>

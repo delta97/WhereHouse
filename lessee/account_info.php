@@ -60,6 +60,7 @@
 				</div>
 				<div class="page-content flex-center-account-info">
 					<h1 class="dashboard-header">Account Information</h1>
+					<div id="save-notifications"></div>
 					<div class="account-info">
 						<form id="edit-information-form">
 							<div class="form-row form-spacing">
@@ -162,14 +163,52 @@
 								</div>
 							</div>
 							<div class="button-center">
-								<div class="login-button-invert" id="information-save"><span class="login-button-text-invert">Save</span></div>
+								<div class="login-button-invert" id="general-information-save"><span class="login-button-text-invert">Save</span></div>
 							</div>
 						</form>	
 					</div>
-					<h1 class="dashboard-header">Financial Information</h1>
-					<div class="account-info">
+					<h1 class="dashboard-header">Payment Information</h1>
+					<div class="account-info flex-center-account-info">
 						<form id="financial-information">
-							
+							<div class="form-row form-spacing">
+								<div class="col">
+									<label for="bank-routing-number">Bank Routing Number</label>
+									<input type="number" class="form-control" name="bank-routing-number" id="bank-routing-number" placeholder="Routing Number">
+								</div>
+								<div class="col">
+									<label for="bank-account-number">Bank Account Number</label>
+									<input type="number" class="form-control" name="bank-account-number" id="bank-account-number" placeholder="Account Number">
+								</div>
+							</div>
+							<div class="button-center">
+								<div class="login-button-invert" id="banking-information-save"><span class="login-button-text-invert">Save</span></div>
+							</div>
+						</form>
+					
+					<h1 class="dashboard-header">Reset Your Password</h1>
+					<div class="account-info">
+						<form id="password-reset" class="field-center">
+							<div class="form-row form-spacing align-center">
+								<div class="col">
+									<label for="current-password">Current Password</label>
+									<input type="password" class="form-control" name="current-password" id="currrent-password" placeholder="Current Password">
+								</div>
+							</div>
+							<div class="form-row form-spacing align-center">
+								<div class="col">
+									<label for="new-password">New Password</label>
+									<input type="password" class="form-control" name="new-password" id="new-password" placeholder="New Password">
+								</div>
+							</div>
+							<div class="form-row form-spacing align-center">
+								<div class="col">
+									<label for="new-password-confirm">Confirm New Password</label>
+									<input class="form-control" type="password" name="new-password-confirm" id="new-password-confirm" placeholder="Confirm New Password">
+								</div>
+							</div>
+							<div class="button-center">
+								<div class="update-password-btn" id="banking-information-save"><span class="login-button-text-invert">Update Password</span></div>
+							</div>
 						</form>
 					</div>
 				</div>
