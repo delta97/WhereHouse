@@ -6,8 +6,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	
-
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -104,7 +102,7 @@
 							</div>
 							<div class="modal-body">
 								<!-- <iframe name="submit-redirect" style="display: none;"></iframe> -->
-								<form id="login-modal-form" method="post">
+								<form id="login-modal-form">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
 								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
@@ -117,7 +115,7 @@
 								    </div>
 								    <div class="modal-footer">
 										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-next" id="submit-button">Log In</button>
+										<button type="button" class="btn btn-next" id="submit-button">Log In</button>
 										<!-- <button type="submit" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
 										<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button> -->
  									</div>
@@ -174,17 +172,38 @@
 			}
 		});
 
-		$('#login-modal-form').on('submit', function(event){
+
+
+
+		$('#submit-button').on('click', function(event){
 			event.preventDefault();
 			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
+
+			//get form data
+			var email_address = $('#login-modal-email').value;
+			var password = $('#login-modal-password').value;
+			
+
 			$.ajax({
 				type: 'POST',
 				method: 'POST', 
 				url: 'login.php',
-				data: $('#login-modal-form').serialize(),
-				success: function() {
- 					var user_type = <?php print($_SESSION['user_type']);?>;
+				data: {email: email_address, password: password},
+				success: function(response) {
+ 					var user_type = response.user_type;
+ 					var user_id = response.user_id;
+ 					var user_first_name = response.user_first_name;
+ 					var user_last_name = response.user_last_name;
+ 					var user_type_should_be = response.sql;
+ 					var user_email = response.email;
+
+
  					console.log(user_type);
+ 					console.log(user_id);
+ 					console.log(user_first_name);
+ 					console.log(user_type_should_be);
+
+
  					if(user_type === -1){
  						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
  					}
@@ -194,12 +213,54 @@
  					else if(user_type === 0){
  						window.location = "./lessee/dashboard.php";
  					}
- 					else if(user_type === 1) {
- 						window.location = "./owner/dashboard.php";
- 					}
+ 					// else if(user_type === 1) {
+ 					// 	window.location = "./owner/dashboard.php";
+ 					// }
 				}
 			});
 		});
+
+
+		// $('#submit-button').on('click', function(event) {
+		// 	sendobj = new Object();
+		// 	sendobj.email = $('#login-modal-email').value;
+		// 	sendobj.password = $('#login-modal-password').value;
+
+		// 	if (window.XMLHttpRequest) {
+		// 		var login = new XMLHttpRequest();
+
+		// 	} 
+		// 	else {
+		// 		var login = new ActiveXObject("Microsoft.XMLHTTP");
+		// 	}
+		// 	login.onreadystatechange = function() {
+		// 		if(this.readyState == 4 && this.status == 200) {
+		// 			var response = JSON.parse(this.responseText);
+		// 			handleResponse(response);
+		// 		}
+		// 	};
+
+		// 	var url = "login.php" + $.param(sendobj);
+
+		// 	login.open("POST",url, true);
+		// 	login.send();
+
+		// 	function handleResponse(resp) {
+		// 		var sql = resp.sql;
+		// 		var id = resp.user_id;
+		// 		var user_type = resp.user_type;
+		// 		var user_first_name = resp.user_first_name;
+		// 		var user_last_name = resp.user_last_name;
+		// 		var user_email = resp.email;
+
+		// 		console.log("sql: " + sql);
+		// 		console.log("user_id: " + id);
+		// 		console.log("user_first_name: " + user_first_name);
+		// 		console.log("user_last_name: " + user_last_name);
+		// 		console.log("email: " + user_email);
+
+		// 	}
+		// });
 	</script>
 
 	

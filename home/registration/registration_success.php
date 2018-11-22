@@ -98,9 +98,12 @@
 				type: 'GET',
 				method: 'GET',
 				url: 'get_user_name.php',
-				success: function() {
-					var user_first_name = <?php print($_SESSION('user-first-name')); ?>;
-					var user_last_name - <?php print($_SESSION('user-last-name'));?>;
+				success: function(response) {
+					var user_first_name = response.user_first_name;
+					var user_last_name = response.user_last_name;
+
+
+					console.log(user_first_name + "," + user_last_name);
 					$('.success-message').append("<h1>Congratulations, " + user_first_name + " you are now a registered member of <span class=\"logo-text\"WhereHouse Inc.</span></h1>");
 				}
 			});

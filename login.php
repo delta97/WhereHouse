@@ -6,33 +6,37 @@ if(session_status() == PHP_SESSION_NONE) {
 require "serverconnect.php";
 $connection = serverConnect();
 
-$user_email = $_POST["login-modal-email"];
-$user_password = $_POST["login-modal-password"];
+$user_email = $_POST['email'];
+$user_password = $_POST['password'];
 
-$query = "SELECT password, user_type, id, first_name, last_name FROM User WHERE email = '".$user_email."';";
+
+
+
+
+$query = "SELECT password, user_type, id, first_name, last_name FROM User WHERE email = '".$user_email."'";
 $result = mysqli_query($connection, $query);
+
 if($result) {
 	$assoc_array = mysqli_fetch_assoc($result);
 
-	$user_id = $assoc_array["id"];
-	$user_type = $assoc_array['user_type'];
-
 	if($assoc_array["password"] == $user_password){
-		$_SESSION['user_email'] = $user_email;
-		$_SESSION['user_id'] = $user_id;
-		$_SESSION['user_type'] = $user_type;
-		$_SESSION['user_first_name'] = $assoc_array['first_name'];
-		$_SESSION['user_last_name'] - $assoc_array['last_name'];
+		$user_id = $assoc_array["id"];
+		$user_type = $assoc_array["user_type"];
+		$user_first_name = $assoc_array["first_name"];
+		$user_last_name = $assoc_array["last_name"];
 	}
 	else {
 		//password doesn't match, but email exists
-		$_SESSION['user_type'] = -2;
+		$user_type = -2;
 	}
 	
 }
 else { //The user's email doesn't exist in the database -->they need to make an account still
-	$_SESSION['user_type'] = -1; 
+	$user_type = -1; 
 }
+
+$user_type_should_be = 0;
+echo(json_encode(array("sql" => $user_type_should_be, "user_id" => $user_id, "user_type" => $user_type, "user_first_name" => $user_first_name, "user_last_name" => $user_last_name, "email" => $user_email)));
 
 
 mysqli_close($connection);

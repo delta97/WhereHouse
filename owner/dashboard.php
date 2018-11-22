@@ -117,9 +117,7 @@
 			window.location = "analytics.php";
 		});
 		$(".logout-button").click(function() {
-			// <?php 
-			// 	session_destroy(); //clears all session variables so that they no longer store user information after logout
-			// ?>
+			
 			window.location = "../index.php";
 		});
 	</script>
