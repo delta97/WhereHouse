@@ -323,16 +323,27 @@ h1 {
 	margin-bottom: 20px;
 }
 
-.red {
+.update-password-btn {
+	display: flex;
+	height: 45px;
+	width: auto;
+	background-color: white;
+	color: #4d4d4d;
+	align-content: center;
+	align-self: center;
+	margin-right: 25px;
+	border: 2px solid #4d4d4d;
+	border-radius: 8px;
+	font-family: 'Roboto Condensed', sans-serif;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.update-password-btn:hover {
 	background-color: #ff5661;
+	cursor: pointer;
+	color: white;
 }
-.red-left {
-	background-image: linear-gradient(to right, #ff5661 , white);
-	z-index: 2;
-}
-.red-right {
-	background-image: linear-gradient(to left, #ff5661 , white);
-	z-index: 2;
+
 }
 .white {
 	background-color: white;
@@ -892,9 +903,89 @@ h1 {
 	align-self: center;
 }
 
+.account-info-password {
+	text-align: center;
+}
+
+.password-col {
+	margin-right:25px;
+}
+
 .button-center {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	margin: 20px;
+}
+
+.field-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+}
+
+.align-center {
+	align-self: center;
+
+}
+
+
+.notification-icon {
+	position: absolute;
+	width: 25px;
+	background-color: red !important;
+	color: white;
+	border-radius: 4px;
+	text-align: center;
+	margin-left: 10px;
+	font-weight: bold;
+
+}
+
+
+.requests-container {
+	width: 100%;
+	height: 300px;
+	background-color: white;
+	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
+	margin-top: 10px;
+	margin-bottom: 25px;
+}
+
+.reqeust-flex {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-content: flex-start;
+	
+}
+
+
+.page-content-requests {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
+	background-color: rgba(0,0,0,.025);
+}
+
+
+.page-content-account-info {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
+	background-color: rgba(0,0,0,.025);
+
 }

@@ -8,7 +8,7 @@
 		<!-- Roboto Condensed Font -->
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
-		<title>Wherehouse | My Space Rentals</title>
+		<title>Wherehouse | My Requests</title>
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -58,8 +58,28 @@
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
-				<div class="page-content">
-					<h1>Requests</h1>
+				<div class="page-content-requests">
+					<h1>Pending Requests</h1>
+					<div id="pending-requests" class="request-flex">
+						<div class="requests-container">
+							<table>
+							</table>
+						</div>
+					</div>
+					<h1>Cancelled Requests</h1>
+					<div id="cancelled-requests" class="request-flex">
+						<div class="requests-container">
+							<table>
+							</table>
+						</div>
+					</div>
+					<h1>Approved Requests History</h1>
+					<div id="request-history" class="request-flex">
+						<div class="requests-container">
+							<table>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

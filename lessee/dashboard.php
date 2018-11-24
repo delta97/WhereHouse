@@ -51,7 +51,8 @@
 						<span class="sidebar-btn-text">Manage Requests</span>
 					</div>
 					<div id="inbox-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Inbox</span>
+						<span class="sidebar-btn-text">Inbox<span class="notification-icon">1</span></span>
+						
 					</div>
 					<div id="account-info" class="sidebar-btn">
 						<span class="sidebar-btn-text">Account Information</span>
@@ -68,7 +69,7 @@
 							<div id="user-rating"><b>User Rating:</b> -6 Stars</div>
 							<div id=""></div>
 							<div class="dashboard-btn-flex">
-								<button class="btn btn-primary dashboard-tile-edit" data-toggle="modal" data-target="#edit-information-modal">Edit</button>
+								<button class="btn btn-primary dashboard-tile-edit" id="edit-information">Edit</button>
 							</div>
 						</div>
 					</div>
@@ -98,130 +99,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Edit Information Modal, toggled on clicking the edit button -->
-			<div class="modal fade" id="edit-information-modal" tabindex="-1" role="dialog" aria-labelledby="edit-information-modal" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
-					<div class="modal-content edit-info-modal">
-						<div class="modal-header">
-							<h4 class="modal-title" id="registration-modal-title">Edit Account Information</h4>
-							
-							<button id="sensitive-information">Change Financial Information and Password</button>
-		
-							<button id="edit-information" type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<form id="edit-information-form">
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="user-first-name">First Name</label>
-										<input type="text" class="form-control" name="user-first-name" id="user-first-name" aria-describedby="enter first name" value="User First Name From Server">
-									</div>
-									<div class="col">
-										<label for="user-last-name">Last Name</label>
-										<input type="text" class="form-control" name="user-last-name" aria-describedby="enter last name" value="User Last Name From Server">
-									</div>
-								</div>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="user-address-line1">Address Line 1</label>
-										<input type="text" class="form-control" name="user-address-line1" id="user-address-line1" value="User Address Line 1 From Server">
-									</div>
-								</div>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="user-address-line2">Address Line 2</label>
-										<input type="text" class="form-control" name="user-address-line2" id="user-address-line2" value="User Address Line 2 From Server">
-									</div>
-								</div>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="user-city">City
-										</label>
-										<input type="text" class="form-control" name="user-city" id="user-city" value="User City From Server">
-									</div>
-									<div class="col">
-										<label for="user-state">
-										State</label>
-										<select type="text" class="form-control" name="user-state" id="user-state">
-											<option value="null">User State From Server</option>
-											<option value="AL">Alabama</option>
-											<option value="AK">Alaska</option>
-											<option value="AZ">Arizona</option>
-											<option value="AR">Arkansas</option>
-											<option value="CA">California</option>
-											<option value="CO">Colorado</option>
-											<option value="CT">Connecticut</option>
-											<option value="DE">Delaware</option>
-											<option value="DC">District Of Columbia</option>
-											<option value="FL">Florida</option>
-											<option value="GA">Georgia</option>
-											<option value="HI">Hawaii</option>
-											<option value="ID">Idaho</option>
-											<option value="IL">Illinois</option>
-											<option value="IN">Indiana</option>
-											<option value="IA">Iowa</option>
-											<option value="KS">Kansas</option>
-											<option value="KY">Kentucky</option>
-											<option value="LA">Louisiana</option>
-											<option value="ME">Maine</option>
-											<option value="MD">Maryland</option>
-											<option value="MA">Massachusetts</option>
-											<option value="MI">Michigan</option>
-											<option value="MN">Minnesota</option>
-											<option value="MS">Mississippi</option>
-											<option value="MO">Missouri</option>
-											<option value="MT">Montana</option>
-											<option value="NE">Nebraska</option>
-											<option value="NV">Nevada</option>
-											<option value="NH">New Hampshire</option>
-											<option value="NJ">New Jersey</option>
-											<option value="NM">New Mexico</option>
-											<option value="NY">New York</option>
-											<option value="NC">North Carolina</option>
-											<option value="ND">North Dakota</option>
-											<option value="OH">Ohio</option>
-											<option value="OK">Oklahoma</option>
-											<option value="OR">Oregon</option>
-											<option value="PA">Pennsylvania</option>
-											<option value="RI">Rhode Island</option>
-											<option value="SC">South Carolina</option>
-											<option value="SD">South Dakota</option>
-											<option value="TN">Tennessee</option>
-											<option value="TX">Texas</option>
-											<option value="UT">Utah</option>
-											<option value="VT">Vermont</option>
-											<option value="VA">Virginia</option>
-											<option value="WA">Washington</option>
-											<option value="WV">West Virginia</option>
-											<option value="WI">Wisconsin</option>
-											<option value="WY">Wyoming</option>
-										</select>
-									</div>
-									<div class="col">
-										<label for="user-zip">Zip Code
-										</label>
-										<input type="text" class="form-control" name="user-zip" id="user-zip" value="User Zipcode From Server">
-									</div>
-								</div>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="user-phone">Phone Number
-										</label>
-										<input type="text" class="form-control" name="user-phone" id="user-phone" value="User Phone From Server">
-									</div>
-								</div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-submit" onclick="../../PHP/edit_userinfo_lessee.php">Submit</button>
-							<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="footer">Footer</div>
 	</body>
@@ -243,6 +120,9 @@
 			window.location = "../index.php";
 		});
 		$("#account-info").click(function(event) {
+			window.location = "account_info.php";
+		});
+		$('#edit-information').on('click', function(event){
 			window.location = "account_info.php";
 		});
 

@@ -58,7 +58,7 @@
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
-				<div class="page-content flex-center-account-info">
+				<div class="page-content-account-info flex-center-account-info">
 					<h1 class="dashboard-header">Account Information</h1>
 					<div id="save-notifications"></div>
 					<div class="account-info">
@@ -186,22 +186,22 @@
 						</form>
 					
 					<h1 class="dashboard-header">Reset Your Password</h1>
-					<div class="account-info">
+					<div class="account-info account-info-password">
 						<form id="password-reset" class="field-center">
-							<div class="form-row form-spacing align-center">
-								<div class="col">
+							<div class="form-row form-spacing align-center ">
+								<div class="col password-col">
 									<label for="current-password">Current Password</label>
 									<input type="password" class="form-control" name="current-password" id="currrent-password" placeholder="Current Password">
 								</div>
 							</div>
 							<div class="form-row form-spacing align-center">
-								<div class="col">
+								<div class="col password-col">
 									<label for="new-password">New Password</label>
 									<input type="password" class="form-control" name="new-password" id="new-password" placeholder="New Password">
 								</div>
 							</div>
 							<div class="form-row form-spacing align-center">
-								<div class="col">
+								<div class="col password-col">
 									<label for="new-password-confirm">Confirm New Password</label>
 									<input class="form-control" type="password" name="new-password-confirm" id="new-password-confirm" placeholder="Confirm New Password">
 								</div>

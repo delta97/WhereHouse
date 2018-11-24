@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<h1>The result is:</h1>
+		<script>
+			var string_input = 'I am a string';
+			
+			$.ajax({
+				url: '/string.php',
+				dataType: 'json',
+				data: {'string':string_input},
+				type:'post',
+				success: function(result){
+					alert(result.string);
+				
+				}
+			});
+
+
+		</script>
+
+	</body>
+
+</html>
+
+

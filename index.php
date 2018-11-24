@@ -101,8 +101,8 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<!-- <iframe name="submit-redirect" style="display: none;"></iframe> -->
-								<form id="login-modal-form">
+								<iframe name="submit-redirect" ></iframe>
+								<form id="login-modal-form" action="login.php" target="submit-redirect">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
 								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
@@ -125,7 +125,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="footer">Footer</div>
+			<div class="footer" style="display: flex; flex-direction: row; justify-content: space-between; align-content: center;">
+				<div class="footer-left" style="align-self:center;margin-left: 200px; color:white;">
+					<p><a href="lessee/dashboard.php" style="color:white;">Go to Lessee</a></p>
+				</div>
+				<div class="footer-right" style="align-self:center;margin-right: 200px; color: white;">
+					<p><a href="owner/dashboard.php" style="color:white;">Go to Owner</a></p>
+				</div>
+			</div>
 		</div>
 	</body>
 	
@@ -175,56 +182,58 @@
 
 
 
-		$('#submit-button').on('click', function(event){
-			event.preventDefault();
-			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
+		// $('#submit-button').on('click', function(event){
+		// 	event.preventDefault();
+		// 	$('.alerts').empty(); //gets rid of any existing alerts on re-submission
 
-			//get form data
-			var email_address = $('#login-modal-email').value;
-			var password = $('#login-modal-password').value;
+		// 	//get form data
+		// 	var email_address = $('#login-modal-email').value;
+		// 	var password = $('#login-modal-password').value;
 			
 
-			$.ajax({
-				type: 'POST',
-				method: 'POST', 
-				url: 'login.php',
-				data: {email: email_address, password: password},
-				success: function(response) {
- 					var user_type = response.user_type;
- 					var user_id = response.user_id;
- 					var user_first_name = response.user_first_name;
- 					var user_last_name = response.user_last_name;
- 					var user_type_should_be = response.sql;
- 					var user_email = response.email;
+		// 	$.ajax({
+		// 		type: 'POST',
+		// 		method: 'POST', 
+		// 		url: 'login.php',
+		// 		data: {email: email_address, password: password},
+		// 		success: function(response) {
+ 	// 				var user_type = response.user_type;
+ 	// 				var user_id = response.user_id;
+ 	// 				var user_first_name = response.user_first_name;
+ 	// 				var user_last_name = response.user_last_name;
+ 	// 				var user_type_should_be = response.sql;
+ 	// 				var user_email = response.email;
 
 
- 					console.log(user_type);
- 					console.log(user_id);
- 					console.log(user_first_name);
- 					console.log(user_type_should_be);
+ 	// 				console.log(user_type);
+ 	// 				console.log(user_id);
+ 	// 				console.log(user_first_name);
+ 	// 				console.log(user_type_should_be);
 
 
- 					if(user_type === -1){
- 						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
- 					}
- 					else if(user_type === -2){
- 						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
- 					}
- 					else if(user_type === 0){
- 						window.location = "./lessee/dashboard.php";
- 					}
- 					// else if(user_type === 1) {
- 					// 	window.location = "./owner/dashboard.php";
- 					// }
-				}
-			});
-		});
+ 	// 				if(user_type === -1){
+ 	// 					$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
+ 	// 				}
+ 	// 				else if(user_type === -2){
+ 	// 					$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
+ 	// 				}
+ 	// 				else if(user_type === 0){
+ 	// 					window.location = "./lessee/dashboard.php";
+ 	// 				}
+ 	// 				// else if(user_type === 1) {
+ 	// 				// 	window.location = "./owner/dashboard.php";
+ 	// 				// }
+		// 		}
+		// 	});
+		// });
 
 
 		// $('#submit-button').on('click', function(event) {
 		// 	sendobj = new Object();
 		// 	sendobj.email = $('#login-modal-email').value;
 		// 	sendobj.password = $('#login-modal-password').value;
+
+		// 	dbParam = JSON.stringify(sendobj);
 
 		// 	if (window.XMLHttpRequest) {
 		// 		var login = new XMLHttpRequest();
@@ -242,10 +251,12 @@
 
 		// 	var url = "login.php" + $.param(sendobj);
 
-		// 	login.open("POST",url, true);
-		// 	login.send();
+		// 	login.open("POST","login.php", true);
+		// 	login.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		// 	login.send("x=" + dbParam);
 
 		// 	function handleResponse(resp) {
+		// 		alert(resp);
 		// 		var sql = resp.sql;
 		// 		var id = resp.user_id;
 		// 		var user_type = resp.user_type;
@@ -261,6 +272,13 @@
 
 		// 	}
 		// });
+
+
+		$('#submit-button').on('click', function(event) {
+			$('#login-modal-form').submit();
+			var response = $('#sql').value;
+			alert(response);
+		});
 	</script>
 
 	

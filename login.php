@@ -6,8 +6,8 @@ if(session_status() == PHP_SESSION_NONE) {
 require "serverconnect.php";
 $connection = serverConnect();
 
-$user_email = $_POST['email'];
-$user_password = $_POST['password'];
+$user_email = $_POST['login-modal-email'];
+$user_password = $_POST['login-modal-password'];
 
 
 
@@ -36,7 +36,15 @@ else { //The user's email doesn't exist in the database -->they need to make an 
 }
 
 $user_type_should_be = 0;
-echo(json_encode(array("sql" => $user_type_should_be, "user_id" => $user_id, "user_type" => $user_type, "user_first_name" => $user_first_name, "user_last_name" => $user_last_name, "email" => $user_email)));
+
+$var1 = array("sql", "user_id", "user_type", "user_first_name", "user_last_name", "user_email");
+$var2 = array($user_type_should_be, $user_id, $user_type, $user_first_name, $user_last_name, $user_email);
+
+$num_el = 5;
+for($i = 0; $i < $num_el; $i++){
+	echo "<input id='".$var1[i]."'val='".$var2[i]."'></input>";
+
+}
 
 
 mysqli_close($connection);
