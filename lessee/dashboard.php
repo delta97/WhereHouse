@@ -41,6 +41,9 @@
 			</div>
 			<div class="body dashboard-flex">
 				<div class="sidebar">
+					<div id="sidebar-close" class="sidebar-btn">
+						<span class="sidebar-btn-text"><i class="fa fa-bars"></i></button></span><button class="btn">
+					</div>
 					<div id="dashboard-btn" class="sidebar-btn active-btn">
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
