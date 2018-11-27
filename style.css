@@ -997,3 +997,10 @@ h1 {
 	cursor: pointer;
 	background-color: rgba(134,234,227, .25);
 }
+
+
+.underline {
+	text-decoration: underline;
+	font-weight: bold;
+
+}
