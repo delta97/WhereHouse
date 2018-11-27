@@ -567,12 +567,14 @@ h1 {
 
 .search-filter-options {
 	width: 100%;
-	height: 50px;
+	height: 100%;
 	align-self: center;
 	padding-top: 10px;
 	padding-left: 10%;
 	padding-right: 10%;
 	background-color: rgba(0,0,0,.025);
+	margin-top: 0px;
+	margin-bottom: 0px;
 
 }
 
@@ -988,4 +990,10 @@ h1 {
 	padding: 50px;
 	background-color: rgba(0,0,0,.025);
 
+}
+
+
+.clickable-row:hover {
+	cursor: pointer;
+	background-color: rgba(134,234,227, .25);
 }

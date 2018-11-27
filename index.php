@@ -1,8 +1,4 @@
-<?php 
-	if(session_status() == PHP_SESSION_NONE) {
-		session_start(); //starts a new session so we can start to store session variables
-	}
-?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -101,8 +97,8 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<!-- <iframe name="submit-redirect" ></iframe> -->
-								<form id="login-modal-form">
+								<iframe id="submit-redirect" name="submit-redirect" style="display: none"></iframe>
+								<form id="login-modal-form" action="login.php" target="submit-redirect">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
 								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
@@ -178,9 +174,11 @@
 				window.location = "basicsearch.php";
 			}
 		});
+		$('#submit-button').on('click', function(){
+			$('#submit-redirect').empty();
+			$('#login-modal-form').submit();
 
-
-
+		});
 
 		// $('#submit-button').on('click', function(event){
 		// 	event.preventDefault();
@@ -272,35 +270,6 @@
 
 		// 	}
 		// });
-
-
-		$('#submit-button').on('click', function(event) {
-			var user_email = $('#login-modal-email').val();
-			var user_password = $('#login-modal-password').val();
-
-			obj = new Object();
-			obj.email = user_email;
-			obj.password = user_password;
-
-			data = JSON.stringify(obj);
-
-			$.post("login.php", data, handleResponse(data) , "json");
-
-		});
-
-		function handleResponse(response) {
-			answer = JSON.parse(response);
-			var user_id = answer.user_id;
-			var user_type = answer.user_type;
-			var user_first_name = answer.user_first_name;
-			var user_last_name = answer.user_last_name;
-			var user_email = answer.user_email;
-			var user_password = answer.user_password;
-
-			alert(answer);
-
-		}
-
 
 
 	</script>
