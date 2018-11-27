@@ -102,7 +102,7 @@
 				</div>
 			</div>
 
-			<div class="footer">Footer</div>
+			<div class="footer">HELLO FOOTER</div>
 		</div>
 		<script type="text/javascript">
 			$("#home").on('click touch', function() {
