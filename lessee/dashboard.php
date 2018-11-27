@@ -34,10 +34,15 @@
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
 					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
 				</div>
+				<div class="search">
+						<input id="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
+						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
+					</div>
 				<div class="flex-logo">
 					<span class="header-username">Welcome, <?php print($_SESSION['user_first_name'])?></span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
+				
 			</div>
 			<div class="body dashboard-flex">
 				<div class="sidebar">
@@ -128,6 +133,24 @@
 		$('#edit-information').on('click', function(event){
 			window.location = "account_info.php";
 		});
+
+		//search field actions
+		$('#zip-search').on('focusout', function(event) {
+			var searchQuery = $('#zip-search').val();
+			if(searchQuery == null || searchQuery == ""){
+				searchQuery = "Oops...you forgot to enter a zipcode to search";
+			}
+			sessionStorage.setItem("searchQuery", searchQuery);
+		});
+		$('#zip-search-button').on('click', function(event) {
+			sessionStorage.setItem("searchQuery", searchQuery);
+			window.location = "warehousesearch.php";
+		});
+
+
+
+
+
 
 
 		//my rentals redirect

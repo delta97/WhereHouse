@@ -1,8 +1,4 @@
-<?php 
-	if(session_status() == PHP_SESSION_NONE) {
-		session_start(); //starts a new session so we can start to store session variables
-	}
-?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -101,7 +97,7 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<iframe name="submit-redirect" ></iframe>
+								<iframe id="submit-redirect" name="submit-redirect" style="display: none"></iframe>
 								<form id="login-modal-form" action="login.php" target="submit-redirect">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
@@ -178,9 +174,11 @@
 				window.location = "basicsearch.php";
 			}
 		});
+		$('#submit-button').on('click', function(){
+			$('#submit-redirect').empty();
+			$('#login-modal-form').submit();
 
-
-
+		});
 
 		// $('#submit-button').on('click', function(event){
 		// 	event.preventDefault();
@@ -236,11 +234,11 @@
 		// 	dbParam = JSON.stringify(sendobj);
 
 		// 	if (window.XMLHttpRequest) {
-		// 		var login = new XMLHttpRequest();
+		// 		login = new XMLHttpRequest();
 
 		// 	} 
 		// 	else {
-		// 		var login = new ActiveXObject("Microsoft.XMLHTTP");
+		// 		login = new ActiveXObject("Microsoft.XMLHTTP");
 		// 	}
 		// 	login.onreadystatechange = function() {
 		// 		if(this.readyState == 4 && this.status == 200) {
@@ -274,11 +272,6 @@
 		// });
 
 
-		$('#submit-button').on('click', function(event) {
-			$('#login-modal-form').submit();
-			var response = $('#sql').value;
-			alert(response);
-		});
 	</script>
 
 	
