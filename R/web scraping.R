@@ -1,3 +1,8 @@
+install.packages("rvest")
+install.packages("stringr")
+install.packages("tidyverse")
+install.packages("dplyr")
+install.packages("zipcode")
 library(rvest)
 library(stringr)  
 library(tidyverse) 
@@ -7,6 +12,9 @@ library(ggplot2)
 library(data.table)
 library(xml2)
 library(tidyr)
+
+install.packages("xlsx")
+a <- read.csv("test.csv")
 
 #Street Adress
 Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
@@ -91,11 +99,14 @@ warehouse <- as.data.frame(warehouse) %>%
   mutate(price, replace(price, price > 20, NA)) %>%
   na.omit
 warehouse$`replace(price, price > 20, NA)` <- NULL
+warehouse <- tibble::rowid_to_column(warehouse, "ID")
+
+
 
 avg_price <- warehouse %>% summarise(mean(price), mean(Size), mean(Space))
 a <- warehouse %>% summarise(sd(Size))
 
-warehouse <- tibble::rowid_to_column(warehouse, "ID")
+
 
 #Outlier Replacer with NA 
 #replacing outliers with NA in order to reach statistical clarity 
@@ -105,5 +116,5 @@ outlierReplace = function(dataframe, cols, rows, newValue = NA) {
   }
 }
 
-
+temp <- c("room_tep", "temp_cont", "frozen")
 
