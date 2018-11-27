@@ -17,7 +17,7 @@
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 		<!-- AJAX -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -84,7 +84,8 @@
 								</th>
 							</tr>
 							<tbody>
-								<tr class="clickable-row">
+								<!-- we use the data-* attribute to store the warehouse ID in each row, so that on-click, we can get that warehouse's ID to populate the form -->
+								<tr data-toggle="modal" data-target="#search-result-modal" class="clickable-row" onclick="getWarehouseData(1);">
 									<td class="text-center">
 										Warehouse Name
 									</td>
@@ -102,27 +103,37 @@
 						</thead>
 					</table>
 				</div>
+
 		
 				<!-- generic search result modal -->
-
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
-
-			<div id="search-result-modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-lg">
-			    <div class="modal-content">
-			      ...
-			    </div>
-			  </div>
+				<div id="search-result-modal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+	        					<h5 class="modal-title" id="exampleModalLabel">Warehouse Name</h5>
+	        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	         						<span aria-hidden="true">&times;</span>
+	        					</button>
+	      					</div>
+	      					<div class="modal-body">
+	        					
+		      				</div>
+	      					<div class="modal-footer">
+	        					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      					</div>
+	    				</div>
+				    </div>
+				</div>
 			</div>
 		</div>
-			<div class="footer">Footer</div>
+		<div class="footer">Footer</div>
 		</div>
 	</body>
 	<script type="text/javascript">
 		//add the "searchQuery" 
 		$(document).ready(function() {
 			var search_value = sessionStorage.getItem("searchQuery");
-			if(search_value == null || search_value = ""){
+			if(search_value == null || search_value == ""){
 				$('#zip-search').val("");
 			}
 			else {
@@ -132,13 +143,41 @@
 
 		});
 
-		
+		function getWarehouseData(warehouseID){
+			console.log(warehouseID);
+
+			//call to server to get the data for the warehouseID
+
+			$.ajax({
+				url: 'get_warehouse_data.php',
+				type:'POST', 
+				data: {'warehouseID': warehouseID},
+				contentType:'application/json',
+				dataType: 'JSON',
+				success: function(response){
+					var address_line_1 = response.address_line_1;
+					var address_line_2 = response.address_line_2;
+					var city = response.city;
+					var state = response.state;
+					var zipcode = response.zipcode;
+					var price_per_skid = response.price_per_skid;
+					var capacity = response.capacity;
+					var square_footage = response.square_footage;
+					var owner_id = response.owner_id;
+					console.log(response);
+				}
+			});
+
+		}
 
 
 	
 		$("#zip-search-button").on("click", function(event) {
 			var searchQuery = $('#zip-search').val();
-			if()
+			if(searchQuery == null || searchQuery == ""){
+				$('td #zip-search').val("");
+
+			}
 			sessionStorage.setItem("searchQuery", searchQuery);
 			search_value = sessionStorage.getItem("searchQuery");
 			$(".search-header").text("Search For: " + search_value);
