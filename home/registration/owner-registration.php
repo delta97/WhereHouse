@@ -4,9 +4,8 @@
 		<title>Owner Registration</title>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		<!-- jQuery -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<!-- AJAX -->
+	
+		<!-- AJAX/jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -44,7 +43,7 @@
 						</div>
 						<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 white">
 							<h1 id="owner-registration-title">WhereHouse Owner Registration</h1>
-							<form id="owner-registration-form" name="owner-registration-form">
+							<form id="owner-registration-form" method="post" name="owner-registration-form" action="submit_owner_registration.php" target="submit-redirect">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -179,6 +178,7 @@
 										<button id="submit-button" type="button" class="btn btn-submit">Submit</button>
 									</div>
 									<div class="col-auto">
+										<iframe style="display:none;" id="submit-redirect"></iframe>
 										<div id="submit-div">
 											<!-- where alerts are appended for password-related issues -->
 										</div>
@@ -268,7 +268,7 @@
 			var routing = $('#user-routing').value;
 
 
-			if((first_name === null || first_name === "" || first_name === " ") || (last_name === null || last_name === "" || last_name === " ") || (email === null || email === "" || email === " ") || (phone_num === null || phone_num === "" || phone_num === " ") || (password === null || pasword === "" || password === " ") || (birth_date === null || birth_date === "" || birth_date === " ") || (address1 === null || address1 === "" || address1 === " ") || (address2 === null || address2 === "" || address2 === " ") || (city === null || city === "" || city === " ") || (state === null || state === "" || state === " ") || (zipcode === null || zipcode === "" || zipcode === " ") || (bank_account === null || bank_account === "" || bank_account === " ") || (routing === null || routing === "" || routing === " ")){
+			if((first_name === null || first_name === "" || first_name === " ") || (last_name === null || last_name === "" || last_name === " ") || (email === null || email === "" || email === " ") || (phone_num === null || phone_num === "" || phone_num === " ") || (password === null || password === "" || password === " ") || (birth_date === null || birth_date === "" || birth_date === " ") || (address1 === null || address1 === "" || address1 === " ") || (address2 === null || address2 === "" || address2 === " ") || (city === null || city === "" || city === " ") || (state === null || state === "" || state === " ") || (zipcode === null || zipcode === "" || zipcode === " ") || (bank_account === null || bank_account === "" || bank_account === " ") || (routing === null || routing === "" || routing === " ")){
 				var submit_okay = false;
 			}
 			else {
@@ -277,29 +277,21 @@
 			return submit_okay;
 		}
 
-		$('#form-submit-btn').on('click', function(event) {
-			if(verifyFilled() == true){
-				$('#owner-registration-form').submit();
-			}
-			else {
-				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Make sure all fields are filled before submission</strong></div>");
-			}
-
-		});
+		
 
 
-		$('#owner-registration-form').on('submit', function(event) {
-			event.preventDefault();
-			$('#submit-div').empty();
-			$.ajax({
-				type: 'POST',
-				method: 'POST',
-				url: 'submit_owner_registration.php',
-				data: $('#owner-registration-form').serialize(), 
-				success: function() {
-					window.location = "registration_success.php";
-				}
-			});
-		});
+		// $('#owner-registration-form').on('submit', function(event) {
+		// 	event.preventDefault();
+		// 	$('#submit-div').empty();
+		// 	$.ajax({
+		// 		type: 'POST',
+		// 		method: 'POST',
+		// 		url: 'submit_owner_registration.php',
+		// 		data: $('#owner-registration-form').serialize(), 
+		// 		success: function() {
+		// 			window.location = "registration_success.php";
+		// 		}
+		// 	});
+		// });
 	</script>
 </html>

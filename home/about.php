@@ -48,7 +48,7 @@
 				<span class="navbar-item"><a href="FAQ.php">FAQ</a></span>
 			</div>
 			<div class="body">
-						<h1>Hello World!</h1>
+						<h1>Hello</h1>
 				<!-- registration modal -->
 				<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-title" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">

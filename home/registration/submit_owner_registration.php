@@ -27,23 +27,19 @@
 		$query = "SELECT email FROM User WHERE email = ".$user_email.";";
 		$result2 = mysqli_query($connection, $query);
 		if(result2){
-			echo "There already exists a user with this email. Please register again with a different email";
+			echo "<script> $('#submit-div').append('<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There already exists a user with that email. Please register again with a different email.</div>'); </script>";
 		}
 		else {
-			echo "There was an error inserting the data into the database. Please try again.";
+			echo "<script>$('#submit-div').append(\"<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There was an error inserting your information into the database. Please register again.</div>\"); </script>";
 		}
 		mysqli_close($connection);
 		die;
 	}
 	else {
-		if(session_status() == PHP_SESSION_NONE){
-			session_start();
-		}
-		$_SESSION['user_first_name'] = $user_first_name;
-		$_SESSION['user_last_name'] = $user_last_name;
-		$_SESSION['user-email'] = $user_email;
-		header('Location: http://web.ics.purdue.edu/~g1090429/home/registration/registration_success.php', true);
-		exit;
+		// header('Location: http://web.ics.purdue.edu/~g1090429/home/registration/registration_success.php', true);
+
+		echo "<script> $('#submit-div').append(\"<div style=\"margin: 10px;\" class=\"alert alert-success\" role=\"alert\">Welcome, ".$user_first_name.". You are now registered for a WhereHouse Owner Account.</div>\"); </script>";
+		exit();
 	}
 	mysqli_close($connection);
 ?>

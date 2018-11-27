@@ -30,10 +30,6 @@
 	else {
 		mysqli_close($connect);
 		
-		if(session_status() == PHP_SESSION_NONE) {
-			session_start();
-		}
-		$_SESSION['user_first_name'] = $user_first_name;
-		$_SESSION['user_last_name'] = $user_last_name;
+		
 	}
 ?>

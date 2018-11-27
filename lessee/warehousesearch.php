@@ -35,8 +35,10 @@
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
 				</div>
 				<div class="search">
-					<input id="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
+					<form id="zip-search-form" action="get_warehouse_data.php" target="search-container">
+						<input id="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
+						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
+					</form>
 				</div>
 				<div class="flex-logo">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -66,7 +68,7 @@
 						</form>
 					</div>
 				</div>
-				<div class="search-container">
+				<div id="search-container" class="search-container">
 					<table class="search-item table">
 						<thead>
 							<tr>
@@ -85,7 +87,7 @@
 							</tr>
 							<tbody>
 								<!-- we use the data-* attribute to store the warehouse ID in each row, so that on-click, we can get that warehouse's ID to populate the form -->
-								<tr data-warehouseID="1" data-toggle="modal" data-target="#search-result-modal" class="clickable-row" onclick="getWarehouseData(1)">
+								<tr id="1" data-warehouseID="1" data-toggle="modal" data-target="#search-result-modal" class="clickable-row">
 									<td class="text-center">
 										Warehouse Name
 									</td>
@@ -143,6 +145,12 @@
 
 		});
 
+		$('#1').data('warehouseID', 1);
+		$('#1').on('click', function(event) {
+			var warehouseID = $('#1').data('warehouseID');
+			getWarehouseData(warehouseID);
+
+		});
 		function getWarehouseData(warehouseID){
 			console.log(warehouseID);
 
@@ -151,23 +159,22 @@
 			$.ajax({
 				url: 'get_warehouse_data.php',
 				type:'POST', 
-				data: {'warehouseID': 1},
+				data: {'warehouseID': warehouseID},
 				contentType:'application/json',
-				dataType: 'json',
-				success: function(response){
-					var address_line_1 = response.address_line_1;
-					var address_line_2 = response.address_line_2;
-					var city = response.city;
-					var state = response.state;
-					var zipcode = response.zipcode;
-					var price_per_skid = response.price_per_skid;
-					var capacity = response.capacity;
-					var square_footage = response.square_footage;
-					var owner_id = response.owner_id;
-					var error = response.error;
+				success: function(data){
+					var address_line_1 = data.address_line_1;
+					var address_line_2 = data.address_line_2;
+					var city = data.city;
+					var state = data.state;
+					var zipcode = data.zipcode;
+					var price_per_skid = data.price_per_skid;
+					var capacity = data.capacity;
+					var square_footage = data.square_footage;
+					var owner_id = data.owner_id;
+					var error = data.error;
 					$('.modal-body').append("Address Line 1" + address_line_1);
 					console.log(address_line_1);
-					console.log(error);
+					
 				}
 
 			});
@@ -179,7 +186,6 @@
 		$("#zip-search-button").on("click", function(event) {
 			var searchQuery = $('#zip-search').val();
 			if(searchQuery == null || searchQuery == ""){
-				$('td #zip-search').val("");
 
 			}
 			sessionStorage.setItem("searchQuery", searchQuery);

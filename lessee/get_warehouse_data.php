@@ -7,7 +7,7 @@ require "serverconnect.php";
 $connection = serverConnect();
 
 
-$warehouseID = json_decode($_POST['warehouseID']);
+$warehouseID = $_POST['warehouseID'];
 
 
 $query = "SELECT * FROM Warehouse WHERE id = ".$warehouseID.";";
