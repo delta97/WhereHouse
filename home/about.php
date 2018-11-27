@@ -100,6 +100,7 @@
 					</div>
 				</div>
 			</div>
+			<h>Hello</h>
 			<div class="footer">Footer</div>
 		</div>
 		<script type="text/javascript">
@@ -125,6 +126,7 @@
 				window.location = "./registration/lessee-registration.php";
 			});
 		</script>
+
 	</body>
 </html>
 
