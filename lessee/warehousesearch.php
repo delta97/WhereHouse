@@ -85,7 +85,7 @@
 							</tr>
 							<tbody>
 								<!-- we use the data-* attribute to store the warehouse ID in each row, so that on-click, we can get that warehouse's ID to populate the form -->
-								<tr data-warehouseID="1" data-toggle="modal" data-target="#search-result-modal" class="clickable-row" onclick="alert(getWarehouseData($(this).data('warehouseID')))">
+								<tr data-warehouseID="1" data-toggle="modal" data-target="#search-result-modal" class="clickable-row" onclick="getWarehouseData(1)">
 									<td class="text-center">
 										Warehouse Name
 									</td>
@@ -151,9 +151,9 @@
 			$.ajax({
 				url: 'get_warehouse_data.php',
 				type:'POST', 
-				data: {'warehouseID': warehouseID},
+				data: {'warehouseID': 1},
 				contentType:'application/json',
-				dataType: 'JSON',
+				dataType: 'json',
 				success: function(response){
 					var address_line_1 = response.address_line_1;
 					var address_line_2 = response.address_line_2;
@@ -164,8 +164,12 @@
 					var capacity = response.capacity;
 					var square_footage = response.square_footage;
 					var owner_id = response.owner_id;
-					console.log(response);
+					var error = response.error;
+					$('.modal-body').append("Address Line 1" + address_line_1);
+					console.log(address_line_1);
+					console.log(error);
 				}
+
 			});
 
 		}
