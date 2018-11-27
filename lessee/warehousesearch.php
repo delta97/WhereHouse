@@ -85,7 +85,7 @@
 							</tr>
 							<tbody>
 								<!-- we use the data-* attribute to store the warehouse ID in each row, so that on-click, we can get that warehouse's ID to populate the form -->
-								<tr data-toggle="modal" data-target="#search-result-modal" class="clickable-row" onclick="getWarehouseData(1);">
+								<tr data-warehouseID="1" data-toggle="modal" data-target="#search-result-modal" class="clickable-row" onclick="alert(getWarehouseData($(this).data('warehouseID')))">
 									<td class="text-center">
 										Warehouse Name
 									</td>
