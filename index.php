@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- add favicon -->
+		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+		
 		<!-- 3rd party footer content -  -->
 		
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
