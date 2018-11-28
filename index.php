@@ -2,12 +2,6 @@
 <html>
 	<head>
 		<!-- 3rd party footer content -  -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="keywords" content="footer, address, phone, icons"/>
-		<link rel="stylesheet" href="css/demo.css">
-		<link rel="stylesheet" href="css/footer-distributed-with-address-and-phones.css">
 		
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
@@ -25,7 +19,11 @@
 		<title>Wherehouse | Home</title>
 
 		<!-- Bootstrap -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -97,7 +95,7 @@
 					</div>
 				</div>
 			<!-- Login Modal -->
-				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" aria-hidden="true">
+				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" >
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content modal-formatting">
 							<div class="modal-header">
@@ -122,13 +120,13 @@
 								    <div class="modal-footer">
 										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 										<button type="button" class="btn btn-next" id="submit-button">Log In</button>
-										
  									</div>
 								</form>
 							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
 			<div class="footer" style="display: flex; flex-direction: row; justify-content: space-between; align-content: center;">
 				<div class="footer-left" style="align-self:center;margin-left: 200px; color:white;">
@@ -138,7 +136,11 @@
 					<p><a href="owner/dashboard.php" style="color:white;">Go to Owner</a></p>
 				</div>
 			</div>
-			<footer style="margin-top: 0px;"class="footer-distributed">
+			
+
+		</div>
+	</body>
+	<footer style="margin-top: 0px;"class="footer-distributed">
 
 			<div class="footer-left">
 
@@ -181,17 +183,13 @@
 					<a href="#"><i class="fa fa-twitter"></i></a>
 					<a href="#"><i class="fa fa-linkedin"></i></a>
 					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fa fa-instagram"></i></a>
-					<!-- Add a link to instagram... replace # with actual links> 
+					<!-- Add a link to instagram... replace # with actual links> -->
 
 				</div>
 
 			</div>
 
 		</footer>
-
-		</div>
-	</body>
-	
 	<script type="text/javascript">
 
 
