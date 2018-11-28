@@ -1,4 +1,3 @@
-
 body {
 	margin: 0px;
 	padding: 0px;
@@ -100,7 +99,7 @@ h1 {
 }
 .logo-text {
 	font-family: 'Righteous', cursive;
-	color: rgb(250, 176, 17);
+	color: rgb(251,180,19);
 	font-size: 35px;
 	margin-left: 10px;
 	margin-right: 20px;
@@ -108,7 +107,7 @@ h1 {
 }
 .company-name {
 	font-family: 'Righteous', cursive;
-	color: rgb(250, 176, 17);
+	color: rgb(251,180,19);
 	font-size: 25px;
 	background-color: rgba(0,0,0,.025);;
 	padding-left: 2px;

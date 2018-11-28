@@ -24,7 +24,85 @@
 
 		<!-- Link to the style sheet -->
 		<link rel="stylesheet" href="../style.css"> 
-	</head>
+		
+		
+		<!-- Meet Team 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	
+		<style>
+		body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.services{
+  background: #ffffff;
+  text-align: center;
+}
+.services h1{
+  display: inline-block;
+  text-transform: uppercase;
+  border-bottom: 4px solid #e75d20;
+  font-size: 20px;
+  padding-bottom: 10px;
+  margin-top: 40px;
+}
+.cen{
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  padding: 20px;
+}
+.service{
+  display: inline-block;
+  width: calc(100% / 3);
+  margin: 0 -2px;
+  padding: 25px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.service:hover{
+  background: #ddd;
+}
+.service i{
+  color: #fbb413;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+.service h2{
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0;
+}
+.service p{
+  color: gray;
+  font-size: 15px;
+  font-weight: 500;
+}
+@media screen and (max-width: 800px) {
+  .service{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .service{
+    width: 100%;
+  }
+}
+		</style>
+	
+	</head>	
+	
+	
 	<body>
 		<div class="flexbox-wrapper">
 			<div class="header">
@@ -48,7 +126,58 @@
 				<span class="navbar-item"><a href="FAQ.php">FAQ</a></span>
 			</div>
 			<div class="body">
-						<h1>Hello</h1>
+					
+					
+					
+							<div class="services">
+							  <h1>Our Services</h1>
+							  <div class="cen">
+								<div class="service">
+								  <i class="fas fa-box-open"></i>
+								  <h2>Storage Solutions</h2>
+								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								</div>
+
+								<div class="service">
+								  <i class="fab fa-android"></i>
+								  <h2>Service Name</h2>
+								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								</div>
+
+								<div class="service">
+								  <i class="fab fa-angellist"></i>
+								  <h2>Service Name</h2>
+								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								</div>
+
+								<div class="service">
+								  <i class="fas fa-apple-alt"></i>
+								  <h2>Service Name</h2>
+								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								</div>
+
+								<div class="service">
+								  <i class="fas fa-archway"></i>
+								  <h2>Service Name</h2>
+								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								</div>
+
+								<div class="service">
+								  <i class="far fa-angry"></i>
+								  <h2>Service Name</h2>
+								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								</div>
+							  </div>
+							</div>	
+								
+								
+		
+		
+		
+								
+						
+						
+						
 				<!-- registration modal -->
 				<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-title" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -102,7 +231,13 @@
 				</div>
 			</div>
 
-			<div class="footer">HELLO FOOTER</div>
+			<div class="footer">HELLO FOOTER
+			
+			
+			
+			
+			
+			</div>
 		</div>
 		<script type="text/javascript">
 			$("#home").on('click touch', function() {
@@ -130,19 +265,3 @@
 
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
