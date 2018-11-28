@@ -146,52 +146,36 @@
 	<footer style="margin-top: 0px;"class="footer-distributed">
 
 			<div class="footer-left">
-
 				<span class="company-name">WhereHouse INC. </span> <br>
-
-
-
 				<p class="footer-company-name">IE332 Team Project &copy; 2018</p>
 			</div>
-
 			<div class="footer-center">
-
 				<div>
 					<i class="fa fa-map-marker"></i>
 					<p><span>610 Purdue Mall</span> West Lafayette, IN 47907</p>
 				</div>
-
 				<div>
 					<i class="fa fa-phone"></i>
 					<p>+1 555 123 4567</p>
 				</div>
-
 				<div>
 					<i class="fa fa-envelope"></i>
 					<p><a href="mailto:wherehouse.8.inc@gmail.com">wherehouse.8.inc@gmail.com</a></p>
 				</div>
-
 			</div>
-
 			<div class="footer-right">
-
 				<p class="footer-company-about">
 					<span>Connect With Us</span>
 					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
 				</p>
-
 				<div class="footer-icons">
-
 					<a href="#"><i class="fa fa-facebook"></i></a>
 					<a href="#"><i class="fa fa-twitter"></i></a>
 					<a href="#"><i class="fa fa-linkedin"></i></a>
 					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fa fa-instagram"></i></a>
 					<!-- Add a link to instagram... replace # with actual links> -->
-
 				</div>
-
 			</div>
-
 		</footer>
 	<script type="text/javascript">
 
