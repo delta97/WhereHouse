@@ -13,6 +13,8 @@
 ?>
 <html>
 	<head>
+		<!-- add favicon -->
+		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
