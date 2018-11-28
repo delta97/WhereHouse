@@ -8,7 +8,7 @@
  	$id_query = "SELECT id FROM User WHERE Email = '".$_SESSION['user_email']."'";
 
  	$result = mysqli_query($connection, $id_query);
-	$assoc_array = mysqli_fetch_assoc($result);
+	$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	$user_id = $assoc_array["id"];
 
 	mysqli_free_result($result);
@@ -152,13 +152,17 @@
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label class="checkbox" for="temperature-controlled">Does your warehouse have temperature control capabilities?</label>
-										<div class="toggle btn btn-default flex-center " data-toggle="toggle">
-											<input type="checkbox" data-toggle="toggle" id="temperature-controlled" name="temperature-controlled">
-											<div class="toggle-group">
-												<label class="btn btn-primary toggle-on" value="true">Yes</label>
-												<label class="btn btn-primary active toggle-off" value="false">No</label>
-												<span class="toggle-handle btn btn-default"></span>
-											</div>
+										<div class="form-check">
+										  <input class="form-check-input" type="radio" name="temperature-yes" id="temperature-yes" value="true" checked="true">
+										  <label class="form-check-label" for="temperature-yes">
+										   Yes
+										  </label>
+										</div>
+										<div class="form-check">
+										  <input class="form-check-input" type="radio" name="temperature-no" id="temperature-no" value="false">
+										  <label class="form-check-label" for="temperature-no">
+										    No
+										  </label>
 										</div>
 									</div>
 									<div class="col">
@@ -282,7 +286,18 @@
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
 		});
-		
+		$('#temperature-yes').on('click', function() {
+			$('#temperature-yes').prop('checked', true);
+			$('#temperature-no').prop('checked', false);
+			$('#temperature-lower-bound').prop('disabled', false);
+			$('#temperature-upper-bound').prop('disabled', false);
+		});
+		$('#temperature-no').on('click', function(event){
+			$('#temperature-yes').prop('checked', false);
+			$('#temperature-no').prop('checked', true);
+			$('#temperature-lower-bound').prop('disabled', true);
+			$('#temperature-upper-bound').prop('disabled', true);
+		});
 
 		function reloadOnSubmit() {
 			window.location = "warehouses.php";

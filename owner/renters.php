@@ -64,6 +64,20 @@
 				</div>
 				<div class="page-content">
 					<h1>Renters</h1>
+					<div id="current-renters">
+						<table class="table table-striped table-hover">
+							<thead style="text-align:center">
+								<tr>
+									<th scope="col">First Name</th>
+									<th scope="col">Last Name</th>
+									<th scope="col">Contract ID</th>
+									<th scope="col">Warehouse ID</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
