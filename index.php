@@ -245,18 +245,19 @@
 			//get form data
 			var email_address = $('#login-modal-email').value;
 			var password = $('#login-modal-password').value;
-			
+			var inputArray = {email: email_address, password:password};
 
 
 			$.ajax({
 				type: 'POST', 
 				url: 'login.php',
+				contentType: "application/json",
+				data: inputArray,
 				dataType: 'json',
-				data: {'email': email_address, 'password': password},
-				success: function(response) {
- 					var data = JSON.stringify(response);
- 					var user_type = data.user_type;
- 					var user_id = data.user_id;
+				success: function(resp) {
+					var response = JSON.parse(resp);
+ 					var user_type = response.user_type;
+ 					var user_id = response.user_id;
  					var user_first_name = response.user_first_name;
  					var user_last_name = response.user_last_name;
  					var user_type_should_be = response.sql;
@@ -266,6 +267,7 @@
  					console.log(user_type);
  					console.log(user_id);
  					console.log(user_first_name);
+ 					console.log(user_email);
 
 
  					if(user_type === -1){
