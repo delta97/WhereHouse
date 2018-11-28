@@ -1,11 +1,13 @@
 <?php 
 
-$email = $_POST['login-modal-email'];
-$password = $_POST['login-modal-password'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 
 if(session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
+
+$_SESSION['variable_name'] = 1;
 
 require "serverconnect.php";
 $connection = serverConnect();
@@ -13,7 +15,7 @@ $connection = serverConnect();
 $email_s = mysqli_real_escape_string($connection, $email);
 $password_s = mysqli_real_escape_string($connection, $password);
 
-$query = "SELECT id, first_name, last_name, user_type FROM User WHERE email = '$email_s'";
+$query = "SELECT id, first_name, last_name, user_type FROM User WHERE email = '$email';";
 $result = mysqli_query($connection, $query);
 
 if($result) {
@@ -37,18 +39,10 @@ else { //The user's email doesn't exist in the database -->they need to make an 
 
 $user_type_should_be = 0;
 
-$response = "<script type=\"text/javascript\">
-	var user_email = '".$email."'; 
-	var sql = '".$user_type_should_be."'; 
-	var user_password = '".$password."'; 
-	var user_id = '".$user_id."'; 
-	var user_type = '".$user_type."'; 
-	var user_first_name = '".$user_first_name."'; 
-	var user_last_name = '".$user_last_name."'; 	
-	alert(user_email + \",\" + user_first_name + \",\" + sql);
+
+$response = json_encode(array('user_email' => $email, 'sql' => $user_type_should_be, 'user_password' => $password, 'user_id' => $user_id, 'user_type' => $user_type, 'user_first_name' => $user_first_name, 'user_last_name' => $user_last_name));
 
 
-</script>";
 
 
 echo($response);

@@ -20,9 +20,6 @@
 		<!-- AJAX -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		<!-- Bootstrap -->
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
 		<!-- Link to the style sheet -->
 		<link rel="stylesheet" href="style.css"> 
 	</head>
@@ -180,50 +177,50 @@
 
 		});
 
-		// $('#submit-button').on('click', function(event){
-		// 	event.preventDefault();
-		// 	$('.alerts').empty(); //gets rid of any existing alerts on re-submission
+		$('#submit-button').on('click', function(event){
+			event.preventDefault();
+			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
 
-		// 	//get form data
-		// 	var email_address = $('#login-modal-email').value;
-		// 	var password = $('#login-modal-password').value;
+			//get form data
+			var email_address = $('#login-modal-email').value;
+			var password = $('#login-modal-password').value;
 			
+$('')
 
-		// 	$.ajax({
-		// 		type: 'POST',
-		// 		method: 'POST', 
-		// 		url: 'login.php',
-		// 		data: {email: email_address, password: password},
-		// 		success: function(response) {
- 	// 				var user_type = response.user_type;
- 	// 				var user_id = response.user_id;
- 	// 				var user_first_name = response.user_first_name;
- 	// 				var user_last_name = response.user_last_name;
- 	// 				var user_type_should_be = response.sql;
- 	// 				var user_email = response.email;
-
-
- 	// 				console.log(user_type);
- 	// 				console.log(user_id);
- 	// 				console.log(user_first_name);
- 	// 				console.log(user_type_should_be);
+			$.ajax({
+				type: 'POST', 
+				url: 'login.php',
+				dataType: 'json',
+				data: {'email': email_address, 'password': password},
+				success: function(response) {
+ 					var user_type = response.user_type;
+ 					var user_id = response.user_id;
+ 					var user_first_name = response.user_first_name;
+ 					var user_last_name = response.user_last_name;
+ 					var user_type_should_be = response.sql;
+ 					var user_email = response.email;
 
 
- 	// 				if(user_type === -1){
- 	// 					$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
- 	// 				}
- 	// 				else if(user_type === -2){
- 	// 					$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
- 	// 				}
- 	// 				else if(user_type === 0){
- 	// 					window.location = "./lessee/dashboard.php";
- 	// 				}
- 	// 				// else if(user_type === 1) {
- 	// 				// 	window.location = "./owner/dashboard.php";
- 	// 				// }
-		// 		}
-		// 	});
-		// });
+ 					console.log(user_type);
+ 					console.log(user_id);
+ 					console.log(user_first_name);
+
+
+ 					if(user_type === -1){
+ 						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
+ 					}
+ 					else if(user_type === -2){
+ 						$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
+ 					}
+ 					else if(user_type === 0){
+ 						window.location = "./lessee/dashboard.php";
+ 					}
+ 					// else if(user_type === 1) {
+ 					// 	window.location = "./owner/dashboard.php";
+ 					// }
+				}
+			});
+		});
 
 
 		// $('#submit-button').on('click', function(event) {

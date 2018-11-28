@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 		<!-- jQuery -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- AJAX -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -78,14 +78,61 @@
 							</form>
 						</div>
 					</div>
-					<div class="inbox-flex">
-						<div class="inbox">
-							<table>
-							</table>
+					<div class="inbox-container">
+						<div class="inbox-flex">
+							<div id="inbox" class="inbox">
+								<table class="table table-striped table-hover">
+								  <thead>
+								    <tr>
+								      <th scope="col">Date</th>
+								      <th scope="col">From</th>
+								      <th scope="col">Subject</th>
+								   
+								    </tr>
+								  </thead>
+								  <tbody class="table-striped">
+								  	<tr>
+								  		<td scope="col">Hello</td>
+								  		<td scope="col">Hello</td>
+								  		<td scope="col">Hello</td>
+								  	</tr>
+								  </tbody>
+								</table>
+							</div>
+						</div>
+						<div class="inbox-flex">
+							<div class="inbox" id="sent-history">
+								<table class="table table-striped table-hover">
+								  <thead>
+								    <tr>
+								      <th scope="col">Date</th>
+								      <th scope="col">From</th>
+								      <th scope="col">Subject</th>
+								    </tr>
+								  </thead>
+								  <tbody class="table-striped">
+								  	<tr>
+								  		<td scope="col">Hello</td>
+								  		<td scope="col">Hello</td>
+								  		<td scope="col">Hello</td>
+								  	</tr>
+								  </tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- ajax for populating the inbox with messages -->
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#refresh-btn').on('click', function(event){
+						$.get("update-inbox.php", function(data){
+
+						});
+					});
+				});
+			</script>
 			<!-- New Message Modal -->
 			<div class="modal fade" id="new-message-modal" tabindex="-1" role="dialog" aria-labelledby="new-message-modal" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered flex-center" role="document">
@@ -116,11 +163,12 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-								<button type="button" class="btn btn-submit">Send</button>
-								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-							</div>
+							<button type="button" class="btn btn-submit">Send</button>
+							<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
+			</div>
 		</div>
 		<div class="footer">Footer</div>
 	</body>

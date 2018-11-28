@@ -11,14 +11,12 @@
 	$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
 	$user_id = $assoc_array["id"];
 
-	mysqli_free_result($result);
  	//query to get the warehouses that correspond to that user id
 	$query = "SELECT id FROM Warehouse WHERE owner_id = '".$user_id."'";
 	$result = mysqli_query($connection, $query);
 	$_SESSION["owner_warehouse_ids"] = mysqli_fetch_all($result, MYSQLI_NUM);
 	$num_ids = count($_SESSION['owner_warehose_ids']);
 
-	mysqli_free_result($result);
 	mysqli_close($connection);
  ?>
 <!-- owner dashboard -->
@@ -31,7 +29,7 @@
 		<!-- Roboto Condensed Font -->
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
-		<title>Owner Dashboard | Manage Warehouses</title>
+		<title>Manage Warehouses</title>
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -93,6 +91,10 @@
 						<button type="button" class="btn btn-primary add-warehouse-btn" data-toggle="modal" data-target="#add-warehouse-modal">Add a Warehouse</button>
 					</div>
 					<div class="warehouse-tiles">
+						<div class="warehouse">
+							helo
+							
+						</div>
 						<?php 
 							$connection = serverConnect();
 							$index = 0;
@@ -100,7 +102,7 @@
 							
 							$result = mysqli_query($connection, $query);
 
-							if($result == false) {
+							if(!$result) {
 								echo "You have no warehouses. Add one.";
 							}
 							else {
@@ -120,6 +122,10 @@
 									$index++;
 									/*echo " this is the code that will create a new div*/
 								}
+							}
+							$warehouse_index = 0;
+							while($warehouse_index < $num_ids) {
+
 							}
 						?>
 					</div>
@@ -147,6 +153,10 @@
 									<div class="col">
 										<label for="warehouse-sqft">Warehouse Size (Square Feet)</label>
 										<input class="form-control" type="number" name="warehouse-sqft" id="warehouse-sqft" placeholder="Square Footage">
+									</div>
+									<div class="col">
+										<label for="warehouse-skids">Number of Skids (40 in. x 48 in. x 48 in.)</label>
+										<input type="number" class="form-control" id="warehouse-skids" name="warehouse-skids" placeholder="# of Skids">
 									</div>
 								</div>
 								<div class="form-row form-spacing">

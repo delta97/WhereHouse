@@ -15,4 +15,9 @@ function serverConnect(){
 	return $connection;
 }
 
+
+function getDate(){
+	$date = date("Y-m-d H:i:s");
+	return $date;
+}
 ?>

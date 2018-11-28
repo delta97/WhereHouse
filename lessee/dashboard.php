@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<?php
+	require "serverconnect.php";
+	$connection = serverConnect();
+	$user_id = $_SESSION['user_id'];
+
+	$query = "SELECT COUNT(message_id) FROM Messages WHERE recipient_id = '$user_id';";
+	$result = mysqli_query($connection, $query);
+
+	$associative_array = mysqli_fetch_array($result, MYSQLI_NUM);
+	$_SESSION['num_messages'] = $associative_array[0];
+	if($_SESSION['num_messages'] > 0) {
+		echo"<script> $('.notification-icon').text('".$num_messages."');</script>"; //adds the number of messages as an icon over the inbox navbar button
+	}
+
+
+?>
 <html>
 	<head>
 		<!-- Righteous Font -->
@@ -46,9 +62,6 @@
 			</div>
 			<div class="body dashboard-flex">
 				<div class="sidebar">
-					<div id="sidebar-close" class="sidebar-btn">
-						<span class="sidebar-btn-text"><i class="fa fa-bars"></i></button></span><button class="btn">
-					</div>
 					<div id="dashboard-btn" class="sidebar-btn active-btn">
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
@@ -59,7 +72,7 @@
 						<span class="sidebar-btn-text">Manage Requests</span>
 					</div>
 					<div id="inbox-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Inbox<span class="notification-icon">1</span></span>
+						<span class="sidebar-btn-text">Inbox<span class="notification-icon"></span></span>
 						
 					</div>
 					<div id="account-info" class="sidebar-btn">

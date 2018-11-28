@@ -27,11 +27,6 @@ body {
 	border: none;
 }
 
-
-
-
-
-
 .flexbox-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -115,7 +110,7 @@ h1 {
 	font-family: 'Righteous', cursive;
 	color: rgb(250, 176, 17);
 	font-size: 25px;
-	background-color: white;
+	background-color: rgba(0,0,0,.025);;
 	padding-left: 2px;
 	padding-right: 2px;
 
@@ -719,6 +714,8 @@ h1 {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: baseline;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 
@@ -736,6 +733,8 @@ h1 {
 	width: 100%;
 	background-color: white;
 	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
+	margin-top: 25px;
+
 
 }
 
@@ -1003,4 +1002,35 @@ h1 {
 	text-decoration: underline;
 	font-weight: bold;
 
+}
+
+.inbox-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+	z-index: 10;
+}
+
+.warehouse-tiles {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
+	background-color: rgba(0,0,0,.025);
+
+
+}
+.warehouse-tile {
+	display: flex;
+	margin: 10px;
+	width: 80%;
+	height: 400px;
+	background-color: white;
+	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
 }
