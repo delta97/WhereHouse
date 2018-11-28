@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php
+	require "serverconnect.php";
+	$connection = serverConnect();
+
+	$query = "SELECT * FROM User WHERE email = '".$_SESSION['user_email']."';";
+	$result = mysqli_query($connection, $query);
+
+
+	if(!$result){
+		
+	}
+?>
 <html>
 	<head>
 		<!-- Righteous Font -->
@@ -61,8 +73,9 @@
 				<div class="page-content-account-info flex-center-account-info">
 					<h1 class="dashboard-header">Account Information</h1>
 					<div id="save-notifications"></div>
+					<iframe id="submit-redirect" style="display:none;"></iframe>
 					<div class="account-info">
-						<form id="edit-information-form">
+						<form id="edit-information-form" action="update_general_information.php" target="#submit-redirect" method="post">
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-first-name">First Name</label>
@@ -234,6 +247,12 @@
 		});
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
+		});
+
+
+		$('#general-information-save').on('click', function(event) {
+
+
 		});
 	</script>
 </html>
