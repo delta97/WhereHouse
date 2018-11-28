@@ -53,11 +53,22 @@
 
   					</div>
  					<div class="modal-footer">
-   						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-    					<button type="button" class="btn btn-warning">Accept Terms and Conditions</button>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="signature-checkbox">
+                <label class="form-check-label" for="signature-checkbox">
+                   <h5>Checking this box </h5>
+                </label>
+              </div>
+          </div>
+   						<button id="close" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    					<button id="accept" type="button" class="btn btn-warning" disabled>Accept Terms and Conditions</button>
   					</div>
 				</div>
  			</div>
+
 		</div>
 	</body>
+  <script>
+    $('#')
+  </script>
 </html>
