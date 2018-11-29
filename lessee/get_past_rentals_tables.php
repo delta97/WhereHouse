@@ -1,7 +1,7 @@
 <?php
 	error_reporting(E_ERROR | E_PARSE);
 
-	require "serverconnect.php";
+	
 	$connection = serverConnect();
 
 	$user_id = $_SESSION['user_id'];

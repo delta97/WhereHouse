@@ -18,7 +18,7 @@
 	$total_price = $associative_array['total_price'];
 	$num_rentals = sizeof($contract_id);
 
-	echo"<table class=\"table table-white\">
+	echo"<table class=\"table table-white table-hover\">
 							<thead>
 								<tr>
 									<th style=\"width: 25%\" class=\"text-center\" scope=\"col\">
@@ -37,6 +37,10 @@
 							</thead>
 							<tbody>";
 	for($x = 0; $x < $num_rentals; $x++) {
+		if($num_rentals == 0 || $num_rentals == NULL || $num_rentals == "" || $num_rentals == "null") {
+			echo"<div class=\"no-rentals-message\"><h2>Oh no! You don't have any current rentals. <span class=\"search-redirect-button\">Click here</span> to go look for more facilities to rent.</h2></div>";
+		}
+		else {
 		echo"
 			<tr id=\"current-rentals-table-".$x."\"data-contractID=\"".$contract_id[$x]."\">
 					<td style=\"width: 25%\" class=\"text-center\">
@@ -54,7 +58,7 @@
 					</td>
 				</tr>
 			";
-
+		}
 	}
 	echo"</tbody></table>";
 	mysqli_close($connection);

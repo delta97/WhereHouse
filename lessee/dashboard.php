@@ -143,6 +143,7 @@
 		});
 		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
+			<?php session_destroy();?>
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
@@ -215,5 +216,6 @@
 
 			});
 		}
+
 	</script>
 </html>

@@ -61,7 +61,7 @@
 				<div class="page-content-inbox">
 					<div class="current-rentals">
 						<h1 style="text-align: center;">Current Rentals</h1>
-						<?php require "get_current_rentals_tables.php";?>
+						<?php include "get_current_rentals_tables.php";?>
 
 
 					</div>
@@ -74,7 +74,7 @@
 					?> -->
 					<div class="past-rentals">
 						<h1 style="text-align: center;">Past Rentals</h1>
-						<?php require "get_past_rentals_tables.php";?>
+						<?php include "get_past_rentals_tables.php";?>
 					</div>
 					
 				</div>
@@ -129,23 +129,24 @@
 	</body>
 
 	<script type="text/javascript">
-		$("#dashboard-btn").click(function(event) {
-			window.location = "dashboard.php";
+		$("#dashboard-btn").on('click', function(event) {
+			window.location = "./dashboard.php";
 		});
 		$("#rentals-btn").click(function(event) {
-			window.location = "rentals.php";
+			window.location = "./rentals.php";
 		});
 		$("#requests-btn").click(function(event) {
-			window.location = "requests.php";
+			window.location = "./requests.php";
 		});
 		$("#inbox-btn").click(function(event) {
-			window.location = "inbox.php";
+			window.location = "./inbox.php";
 		});
 		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
+			<?php session_destroy();?>
 		});
 		$("#account-info").click(function(event) {
-			window.location = "account_info.php";
+			window.location = "./account_info.php";
 		});
 	</script>
 </html>
