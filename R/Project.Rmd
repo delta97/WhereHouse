@@ -95,6 +95,10 @@ user$email <- a$Email
 user$password <- a$password
 
 user <- as.data.frame(user)
+user <- user[, -c(1:2)]
+
+dbWriteTable(con, "User", user, overwrite = TRUE)
+
 
 ```
 
