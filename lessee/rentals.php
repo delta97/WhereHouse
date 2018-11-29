@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 	<head>
 		<!-- add favicon -->
@@ -57,44 +58,10 @@
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
-				<div class="page-content">
+				<div class="page-content-inbox">
 					<div class="current-rentals">
 						<h1 style="text-align: center;">Current Rentals</h1>
-						<table id="current-rentals-table" class="table">
-							<thead>
-								<tr>
-									<th style="width: 25%" class="text-center" scope="col">
-										Warehouse Rented
-									</th>
-									<th style="width: 25%" class="text-center" scope="col">
-										Rental Duration
-									</th>
-									<th style="width: 25%" class="text-center" scope="col">
-										Cost Total
-									</th>
-									<th style="width: 25%" class="text-center" scope="col">
-										View Current Availability
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="width: 25%" class="text-center">
-										1st Warehouse Rented From Server
-									</td>
-									<td style="width: 25%" class="text-center">
-										Date Range From Server
-									</td>
-									<td style="width: 25%" class="text-center">
-										Cost Total From Server
-									</td>
-									<td style="width: 25%" class="text-center">
-										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn view-details-btn btn-info">View Details</button>
-										<button data-toggle="modal" data-target="#rent-again" class="btn btn-primary">Rent Again</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<?php require "get_current_rentals_tables.php";?>
 
 
 					</div>
@@ -107,52 +74,9 @@
 					?> -->
 					<div class="past-rentals">
 						<h1 style="text-align: center;">Past Rentals</h1>
-						<table id="past-rentals-table" class="table">
-							<thead>
-								<tr>
-									<th style="width: 25%" class="text-center" scope="col">
-										Warehouse Rented
-									</th>
-									<th style="width: 25%" class="text-center" scope="col">
-										Rental Duration
-									</th>
-									<th style="width: 25%" class="text-center" scope="col">
-										Cost Total
-									</th>
-									<th style="width: 25%" class="text-center" scope="col">
-										View Current Availability
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="width: 25%" class="text-center">
-										1st Warehouse Rented From Server
-									</td>
-									<td style="width: 25%" class="text-center">
-										Date Range From Server
-									</td>
-									<td style="width: 25%" class="text-center">
-										Cost Total From Server
-									</td>
-									<td style="width: 25%" class="text-center">
-										<button data-toggle="modal" data-target="#rental-view-details" style="margin-right: 5px" class="btn view-details-btn btn-info">View Details</button>
-										<button data-toggle="modal" data-target="#rent-again" class="btn btn-primary">Rent Again</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<?php require "get_past_rentals_tables.php";?>
 					</div>
-					<!-- <?php
-						//query the history of the user for ALL rentals over time
-						//display results in a table 
-
-						//on click for each result, toggle a modal that displays the information surrounding a particular rental
-
-						//possible feature if there is time: add a print to pdf button that prints and downloads a pdf of the rental in question
-
-						//fields to include in modal: warehouse rented, duration, final cost, rating the user gave the warehouse, average rating for the warehouse, search for this result again button
-					?> -->
+					
 				</div>
 			</div>
 
