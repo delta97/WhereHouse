@@ -18,6 +18,7 @@ install.packages("rvest")
 install.packages("RMySQL")
 install.packages("httr")
 install.packages("XML")
+install.packages("stringi")
 ```
 
 ```{r}
@@ -31,12 +32,13 @@ library(ggmap)
 library(rvest)
 library(stringr)  
 library(ggplot2)
+library(stringi)
 library(RMySQL)
 ```
 
 ```{r data}
 #USER DATATABLE
-sample_size <- 40000
+sample_size <- 39909
 
 #First and Last Names
 full_name <- r_full_names(sample_size)
@@ -44,7 +46,7 @@ df <- as.data.frame(full_name)
 names <- tidyr::separate(df, full_name, sep = " ", c("First_name", "Last_name" ))
 
 #User type
-type <- as.data.frame(rbinom(sample_size, 1, 0.35))
+user_type <- as.data.frame(rbinom(sample_size, 1, 0.35))
 
 #Phone Number
 Phone_num <- r_phone_numbers(sample_size)
@@ -55,20 +57,44 @@ Email <- r_email_addresses(sample_size)
 Email <- as.data.frame(Email)
 
 #Date of Birth 
-DOB <- sample(seq(as.Date('1950/01/01'), as.Date('2000/01/01'), by="day"), )
+DOB <- sample(seq(as.Date('1950/01/01'), as.Date('2000/01/01'), by="day"), sample_size, replace = TRUE )
 DOB <- as.data.frame(DOB)
 
+#Bank Account Number 
+bank_account <- sample(10000000000:999999999999, sample_size,replace=TRUE)
+bank_account <- as.data.frame(bank_account)
+
+#Routing Number
+routing_number <- sample(1e9:1e10,sample_size,replace=TRUE)
+routing_number <- as.data.frame(routing_number)
+
 #Address
-zipcodes <- data(zipcode)
-df <- data(zipcode)
-df <- dplyr::filter(zipcode, state == "IN" & city == "West Lafayette")
-latitude <- as.data.frame(r_latitudes(5))
-longitude <- as.data.frame(r_longitudes(5))
+data <- read.csv("data.csv")
+address_2 <- 0
 
-coord <- as.data.frame(c(latitude,longitude))
-coord$textAddress <- mapply(FUN = function(longitude, latitude) revgeocode(c(longitude, latitude)), coord$longitude.5, coord$latitude.5)
+#Password
+password<- stri_rand_strings(n=sample_size, length=8, pattern="[A-Za-z0-9]")
+password <- as.data.frame(password)
 
-#CONTRACT DATATABLE
+a <- data.frame(DOB,Phone_num, routing_number, bank_account, user_type, Email, password)
+
+user <- names
+user$first_name <- names$First_name
+user$last_name <- names$Last_name
+user$address_1 <- data$Street.Address
+user$address_2 <- 0
+user$city <- data$City
+user$state <- data$State
+user$zip <- data$Zip.Code
+user$DOB <- a$DOB
+user$phone_num <- a$Phone_num
+user$routing_num <- a$routing_number
+user$bank_acc <- a$bank_account
+user$user_type <- a$user_type
+user$email <- a$Email
+user$password <- a$password
+
+user <- as.data.frame(user)
 
 ```
 
