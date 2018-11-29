@@ -1,5 +1,4 @@
 install.packages("rvest")
-install.packages("stringr")
 install.packages("tidyverse")
 install.packages("dplyr")
 install.packages("zipcode")
@@ -10,11 +9,8 @@ library(dplyr)
 library(zipcode)
 library(ggplot2)
 library(data.table)
-library(xml2)
-library(tidyr)
 
-install.packages("xlsx")
-a <- read.csv("test.csv")
+
 
 #Street Adress
 Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
@@ -91,30 +87,40 @@ Space <- as.numeric(available_space$Space)
 Space <- as.data.frame(Space)
 
 #Temperature control 
+zipcodes <- read.csv("test.csv") %>% select("Zipcode", "ID")
 
 #Warehouse data frame 
-warehouse <- bind_cols(Street,city_state, price, Size, Space) 
+warehouse <- bind_cols(Street,city_state,price, Size) 
 warehouse <- as.data.frame(warehouse) %>%
   mutate(price = price * 12) %>% 
   mutate(price, replace(price, price > 20, NA)) %>%
   na.omit
 warehouse$`replace(price, price > 20, NA)` <- NULL
+#Replacing utliers with NA so our data is more clear and realistic
+#I choosed as 20 because most of the warehouses we have looked at had per yer for square footage less than 20 and 
 warehouse <- tibble::rowid_to_column(warehouse, "ID")
+warehouse <- left_join(warehouse, zipcodes, by = "ID")
+warehouse <- warehouse %>% na.omit
 
 
+temp <- c("dry", "temp_cont", "cooler")
+warehouse$temp <- sample(temp, nrow(warehouse), replace = TRUE, prob = c(.35,.55,.1))
+warehouse$capacity <- floor(capacity_find(warehouse$Size))
 
-avg_price <- warehouse %>% summarise(mean(price), mean(Size), mean(Space))
-a <- warehouse %>% summarise(sd(Size))
+day <- seq(as.Date('2018/01/01'), as.Date('2019/01/01'), by="day")
+day <- as.data.frame(day)
+day <- day[rep(seq_len(nrow(day)), 375), ]
 
+warehouse$freq <- 366
+warehouse<- warehouse[rep(row.names(warehouse), warehouse$freq),1:9]
+warehouse$use <- 0
+warehouse <- bind_cols(warehouse,day)
+warehouse$freq <- NULL
 
-
-#Outlier Replacer with NA 
-#replacing outliers with NA in order to reach statistical clarity 
-outlierReplace = function(dataframe, cols, rows, newValue = NA) {
-  if (any(rows)) {
-    set(dataframe, rows, cols, newValue)
-  }
+capacity_find <- function(size){
+  utilization <- rnorm(1, mean = .55)
+  stack_height <- sample(c(1,2,3,4))
+  capacity <- size * utilization * stack_height / 16
+  return(capacity)
 }
-
-temp <- c("room_tep", "temp_cont", "frozen")
 

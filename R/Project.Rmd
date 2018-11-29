@@ -15,6 +15,9 @@ install.packages("tidyr")
 install.packages("sampling")
 install.packages("ggmap")
 install.packages("rvest")
+install.packages("RMySQL")
+install.packages("httr")
+install.packages("XML")
 ```
 
 ```{r}
@@ -28,24 +31,20 @@ library(ggmap)
 library(rvest)
 library(stringr)  
 library(ggplot2)
-library(data.table)
+library(RMySQL)
 ```
 
 ```{r data}
-#Determining sample size for the warehouses
-z_score = 1.96            #%95 confidence interval 
-std <-           #standard deviation of warehouse size 
-mof <- .5                 #margin of error 
-sample_size <- z_score^2 * std * (1-std) / mof^2
+#USER DATATABLE
+sample_size <- 40000
 
-#USER DATATABLE 
 #First and Last Names
 full_name <- r_full_names(sample_size)
 df <- as.data.frame(full_name)
 names <- tidyr::separate(df, full_name, sep = " ", c("First_name", "Last_name" ))
 
 #User type
-type <- as.data.frame(rbinom(sample_size, 1, 0.5))
+type <- as.data.frame(rbinom(sample_size, 1, 0.35))
 
 #Phone Number
 Phone_num <- r_phone_numbers(sample_size)
@@ -70,7 +69,147 @@ coord <- as.data.frame(c(latitude,longitude))
 coord$textAddress <- mapply(FUN = function(longitude, latitude) revgeocode(c(longitude, latitude)), coord$longitude.5, coord$latitude.5)
 
 #CONTRACT DATATABLE
+
 ```
 
 
+```{r warehouse}
+#Street Adress
+Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
+                function(url){
+                  url %>% read_html() %>% 
+                    html_nodes(".listingTitle") %>% 
+                    html_text() %>%
+                    str_trim() %>%
+                    gsub('-* Warehouse for Lease', '', .)
+                  
+                })
 
+Street <- unlist(Street)
+Street <- as.data.frame(Street)
+
+
+#City and State 
+city_state <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
+                 function(url){
+                   url %>% read_html() %>% 
+                     html_nodes(".listingDescription b") %>% 
+                     html_text() %>%
+                     str_trim()
+                   
+                 })
+
+city_state <- unlist(city_state)
+city_state <- as.data.frame(city_state)
+city_state <- city_state %>% separate(city_state, sep = "," ,c("city","State"))
+
+#Zipcodes
+zipcodes <- read.csv("test.csv") %>% select("Zipcode", "ID")
+
+#Attributes 
+df1 <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
+                     function(url){
+                       url %>% read_html() %>% 
+                         html_nodes(".listingAttributes tr") %>% 
+                         html_text() %>%
+                         str_trim()
+                     })
+
+df1 <- unlist(df1)
+df1 <- as.data.frame(df1)
+
+#Price per skid per month 
+price <- df1 %>% filter(str_detect(df1,"Price:")) %>%
+  separate(df1, sep = ":", c("Text","Fee")) %>%
+  separate(Fee, sep = "-", c("Fee", "Max"))
+
+price$Text <- NULL
+price$Max <- NULL
+
+price$Fee <- gsub("[^0-9\\.]", "", price$Fee)
+price <- as.numeric(price$Fee) 
+price <- as.data.frame(price)
+
+#Building Size 
+building_size <- df1 %>% filter(str_detect(df1, "Building Size")) %>%
+  separate(df1, sep = ":", c("Text", "Size"))
+building_size$Text <- NULL
+building_size$Size <- gsub("[^0-9\\]", "", building_size$Size) 
+Size <- as.numeric(building_size$Size)
+Size <- as.data.frame(Size)
+
+#Temperature control 
+temp <- c("dry", "temp_controlled", "cooler", "frozen")
+
+
+#Warehouse data frame 
+warehouse <- bind_cols(Street,city_state,price, Size) 
+warehouse <- as.data.frame(warehouse) %>%
+  mutate(price = price * 12) %>% 
+  mutate(price, replace(price, price > 20, NA)) %>%
+  na.omit
+warehouse$`replace(price, price > 20, NA)` <- NULL
+warehouse <- tibble::rowid_to_column(warehouse, "ID")
+warehouse <- left_join(warehouse, zipcodes, by = "ID")
+warehouse <- warehouse %>% na.omit
+warehouse$temp <- sample(temp, nrow(warehouse), replace = TRUE, prob = c(.30,.50,.15,.05))
+warehouse$capacity <- floor(capacity_find(warehouse$Size))
+warehouse$lowest_temp[warehouse$temp == "frozen"] <- 0
+warehouse$lowest_temp[warehouse$temp == "cooler"] <- 34
+warehouse$lowest_temp[warehouse$temp == "temp_controlled"] <- 55
+warehouse$lowest_temp[warehouse$temp == "dry"] <- 75
+warehouse$highest_temp <- 75 
+warehouse$rating <- round(runif(nrow(warehouse), 0, 10),1)
+
+warehouse$freq <- 366
+warehouse<- warehouse[rep(row.names(warehouse), warehouse$freq),1:9]
+warehouse$used <- 0
+warehouse <- bind_cols(warehouse,day)
+warehouse$freq <- NULL
+
+
+
+
+warehouse$id <- warehouse$ID
+warehouse$adress_1 <- warehouse$Street
+warehouse$adress_2 <- 0
+warehouse$city <- warehouse$city
+warehouse$state <- warehouse$State
+warehouse$price_per_skid <- warehouse$price * 16 / 365
+warehouse$capacity <- warehouse$capacity
+warehouse$sq_ft <- warehouse$Size
+warehouse$strg_type <- warehouse$temp
+warehouse$lowest_temp <- warehouse$lowest_temp
+warehouse$highest_temp <- warehouse$highest_temp
+warehouse$Day <- warehouse$day
+warehouse$Used <- warehouse$used
+warehouse$Avg_rating <- rating
+warehouse <- warehouse[, -c(1:11)]
+
+#We generated day 
+day <- seq(as.Date('2018/01/01'), as.Date('2019/01/01'), by="day")
+day <- as.data.frame(day)
+day <- day[rep(seq_len(nrow(day)), 375), ]
+
+
+
+con <- dbConnect(MySQL(),
+         user="g1090429", password="WhereHouse?",
+         dbname="g1090429", host="mydb.ics.purdue.edu")
+on.exit(dbDisconnect(con))
+
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons)
+dbDisconnect(con)
+
+```
+
+```{r function}
+#This function is for the capacity of each warehouse depending on their size. We have used a source from 
+
+capacity_find <- function(size){
+  utilization <- rnorm(1, mean = .55)
+  stack_height <- sample(c(1,2,3,4))
+  capacity <- size * utilization * stack_height / 16
+  return(capacity)
+}
