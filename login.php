@@ -1,12 +1,21 @@
 <?php 
-header('Content-Type: application/json');
+header("Content-Type: application/json; charset=UTF-8");
 
-$post_data = json_decode(file_get_contents('php://input'), true);
-$email = $post_data['email'];
-$password = $post_data['password'];
+
+
+$email = json_decode($_REQUEST['email']);
+$password = json_decode($_REQUEST['password']);
+
+
+
+
 
 
 if(session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+else{
+	session_destroy();
 	session_start();
 }
 
@@ -15,37 +24,31 @@ require "serverconnect.php";
 $connection = serverConnect();
 
 
-$query = "SELECT User_id, first_name, last_name, user_type, password FROM User WHERE email = '".$email."';";
+$query = "SELECT User_id, first_name, last_name, user_type, password FROM User WHERE email = '".$email."'";
 $result = mysqli_query($connection, $query);
 
 if($result) {
-	$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	$assoc_array = mysqli_fetch_assoc($result);
 
 	if($assoc_array["password"] == $password){
-		$user_id = $assoc_array["User_id"];
-		$user_type = $assoc_array["user_type"];
-		$user_first_name = $assoc_array["first_name"];
-		$user_last_name = $assoc_array["last_name"];
+		$_SESSION['user_id'] = $assoc_array["User_id"];
+		$_SESSION['user_type'] = $assoc_array["user_type"];
+		$_SESSION['user_first_name'] = $assoc_array["first_name"];
+		$_SESSION['user_last_name'] = $assoc_array["last_name"];
 	}
 	else {
 		//password doesn't match, but email exists
-		$user_type = -2;
+		$_SESSION['user_type'] = -2;
 	}
 	
 }
 else { //The user's email doesn't exist in the database -->they need to make an account still
-	$user_type = -1; 
+	$_SESSION['user_type'] = -1; 
 }
 
-$user_type_should_be = 0;
-
-
-$response = json_encode(array('user_email' => $email, 'sql' => $user_type_should_be, 'user_password' => $password, 'user_id' => $user_id, 'user_type' => $user_type, 'user_first_name' => $user_first_name, 'user_last_name' => $user_last_name));
-
-
-
-
+$response = json_encode(array("user_id" => $_SESSION['user_id'], "user_type" => $_SESSION['user_type'], "user_first_name" => $_SESSION['user_first_name'], "user_last_name" => $_SESSION['user_last_name'], "user_email" => $email));
 echo($response);
+
 
 mysqli_close($connection);
 

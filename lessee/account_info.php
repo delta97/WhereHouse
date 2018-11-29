@@ -222,7 +222,7 @@
 								</div>
 							</div>
 							<div class="button-center">
-								<div class="update-password-btn" id="banking-information-save"><span class="login-button-text-invert">Update Password</span></div>
+								<div class="update-password-btn" id="update-password-save"><span class="login-button-text-invert">Update Password</span></div>
 							</div>
 						</form>
 					</div>
@@ -251,10 +251,61 @@
 			window.location = "../index.php";
 		});
 
-
+		//submits an ajax request to the php server file 'update_general_information.php'
 		$('#general-information-save').on('click', function(event) {
+			var user_first_name = $('#user-first-name').value;
+			var user_last_name = $('#user-last-name').value;
+			var user_address_1 = $('#user-address-line1').value;
+			var user_address_2 = $('#user-address-line2').value;
+			var user_city = $('#user-city').value;
+			var user_state = $('#user-state').value;
+			var user_zipcode = $('#user-zip').value;
+			var user_phone_num = $('#user-phone').value;
 
+			var object = {'first_name':user_first_name, 'last_name':user_last_name, 'address_line_1':user_address_1, 'address_line_2':user_address_2, 'city':user_city, 'state': user_state, 'zipcode':user_zipcode, 'phone_num':user_phone_num};
+			var input = JSON.stringify(object);
 
+			$.ajax({
+				url: 'update_general_information.php',
+				type: 'post', 
+				dataType: 'json',
+				success: function(response){
+					var success_message = response;
+				}
+			});
+		});
+
+		$('#banking-information-save').on('click', function(event){
+			var account_number = $('#bank-account-number').value;
+			var routing_number = $('#bank-routing-number').value;
+			var banking_object = {'account':account_number, 'routing':routing_number};
+			var banking_object_input = JSON.stringify(banking_object);
+
+			$.ajax({
+				url: '',
+				type: 'post',
+				dataType: 'json',
+				success: function(response) {
+
+				}
+			});
+		});
+		$('#update-password-save').on('click', function(event){
+			var old_password = $('#current-password').value;
+			var new_passwowrd_1 = $('#new-password').value;
+			var new_password_2 = $('#new-password-confirm').value;
+
+			if(new_password_1 === new_password_2){
+				var password_object = {'old_password':old_password, 'new_password':new_password};
+				var password_object_input = JSON.stringify(password_object);
+
+				$.ajax({
+					url: '',
+					type:'post',
+					dataType:'json',
+					
+				});
+			}
 		});
 	</script>
 </html>
