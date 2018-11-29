@@ -7,7 +7,7 @@ $user_email = $_SESSION['user_email'];
 $bank_acc = $_POST['bank-acc'];
 $routing_num = $_POST['routing-num'];
 
-$query = "UPDATE User SET bank_acc = '".$bank_acc."',routing_num = '".$routing_num."' WHERE email = '".$user_email."';
+$query = "UPDATE User SET bank_acc = '".$bank_acc."',routing_num = '".$routing_num."' WHERE email = '".$user_email."'";
 
 $result = mysqli_query($connection, $query);
 
