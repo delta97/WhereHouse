@@ -1,13 +1,9 @@
 <?php 
-header("Content-Type: application/json; charset=UTF-8");
 
+$post_data = json_decode($_POST['data'], true);
 
-
-$email = json_decode($_REQUEST['email']);
-$password = json_decode($_REQUEST['password']);
-
-
-
+$email = json_decode($_POST['email']);
+$password = json_deode($_POST['password']);
 
 
 

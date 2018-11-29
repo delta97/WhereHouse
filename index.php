@@ -234,13 +234,13 @@
 			var json_object = {'email': $('#login-modal-email').value, 'password':$('#login-modal-password').value};
 			var inputArray =  JSON.stringify(json_object);
 		
-			$.ajax({
+			$.ajax(console.log('sdfsdf'),{
 				type: 'POST', 
 				url: 'login.php',
-				data: json_object,
-				dataType: 'json',
+				data: inputArray,
+				dataType:'json',
 				success: function(resp) {
-					
+
  					var user_type = resp.user_type;
  					var user_id = resp.user_id;
  					var user_first_name = resp.user_first_name;

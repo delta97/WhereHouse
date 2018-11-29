@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- checks information on all pages to see if there is anything new that needs to be brought to the user's attention (new messages, request status cheanges, etc) -->
+<script>check_for_updates(<?php $_SESSION['user_email']?>);</script>
 <?php
 	require "serverconnect.php";
 	$connection = serverConnect();
@@ -68,13 +70,13 @@
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
 					<div id="rentals-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Your Rentals</span>
+						<span class="sidebar-btn-text">Your Rentals<span class="notification-span-rentals"></span>
 					</div>
 					<div id="requests-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Manage Requests</span>
+						<span class="sidebar-btn-text">Manage Requests<span class="notification-span-requests"></span>
 					</div>
 					<div id="inbox-btn" class="sidebar-btn">
-						<span class="sidebar-btn-text">Inbox<span class="notification-icon"></span></span>
+						<span class="sidebar-btn-text">Inbox<span class="notification-span-messages"></span>
 						
 					</div>
 					<div id="account-info" class="sidebar-btn">
@@ -182,12 +184,36 @@
 				method: 'GET', 
 				type: 'GET', 
 				url: 'get_user_information.php', 
-				data: $('#edit-information-form').serialize(), 
-				success: function () {
+				success: function (response) {
 					
 				}
 			});
 		});
 
+
+		function check_for_updates(email) {
+			$.ajax({
+				url: 'check_for_updates.php',
+				data: email,
+				dataType: 'json',
+				success: function(response){
+					var response_data = JSON.parse(response);
+					var num_unchecked_messages = response_data.num_unchecked_message;
+					var num_requests = response_data.num_requests;
+					var num_rentals = response_data.num_rentals;
+
+					if(num_unchecked_messages > 0) {
+						$("#notification-span-messages").html("<span class=\"notification-icon\">"+num_unchecked_messages+"</span>");
+					}
+					if(num_requests > 0){
+						$("#notification-span-requests").html("<span class=\"notification-icon\">"+num_requests+"</span>");
+					}
+					if(num_rentals > 0) {
+						$("#notification-span-rentals").html("<span class=\"notification-icon\">"+num_rentals+"</span>");
+					}
+				}
+
+			});
+		}
 	</script>
 </html>
