@@ -53,64 +53,62 @@
 			</div>
 			<div class="body dashboard-flex">
 				<div class="sidebar">
-					<div id="dashboard" class="sidebar-btn">
+					<div id="dashboard-btn" class="sidebar-btn ">
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
-					<div id="renters" class="sidebar-btn">
-						<span class="sidebar-btn-text">Your Renters</span>
+					<div id="rentals-btn" class="sidebar-btn">
+						<span class="sidebar-btn-text">Your Rentals<span class="notification-span-rentals"></span>
 					</div>
-					<div id="manage-warehouses" class="sidebar-btn">
-						<span class="sidebar-btn-text">Manage Warehouses</span>
+					<div id="requests-btn" class="sidebar-btn">
+						<span class="sidebar-btn-text">Manage Requests<span class="notification-span-requests"></span>
 					</div>
-					<div id="inbox" class="sidebar-btn">
-						<span class="sidebar-btn-text">Inbox</span>
+					<div id="inbox-btn" class="sidebar-btn">
+						<span class="sidebar-btn-text">Inbox<span class="notification-span-messages"></span>
+						
 					</div>
-					<div id="analytics" class="sidebar-btn">
-						<span class="sidebar-btn-text">Analytics Portal</span>
-					</div>
-					<div id="account-info" class="sidebar-btn  active-btn">
+					<div id="account-info" class="sidebar-btn active-btn">
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
 				<div class="page-content-account-info flex-center-account-info">
 					<h1 class="dashboard-header">Account Information</h1>
 					<div id="save-notifications"></div>
-					<iframe id="submit-redirect" style="display:none;"></iframe>
+					
 					<div class="account-info">
 						<form id="edit-information-form" action="update_general_information.php" target="#submit-redirect" method="post">
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-first-name">First Name</label>
-									<input type="text" class="form-control" name="user-first-name" id="user-first-name" aria-describedby="enter first name" value="User First Name From Server">
+									<input type="text" class="form-control" name="user-first-name" id="user-first-name" aria-describedby="enter first name" placeholder="User First Name From Server">
 								</div>
 								<div class="col">
 									<label for="user-last-name">Last Name</label>
-									<input type="text" class="form-control" name="user-last-name" aria-describedby="enter last name" value="User Last Name From Server">
+									<input type="text" class="form-control" name="user-last-name" aria-describedby="enter last name" placeholder="User Last Name From Server">
 								</div>
 							</div>
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-address-line1">Address Line 1</label>
-									<input type="text" class="form-control" name="user-address-line1" id="user-address-line1" value="User Address Line 1 From Server">
+									<input type="text" class="form-control" name="user-address-line1" id="user-address-line1" placeholder="User Address Line 1 From Server">
 								</div>
 							</div>
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-address-line2">Address Line 2</label>
-									<input type="text" class="form-control" name="user-address-line2" id="user-address-line2" value="User Address Line 2 From Server">
+									<input type="text" class="form-control" name="user-address-line2" id="user-address-line2" placeholder="User Address Line 2 From Server">
 								</div>
 							</div>
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-city">City
 									</label>
-									<input type="text" class="form-control" name="user-city" id="user-city" value="User City From Server">
+									<input type="text" class="form-control" name="user-city" id="user-city" placeholder="User City From Server">
 								</div>
 								<div class="col">
 									<label for="user-state">
 									State</label>
 									<select type="text" class="form-control" name="user-state" id="user-state">
-										<option value="null">User State From Server</option>
+										<option value="null">Select a State</option>
 										<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
@@ -167,14 +165,7 @@
 								<div class="col">
 									<label for="user-zip">Zip Code
 									</label>
-									<input type="text" class="form-control" name="user-zip" id="user-zip" value="User Zipcode From Server">
-								</div>
-							</div>
-							<div class="form-row form-spacing">
-								<div class="col">
-									<label for="user-phone">Phone Number
-									</label>
-									<input type="text" class="form-control" name="user-phone" id="user-phone" value="User Phone From Server">
+									<input type="text" class="form-control" name="user-zip" id="user-zip" placeholder="User Zipcode From Server">
 								</div>
 							</div>
 							<div class="button-center">
@@ -232,23 +223,36 @@
 		<div class="footer">Footer</div>
 	</body>
 	<script type="text/javascript">
-		$("#dashboard").click(function() {
+		//onload of the page
+		$(document).ready(function(event) {
+			//populate the sidebar with notification icons as needed
+			get_notification_badges();
+			populate_account_information();
+
+		});
+
+
+
+
+		//on click functions for linking divs
+		$("#dashboard-btn").click(function(event) {
 			window.location = "dashboard.php";
 		});
-		$("#renters").click(function() {
-			window.location = "renters.php";
+		$("#rentals-btn").click(function(event) {
+			window.location = "rentals.php";
 		});
-		$("#manage-warehouses").click(function() {
-			window.location = "warehouses.php";
+		$("#requests-btn").click(function(event) {
+			window.location = "requests.php";
 		});
-		$("#inbox").click(function() {
+		$("#inbox-btn").click(function(event) {
 			window.location = "inbox.php";
 		});
-		$("#analytics").click(function() {
-			window.location = "analytics.php";
-		});
-		$(".logout-button").click(function() {
+		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
+			sessionDestroy();
+		});
+		$("#account-info").click(function(event) {
+			window.location = "account_info.php";
 		});
 
 		//submits an ajax request to the php server file 'update_general_information.php'
@@ -262,15 +266,21 @@
 			var user_zipcode = $('#user-zip').value;
 			var user_phone_num = $('#user-phone').value;
 
-			var object = {'first_name':user_first_name, 'last_name':user_last_name, 'address_line_1':user_address_1, 'address_line_2':user_address_2, 'city':user_city, 'state': user_state, 'zipcode':user_zipcode, 'phone_num':user_phone_num};
-			var input = JSON.stringify(object);
+			var serializedGeneralInformation = $('#edit-information-form').serialize();
 
 			$.ajax({
 				url: 'update_general_information.php',
 				type: 'post', 
+				data: serializedGeneralInformation,
 				dataType: 'json',
 				success: function(response){
-					var success_message = response;
+					var message = response;
+					if(message === 0) {
+						//badge a success notification at the top of the screen and scroll to the top
+					}
+					else if(message === 1) {
+						//badge a danger warning notification at the top of the screen
+					}
 				}
 			});
 		});
@@ -307,5 +317,62 @@
 				});
 			}
 		});
+
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
+
+			$.ajax({
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
+
+				}
+			});
+		}
+		//calls a get to destory the php variable session
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
+
+		//populates the placeholders of each of the account information fields
+		function populate_account_information(){
+			$.get('populate_account_information.php', function(response){
+				var first_name = response['first_name'];
+				var last_name = response['last_name'];
+				var error_general = response['error_general'];
+				var error_banking = response['error_banking'];
+				var email = response['email'];
+				var address_1 = response['address_1'];
+				var address_2 = response['address_2'];
+				var city = response['city'];
+				var state = response['state'];
+				var zipcode = response['zipcode'];
+				var bank_account = response['bank_account'];
+				var bank_routing = response['bank_routing'];
+
+
+				$('#user-first-name').val(first_name);
+				$('#user-last-name').val(last_name);
+				$('#user-address-line1').val(address_1);
+				$('#user-address-line2').val(address_2);
+				$('#user-city').val(city);
+				$('#user-state').val(state);
+				$('#user-zip').val(zipcode);
+				$('#bank-routing-number').val(bank_routing);
+				$('#bank-account-number').val(bank_account);
+
+			});
+		}
 	</script>
 </html>

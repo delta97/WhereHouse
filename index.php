@@ -171,10 +171,10 @@
 					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
 				</p>
 				<div class="footer-icons">
-					<a href="#"><i class="fa fa-facebook"></i></a>
-					<a href="#"><i class="fa fa-twitter"></i></a>
-					<a href="#"><i class="fa fa-linkedin"></i></a>
-					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fa fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
 					<!-- Add a link to instagram... replace # with actual links> -->
 				</div>
 			</div>
@@ -230,30 +230,29 @@
 		$('#submit-button').on('click', function(event){
 			event.preventDefault();
 			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
-			var email = $('#login-modal-email').value;
-			var password = $('#login-modal-password').value;
-
-			var json_object = {'email': $('#login-modal-email').value, 'password':$('#login-modal-password').value};
-			var inputArray =  JSON.stringify(json_object);
 		
-			$.ajax(console.log('sdfsdf'),{
+			var serializedData = $('#login-modal-form').serialize();
+			$.ajax(console.log("ajax called"),{
 				type: 'POST', 
 				url: 'login.php',
-				data: inputArray,
-				dataType:'json',
-				success: function(resp) {
+				data: serializedData,
+				dataType: 'json',
+				
+				// dataType:'json', //by declaring the server return dataType as 'json' it will automatically JSON.parse(resp) to convert it back to a JSON object from a string with JSON content within it
+				success: function(response) {
+					
+					var email = response['email'];
+					var user_type = response['user_type'];
+					var user_first_name = response['user_first_name'];
+					var user_last_name = response['user_last_name'];
+					var user_id = response['user_id'];
 
- 					var user_type = resp.user_type;
- 					var user_id = resp.user_id;
- 					var user_first_name = resp.user_first_name;
- 					var user_last_name = resp.user_last_name;
- 					var user_email = resp.email;
-
-
+					console.log(email);
  					console.log(user_type);
  					console.log(user_id);
  					console.log(user_first_name);
- 					
+ 					console.log(user_last_name);
+ 	
 					if(user_type === -1){
 		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
 		 			} else if(user_type === -2){
@@ -263,89 +262,9 @@
 		 			} else if(user_type === 1) {
 		 				window.location = "./owner/dashboard.php";
 		 			}
- 					return;
  				}
  			});
 		});
-
-
-
-
-			// var inputArray = {email: email_address, password:password};
-
-
-			// $.ajax({
-			// 	type: 'POST', 
-			// 	url: 'login.php',
-			// 	contentType: "application/json",
-			// 	data: inputArray,
-			// 	dataType: 'json',
-			// 	success: function(resp) {
-			// 		var response = JSON.parse(resp);
- 		// 			var user_type = response.user_type;
- 		// 			var user_id = response.user_id;
- 		// 			var user_first_name = response.user_first_name;
- 		// 			var user_last_name = response.user_last_name;
- 		// 			var user_type_should_be = response.sql;
- 		// 			var user_email = response.email;
-
-
- 		// 			console.log(user_type);
- 		// 			console.log(user_id);
- 		// 			console.log(user_first_name);
-
-
- 					
-			// 	}
-			// });
-		
-
-
-		// $('#submit-button').on('click', function(event) {
-		// 	sendobj = new Object();
-		// 	sendobj.email = $('#login-modal-email').value;
-		// 	sendobj.password = $('#login-modal-password').value;
-
-		// 	dbParam = JSON.stringify(sendobj);
-
-		// 	if (window.XMLHttpRequest) {
-		// 		login = new XMLHttpRequest();
-
-		// 	} 
-		// 	else {
-		// 		login = new ActiveXObject("Microsoft.XMLHTTP");
-		// 	}
-		// 	login.onreadystatechange = function() {
-		// 		if(this.readyState == 4 && this.status == 200) {
-		// 			var response = JSON.parse(this.responseText);
-		// 			handleResponse(response);
-		// 		}
-		// 	};
-
-		// 	var url = "login.php" + $.param(sendobj);
-
-		// 	login.open("POST","login.php", true);
-		// 	login.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		// 	login.send("x=" + dbParam);
-
-		// 	function handleResponse(resp) {
-		// 		alert(resp);
-		// 		var sql = resp.sql;
-		// 		var id = resp.user_id;
-		// 		var user_type = resp.user_type;
-		// 		var user_first_name = resp.user_first_name;
-		// 		var user_last_name = resp.user_last_name;
-		// 		var user_email = resp.email;
-
-		// 		console.log("sql: " + sql);
-		// 		console.log("user_id: " + id);
-		// 		console.log("user_first_name: " + user_first_name);
-		// 		console.log("user_last_name: " + user_last_name);
-		// 		console.log("email: " + user_email);
-
-		// 	}
-		// });
-
 
 	</script>
 

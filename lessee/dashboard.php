@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<!-- checks information on all pages to see if there is anything new that needs to be brought to the user's attention (new messages, request status cheanges, etc) -->
-<script>check_for_updates(<?php $_SESSION['user_email']?>);</script>
-<?php
-	require "serverconnect.php";
-	$connection = serverConnect();
-	$user_id = $_SESSION['user_id'];
-
-	$query = "SELECT COUNT(message_id) FROM Messages WHERE recipient_id = '$user_id';";
-	$result = mysqli_query($connection, $query);
-
-	$associative_array = mysqli_fetch_array($result, MYSQLI_NUM);
-	$_SESSION['num_messages'] = $associative_array[0];
-	if($_SESSION['num_messages'] > 0) {
-		echo"<script> $('.notification-icon').text('".$num_messages."');</script>"; //adds the number of messages as an icon over the inbox navbar button
-	}
-
-
-?>
 <html>
 	<head>
 		<!-- add favicon -->
@@ -59,7 +41,7 @@
 						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
 					</div>
 				<div class="flex-logo">
-					<span class="header-username">Welcome, <?php print($_SESSION['user_first_name'])?></span>
+					<span class="header-username"></span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 				
@@ -87,12 +69,9 @@
 					<div id="user-information" class="dashboard-tile">
 						<div class="dashboard-tile-header">User Information</div>		
 						<div class="dashboard-tile-content">
-							<div id="user-name"><b>Name:</b> John Doe</div>
-							<div id="user-email"><b>Email:</b> <a href="mailto:jdoe@purdue.edu">jdoe@purdue.edu</a></div>
-							<div id="billing-address"><b>Billing Address:</b> 400 McCutcheon Dr.<br>West Lafayette, IN 47906</div>
-							<div id="user-phone-num"><b>Phone Number:</b> (123) 456-7890</div>
-							<div id="user-rating"><b>User Rating:</b> -6 Stars</div>
-							<div id=""></div>
+							<div id="user-name"><b>Name:</b><span id="user-information-first-name"></span>&nbsp;<span id="user-information-last-name"></span></div>
+							<div id="user-email"><b>Email:</b><span id="user-information-email"></span></a></div>
+							<div id="billing-address"><b>Billing Address:</b> <span id="user-information-address-1"></span>&nbsp;<span id="user-information-address-2"></span>&nbsp;<span id="user-information-city"></span>,&nbsp;<span id="user-information-state"></span>&nbsp;<span id="user-information-zipcode"></span><br></div>
 							<div class="dashboard-btn-flex">
 								<button class="btn btn-primary dashboard-tile-edit" id="edit-information">Edit</button>
 							</div>
@@ -143,7 +122,7 @@
 		});
 		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
-			<?php session_destroy();?>
+			sessionDestroy();
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
@@ -158,62 +137,80 @@
 			if(searchQuery == null || searchQuery == ""){
 				searchQuery = "Oops...you forgot to enter a zipcode to search";
 			}
-			sessionStorage.setItem("searchQuery", searchQuery);
 		});
 		$('#zip-search-button').on('click', function(event) {
-			sessionStorage.setItem("searchQuery", searchQuery);
 			window.location = "warehousesearch.php";
 		});
-
-
-
-
-
-
-
 		//my rentals redirect
 		$("#user-rentals").on("click", function(event) {
 			window.location = "rentals.php";
 		});
 
 
-		console.log(<?php print($_SESSION['first_name']);?>);
 
-		//ajax script to retrieve information about a user when they click the edit button
-		$('#edit-information').on('click', function(event) {
+
+		$(document).ready(function(event){
+			//populate the user infromation tile on the dashboard 
 			$.ajax({
-				method: 'GET', 
-				type: 'GET', 
-				url: 'get_user_information.php', 
-				success: function (response) {
-					
+				url:'dashboard_onload.php',
+				type: 'post', 
+				dataType: 'json',
+				success: function(response) {
+					var first_name = response['first_name'];
+					var last_name = response['last_name'];
+					var email = response['email'];
+					var address_1 = response['address_1'];
+					var address_2 = response['address_2'];
+					var city = response['city'];
+					var state = response['state'];
+					var zipcode = response['zipcode'];
+
+					if(address_2 = null) {
+						address_2 = "";
+					}
+					$('#user-information-first-name').text(first_name);
+					$('#user-information-last-name').text(last_name);
+					$('#user-information-email').text(email);
+					$('#user-information-address-1').text(address_1);
+					$('#user-information-address-2').text(address_2);
+					$('#user-information-city').text(city);
+					$('#user-information-state').text(state);
+					$('#user-information-email').text(zipcode);
+					$('.header-username').text("Welcome, "+first_name);
+
+				}
+			});	
+			//populate the sidebar with notification icons as needed
+			get_notification_badges();
+
+	});
+
+
+
+
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
+
+			$.ajax({
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
+
 				}
 			});
-		});
-
-
-		function check_for_updates(email) {
-			$.ajax({
-				url: 'check_for_updates.php',
-				data: email,
-				dataType: 'json',
-				success: function(response){
-					var response_data = JSON.parse(response);
-					var num_unchecked_messages = response_data.num_unchecked_message;
-					var num_requests = response_data.num_requests;
-					var num_rentals = response_data.num_rentals;
-
-					if(num_unchecked_messages > 0) {
-						$("#notification-span-messages").html("<span class=\"notification-icon\">"+num_unchecked_messages+"</span>");
-					}
-					if(num_requests > 0){
-						$("#notification-span-requests").html("<span class=\"notification-icon\">"+num_requests+"</span>");
-					}
-					if(num_rentals > 0) {
-						$("#notification-span-rentals").html("<span class=\"notification-icon\">"+num_rentals+"</span>");
-					}
-				}
-
+		}
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
 			});
 		}
 

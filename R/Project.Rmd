@@ -19,7 +19,6 @@ install.packages("RMySQL")
 install.packages("httr")
 install.packages("XML")
 install.packages("stringi")
-install.packages("tidyverse")
 ```
 
 ```{r}
@@ -47,8 +46,7 @@ df <- as.data.frame(full_name)
 names <- tidyr::separate(df, full_name, sep = " ", c("First_name", "Last_name" ))
 
 #User type
-user_type <- as.data.frame(rbinom(sample_size, 1, 0.002))
-sum(user_type) - length(user_type)
+user_type <- as.data.frame(rbinom(sample_size, 1, 0.35))
 
 #Phone Number
 Phone_num <- r_phone_numbers(sample_size)
@@ -62,6 +60,13 @@ Email <- as.data.frame(Email)
 DOB <- sample(seq(as.Date('1950/01/01'), as.Date('2000/01/01'), by="day"), sample_size, replace = TRUE )
 DOB <- as.data.frame(DOB)
 
+#Bank Account Number 
+bank_account <- sample(10000000000:999999999999, sample_size,replace=TRUE)
+bank_account <- as.data.frame(bank_account)
+
+#Routing Number
+routing_number <- sample(1e9:1e10,sample_size,replace=TRUE)
+routing_number <- as.data.frame(routing_number)
 
 #Address
 data <- read.csv("data.csv")
@@ -71,25 +76,23 @@ address_2 <- 0
 password<- stri_rand_strings(n=sample_size, length=8, pattern="[A-Za-z0-9]")
 password <- as.data.frame(password)
 
-a <- data.frame(DOB,Phone_num, user_type, Email, password)
+a <- data.frame(DOB,Phone_num, routing_number, bank_account, user_type, Email, password)
 
 user <- names
-user$first_name <- as.character(names$First_name)
-user$last_name <- as.character(names$Last_name)
-user$address_1 <- as.character(data$Street.Address)
-user$address_2 <- as.character(0)
-user$city <- as.character(data$City)
-user$state <- as.character(data$State)
-user$zip <- as.integer(data$Zip.Code)
-user$DOB <- as.POSIXct(a$DOB)
-user$phone_num <- as.integer(a$Phone_num)
-
+user$first_name <- names$First_name
+user$last_name <- names$Last_name
+user$address_1 <- data$Street.Address
+user$address_2 <- 0
+user$city <- data$City
+user$state <- data$State
+user$zip <- data$Zip.Code
+user$DOB <- a$DOB
+user$phone_num <- a$Phone_num
+user$routing_num <- a$routing_number
+user$bank_acc <- a$bank_account
 user$user_type <- a$user_type
-user$email <- as.character(a$Email)
-user$password <- as.character(a$password)
-user <- user[, -c(1:2)]
-user <- tibble::rowid_to_column(user, "id")
-user <- na.omit(user)
+user$email <- a$Email
+user$password <- a$password
 
 user <- as.data.frame(user)
 user <- user[, -c(1:2)]
@@ -97,43 +100,12 @@ user <- user[, -c(1:2)]
 dbWriteTable(con, "User", user, overwrite = TRUE)
 
 
-
-
 ```
 
-```{r owner}
-
-#Bank Account Number 
-bank_account <- sample(10000000000:999999999999, nrow(company_names),replace=TRUE)
-bank_account <- as.data.frame(bank_account)
-
-#Routing Number
-routing_number <- sample(1e9:1e10,nrow(company_names),replace=TRUE)
-routing_number <- as.data.frame(routing_number)
-
-#Company Name 
-company_names <- read.csv("company.csv")
-
-company_names <- lapply(paste0('http://www.hoovers.com/company-information/cs.html?term=warehousing-and-storage--&maxitems=25&page=', 1:38,sep="/"),
-                function(url){
-                  url %>% read_html() %>% 
-                    html_nodes(".company_name") %>% 
-                    html_text() %>%
-                    str_trim() 
-                })
-company_names <- unlist(company_names)
-company_names <- as.data.frame(company_names)
-
-
-
-owner <- bind_cols(company_names, routing_number, bank_account)
-colnames(owner)[1] <- "Company_name"
-owner <- tibble::rowid_to_column(owner, "owner_id")
-
-```
 
 ```{r warehouse}
-Street <- lapply(paste0("https://www.loopnet.com/warehouses-for-lease/", 1:20,sep="/"),
+#Street Adress
+Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
                 function(url){
                   url %>% read_html() %>% 
                     html_nodes(".listingTitle") %>% 
@@ -141,7 +113,7 @@ Street <- lapply(paste0("https://www.loopnet.com/warehouses-for-lease/", 1:20,se
                     str_trim() %>%
                     gsub('-* Warehouse for Lease', '', .)
                   
-              })
+                })
 
 Street <- unlist(Street)
 Street <- as.data.frame(Street)
@@ -224,6 +196,9 @@ warehouse<- warehouse[rep(row.names(warehouse), warehouse$freq),1:9]
 warehouse$used <- 0
 warehouse <- bind_cols(warehouse,day)
 warehouse$freq <- NULL
+
+
+
 
 warehouse$id <- warehouse$ID
 warehouse$adress_1 <- warehouse$Street
