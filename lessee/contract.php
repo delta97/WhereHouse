@@ -40,13 +40,16 @@
               </ol>
 
               <h4>Article 3.</h4>
-              <p>OWNER shall not be deemed to either expressly or impliedly provide any security protection to the Tenant’s property stored in the Storage Space. OWNER shall have no liability for damage to or loss of property caused by heat, cold, theft, vandalism, fire, water, winds, dust, rain, explosion, rodents, insects or any other cause whatsoever. LESSEE is urged to obtain personal property insurance coverage in order to ensure safety of all stored assets. LESSEE hereby agrees to indemnity and to hold harmless OWNER from any and all claims.</p>
+              <p>OWNER shall not be deemed to either expressly or impliedly provide any security protection to the LESSEE's property stored in the Storage Space. OWNER shall have no liability for damage to or loss of property caused by heat, cold, theft, vandalism, fire, water, winds, dust, rain, explosion, rodents, insects or any other cause whatsoever. LESSEE is urged to obtain personal property insurance coverage in order to ensure safety of all stored assets. LESSEE hereby agrees to indemnity and to hold harmless OWNER from any and all claims.</p>
 
               <p>All personal property stored in the storage space(s) will be sold or otherwise disposed of if no rental payment has been received for a continuous 30-day period.</p>
 
-              <p style="text-align:center">OR</p>
+              
+			  <!--
+			  <p style="text-align:center">OR</p>
               <p>The warehouse portion in question shall be rented empty and clean. The LESSEE has the right, should a need occur, to receive reasonable access to the warehouse unless otherwise indicated by the OWNER.</p>
               <p>In the case of damage to assets, the LESSEE is entitled to submit a claim to Customer Services of WhereHouse INC. within 5 business days of contract termination. After this period, </p>
+				-->
 
               <h4>Article 4.</h4> 
             <p>LESSEE hereby agrees to avoid the storage of unlawful components as well as those of which are flammable, foreign, perishable, explosive, corrosive, chemical, or otherwise dangerous. LESSEE shall not utilize the warehouse property for residential purposes, or sublet or otherwise distribute the borrowed property to any other party during the <i>Period of Occupancy</i>. LESSEE warrants that all components stored in the warehouse space are lawfully owned by the LESSEE for the full <i>Period of Occupancy</i> and must provide proof of ownership if requested by OWNER at any time. LESSEE is not permitted to alter any aspect of the warehouse space, or to install additional locks or security measures. LESSEE agrees to clearly and directly communicate and document all stored components for the full <i>Period of Occupancy</i>. </p>
