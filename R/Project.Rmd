@@ -91,6 +91,10 @@ user <- tibble::rowid_to_column(user, "id")
 user <- na.omit(user)
 
 user <- as.data.frame(user)
+user <- user[, -c(1:2)]
+
+dbWriteTable(con, "User", user, overwrite = TRUE)
+
 
 
 

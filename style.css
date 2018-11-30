@@ -87,7 +87,7 @@ h1 {
 
 .header {
 	display: flex;
-	height: 75px;
+	height: 80px;
 	width: 100%;
 	background-color: #4d4d4d;
 	justify-content: space-between;
@@ -393,6 +393,17 @@ h1 {
 	flex-grow: 1;
 	min-height: 100%;
 	padding: 50px;
+}
+.page-content-rentals{
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	justify-content: flex-start;
+	align-content: center;
+	flex-grow: 1;
+	min-height: 100%;
+	padding: 50px;
+	background-color: rgba(0,0,0,.025);
 }
 
 .page-content-inbox {
@@ -725,14 +736,14 @@ h1 {
 	height: 100%;
 	justify-content: center;
 	align-content: flex-start;
-	margin-top: 35px;
+	margin-bottom: 10px;
 }
 
 .inbox {
 	width: 100%;
 	background-color: white;
 	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
-	margin-top: 25px;
+
 
 
 }
@@ -1007,8 +1018,8 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	align-items: center;
-	align-content: center;
+	align-items: stretch;
+	align-content: stretch;
 	z-index: 10;
 }
 
@@ -1211,3 +1222,32 @@ h1 {
 
 }
 
+
+.table-white {
+	background-color: white;
+	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
+
+}
+
+
+.no-rentals-message {
+	min-width: 100%;
+}
+
+
+.inbox-title {
+	margin-bottom: 15px;
+	margin-top:5px;
+	margin-left: 25px;
+	
+}
+.inbox-title-flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+
+}
+td:hover {
+	cursor: pointer;
+}
