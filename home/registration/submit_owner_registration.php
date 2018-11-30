@@ -20,26 +20,49 @@
 
 
 
-	$query = "INSERT INTO User (first_name, last_name, address_1, address_2, city, state, zipcode, DOB, phone_num, user_type, email, password, routing_num, bank_acc) VALUES ('$user_first_name', '$user_last_name', '$user_street_1', '$user_street_2', '$user_city', '$user_state', '$user_zipcode', '$user_dob', '$user_phone_number', 1, '$user_email', '$user_password', '$user_bank_routing', '$user_bank_account');";
+	$query = "INSERT INTO User (first_name, last_name, address_1, address_2, city, state, zipcode, DOB, phone_num, email, password, routing_num, bank_acc) VALUES ('$user_first_name', '$user_last_name', '$user_street_1', '$user_street_2', '$user_city', '$user_state', '$user_zipcode', '$user_dob', '$user_phone_number', '$user_email', '$user_password', '$user_bank_routing', '$user_bank_account')";
 
 	$result = mysqli_query($connection, $query);
 	if(!$result) {
-		$query = "SELECT email FROM User WHERE email = ".$user_email.";";
+		$query = "SELECT user_id FROM User WHERE email = '$user_email'";
 		$result2 = mysqli_query($connection, $query);
-		if(result2){
-			echo "<script> $('#submit-div').append('<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There already exists a user with that email. Please register again with a different email.</div>'); </script>";
+		$assoc_array = mysqli_fetch_assoc($result2);
+		$num_users = sizeof($assoc_array);
+
+		if($num_users > 0){
+			$error = 2; //this means that the user's email is already in the database
 		}
 		else {
-			echo "<script>$('#submit-div').append(\"<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There was an error inserting your information into the database. Please register again.</div>\"); </script>";
+			$error = 1; //then we don't know what the problem is since their email wasn't in the database but we had trouble submitting it
 		}
-		mysqli_close($connection);
-		die;
+		
 	}
 	else {
-		// header('Location: http://web.ics.purdue.edu/~g1090429/home/registration/registration_success.php', true);
+		$error = 0;
+		$_SESSION['user_first_name'] = $user_first_name;
+		$_SESSION['user_last_name'] = $user_last_name;
+		$query = "SELECT user_id FROM User WHERE email = '$user_email'";
+		$result = mysqli_query($connection, $query);
+		if(!$result) { //at this point, since we know that the initial query went through, if !$result2, we don't know what went wrong and they should try again
+			$error = 1;
+		}
+		$assoc_array = mysqli_fetch_assoc($result);
 
-		echo "<script> $('#submit-div').append(\"<div style=\"margin: 10px;\" class=\"alert alert-success\" role=\"alert\">Welcome, ".$user_first_name.". You are now registered for a WhereHouse Owner Account.</div>\"); </script>";
-		exit();
+		$user_id = $assoc_array['user_id'];
+		$_SESSION['user_id'] = $user_id; 
+
+		$query = "INSERT INTO Owner (id, Routing_Num, Account_Num) VALUES ($user_id, $user_bank_routing, $user_bank_account)";
+		$result = mysqli_query($connection, $query);
+		if(!$result) {
+			$error = 1;
+		}
 	}
+
 	mysqli_close($connection);
+
+	$return = json_encode(array('error' => $error));
+
+	echo($return);
+
+	
 ?>
