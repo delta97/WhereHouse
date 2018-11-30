@@ -3,6 +3,14 @@
 	<head>
 		<!-- add favicon -->
 		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+		<!-- 3rd party footer content -  -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+		<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -104,8 +112,41 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">Footer</div>
 	</body>
+	<footer style="margin-top: 0px;"class="footer-distributed">
+
+			<div class="footer-left">
+				<span class="company-name">WhereHouse INC. </span> <br>
+				<p class="footer-company-name">IE332 Team Project &copy; 2018</p>
+			</div>
+			<div class="footer-center">
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>610 Purdue Mall</span> West Lafayette, IN 47907</p>
+				</div>
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123 4567</p>
+				</div>
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:wherehouse.8.inc@gmail.com">wherehouse.8.inc@gmail.com</a></p>
+				</div>
+			</div>
+			<div class="footer-right">
+				<p class="footer-company-about">
+					<span>Connect With Us</span>
+					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
+				</p>
+				<div class="footer-icons">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
+					<!-- Add a link to instagram... replace # with actual links> -->
+				</div>
+			</div>
+		</footer>
 
 	<script type="text/javascript">
 		$("#dashboard-btn").click(function(event) {
@@ -123,6 +164,7 @@
 		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
 			sessionDestroy();
+			sessionStorage.clear(); //clears javascript session information
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
@@ -150,11 +192,14 @@
 
 
 		$(document).ready(function(event){
+
+			$('.header-username').text("Welcome, "+ sessionStorage.getItem("user_first_name"));
 			//populate the user infromation tile on the dashboard 
 			$.ajax({
 				url:'dashboard_onload.php',
 				type: 'post', 
 				dataType: 'json',
+				data: {user_id: sessionStorage.getItem("user_id")},
 				success: function(response) {
 					var first_name = response['first_name'];
 					var last_name = response['last_name'];
@@ -176,7 +221,14 @@
 					$('#user-information-city').text(city);
 					$('#user-information-state').text(state);
 					$('#user-information-email').text(zipcode);
-					$('.header-username').text("Welcome, "+first_name);
+
+					//setting session items for values not initialized in the login
+					sessionStorage.setItem("user_address_1", address_1);
+					sessionStorage.setItem("user_address_2", address_2);
+					sessionStorage.setItem("user_city", city);
+					sessionStorage.setItem("user_state", state);
+					sessionStorage.setItem("user_zipcode", zipcode);
+
 
 				}
 			});	

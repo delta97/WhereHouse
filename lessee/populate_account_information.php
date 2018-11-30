@@ -4,7 +4,7 @@
 	}
 	$connection = serverConnect();
 
-	$user_id = 1;
+	$user_id = $_POST['user_id'];
 
 	$query = "SELECT * FROM User WHERE user_id = $user_id";
 	$result = mysqli_query($connection, $query);

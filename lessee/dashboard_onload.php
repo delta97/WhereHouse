@@ -4,7 +4,7 @@
 	}
 	$connection = serverConnect();
 
-	$user_id = $_SESSION['user_id'];
+	$user_id = $_POST['user_id'];
 
 
 	$query = "SELECT first_name, last_name, email, address_1, address_2, city, state, zipcode FROM User WHERE user_id = $user_id";

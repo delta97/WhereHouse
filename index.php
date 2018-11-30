@@ -247,6 +247,15 @@
 					var user_last_name = response['user_last_name'];
 					var user_id = response['user_id'];
 
+					//setting session items
+					sessionStorage.setItem("user_id", user_id);
+					sessionStorage.setItem("user_email", email);
+					sessionStorage.setItem("user_first_name", user_first_name);
+					sessionStorage.setItem("user_last_name", user_last_name);
+					sessionStorage.setItem("user_type", user_type);
+					
+
+
 					console.log(email);
  					console.log(user_type);
  					console.log(user_id);
