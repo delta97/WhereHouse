@@ -151,32 +151,32 @@
 
 								<div class="service">
 								  <i class="fab fa-android"></i>
-								  <h2>Service Name</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <h2>Moblie App</h2>
+								  <p>Releasing on the app store in 2020!</p>
 								</div>
 
 								<div class="service">
 								  <i class="fab fa-angellist"></i>
-								  <h2>Service Name</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <h2>24/7 Support</h2>
+								  <p>Your warehousing needs don't take vacations, so neither do we!</p>
 								</div>
 
 								<div class="service">
 								  <i class="fas fa-apple-alt"></i>
-								  <h2>Service Name</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <h2>Peer-to-Peer Communication System</h2>
+								  <p>You are only ever one message away from solving your warehousing problems.</p>
 								</div>
 
 								<div class="service">
 								  <i class="fas fa-archway"></i>
-								  <h2>Service Name</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <h2>Mario's Personal Phone Number</h2>
+								  <p>We don't have it yet, but we will let you know when we do.</p>
 								</div>
 
 								<div class="service">
 								  <i class="far fa-angry"></i>
-								  <h2>Service Name</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <h2>Satisfaction Guaranteed</h2>
+								  <p>WhereHouse boasts the world's deepest network of warehousing experts; if you can't find it here, you won't find it anywhere.</p>
 								</div>
 							  </div>
 							</div>	
