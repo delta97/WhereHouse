@@ -66,6 +66,31 @@
 						</form>
 					</div>
 				</div>
+				
+				<!-- Function that returns distance in miles given 2 long/lat -->
+				<p id="demo">
+			<script>
+				var rad = function(x) {
+				return x * Math.PI / 180;
+				};
+			</script>
+			<script>
+				var getDistance = function(p1lat, p1long, p2lat, p2long) {
+				var R = 6378137; // Earth’s mean radius in meter
+				var dLat = rad(p2lat - p1lat);
+				var dLong = rad(p2long - p1long);
+				var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) *
+				Math.sin(dLong / 2) * Math.sin(dLong / 2);
+				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+				var d = R * c;
+				var e = d / 1609.344;
+				return e; // returns the distance in miles
+				};
+				document.getElementById("demo").innerHTML = getDistance(40.436244, -86.936343, 40.437093, -86.937432);
+			</script>
+			</p>
+			
 				<div class="search-container">
 						<table class="search-item table">
 							<thead>
@@ -227,21 +252,3 @@
 
 	</script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
