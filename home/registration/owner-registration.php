@@ -201,6 +201,7 @@
 
 		//password validation
 		$("#submit-button").on("click", function(event){
+			event.preventDefault();
 			// empty any leftover warnings from previous submit attempts
 			$("#submit-div").empty();
 			// check every input field to make sure that they are filled out
@@ -237,13 +238,34 @@
 						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has at least one of the following characters: <strong>!, @, #, $, %, ^, &, or *</strong>.</div>");
 					}
 					if(capital_letter === false){
-						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital leter</strong>.</div>");
+						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital letter</strong>.</div>");
 					}
 					if(verifyFilled() === false) {
 						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>All fields are required. Make sure you didn't miss any!</strong></div>");
 					}
 					if(capital_letter === true && special_char === true && verifyFilled() === true){
-						$("#owner-registration-form").submit();
+						var serializedData = $("#owner-registration-form").serialize();
+						$.ajax({
+							type:'post',
+							url: 'submit_owner_registration.php',
+							data: serializedData,
+							dataType: 'json',
+							success: function(response) {
+								var error = response['error'];
+								console.log(error);
+								if(error === 0){
+									window.location = "registration_success.php";
+
+								}
+								else if(error === 1) {
+									$('#submit-div').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There was an error inserting your information into the database. Please register again.</div>");
+								}
+								else if(error == 2) {
+									$('#submit-div').append('<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There already exists a user with that email. Please register again with a different email.</div>');
+								}
+
+							}
+						});
 					}
 				}
 				else {
@@ -278,20 +300,7 @@
 		}
 
 		
-
-
-		// $('#owner-registration-form').on('submit', function(event) {
-		// 	event.preventDefault();
-		// 	$('#submit-div').empty();
-		// 	$.ajax({
-		// 		type: 'POST',
-		// 		method: 'POST',
-		// 		url: 'submit_owner_registration.php',
-		// 		data: $('#owner-registration-form').serialize(), 
-		// 		success: function() {
-		// 			window.location = "registration_success.php";
-		// 		}
-		// 	});
-		// });
+		
+		
 	</script>
 </html>
