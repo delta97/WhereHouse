@@ -113,6 +113,18 @@ routing_number <- as.data.frame(routing_number)
 #Company Name 
 company_names <- read.csv("company.csv")
 
+company_names <- lapply(paste0('http://www.hoovers.com/company-information/cs.html?term=warehousing-and-storage--&maxitems=25&page=', 1:38,sep="/"),
+                function(url){
+                  url %>% read_html() %>% 
+                    html_nodes(".company_name") %>% 
+                    html_text() %>%
+                    str_trim() 
+                })
+company_names <- unlist(company_names)
+company_names <- as.data.frame(company_names)
+
+
+
 owner <- bind_cols(company_names, routing_number, bank_account)
 colnames(owner)[1] <- "Company_name"
 owner <- tibble::rowid_to_column(owner, "owner_id")
@@ -120,8 +132,38 @@ owner <- tibble::rowid_to_column(owner, "owner_id")
 ```
 
 ```{r warehouse}
+
+states <- tolower(state.name)
+a<-gsub(" ", "-", states, fixed=TRUE)
+
+a<-paste0('https://www.loopnet.com/', states,sep = "_")
+a <- paste0(a,"warehouses-for-lease/",sep="")
+get_last_page <- function(html){
+
+      pages_data <- html %>% 
+                      # The '.' indicates the class
+                      html_nodes('.searchPagingBorderless') %>% 
+                      # Extract the raw text as a list
+                      html_text()                   
+
+      # The second to last of the buttons is the one
+      pages_data[(length(pages_data)-1)] %>%            
+        # Take the raw string
+        unname() %>%                                     
+        # Convert to number
+        as.numeric()    
+}
+
+last_page <- c(11,2,20, 5, 20, 20, 17, 6, 20, 20, 6, 3, 20, 17, 6, 12, 8, 10, 2, 20, 20, 20, 11, 5, 19, 2, 5, 10, 4, 20, 4, 20, 20, 5, 20, 11, 12, 20, 3, 14, 2, 14, 20, 12, 1, 20, 18, 3, 13, 2)
+
+ 
 #Street Adress
-Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
+a[1]
+i <- 1
+last_page[i]
+a[1]
+
+Street <- lapply(paste0(a[1], 1:11,sep="/"),
                 function(url){
                   url %>% read_html() %>% 
                     html_nodes(".listingTitle") %>% 
@@ -129,7 +171,7 @@ Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,se
                     str_trim() %>%
                     gsub('-* Warehouse for Lease', '', .)
                   
-                })
+              })
 
 Street <- unlist(Street)
 Street <- as.data.frame(Street)
