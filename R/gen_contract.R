@@ -3,11 +3,11 @@ gen_lessee <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
+  lessee_id <- sqlQuery(con, "SELECT id FROM Lessee ORDER BY RAND() LIMIT 1;")
+  
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
     dbDisconnect(con)
-  
-  lessee_id <- sqlQuery(con, "SELECT id FROM Lessee ORDER BY RAND() LIMIT 1;")
   
   return (lessee_id)
 }
@@ -18,11 +18,11 @@ gen_warehouse_id <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
+  warehouse_id <- sqlQuery(con, "SELECT id FROM Warehouse ORDER BY RAND() LIMIT 1;")
+  
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
     dbDisconnect(con)
-  
-  warehouse_id <- sqlQuery(con, "SELECT id FROM Warehouse ORDER BY RAND() LIMIT 1;")
   
   return (warehouse_id)
   
@@ -55,11 +55,11 @@ gen_total_price <- function(WH_id){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
+  ans <- sqlQuery(con, paste("SELECT price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
+  
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
     dbDisconnect(con)
-  
-  ans <- sqlQuery(con, paste("SELECT price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
   
   print(ans)
   
