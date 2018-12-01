@@ -186,7 +186,7 @@
 
 								<div class="service">
 								  <i class="fas fa-users"></i>
-								  <h2>Benefits to Lesses</h2>
+								  <h2>Benefits to Lessees</h2>
 								  <p>Avoid steep premiums charged by other companies for short term or small scale agreements.</p>
 								</div>
 
