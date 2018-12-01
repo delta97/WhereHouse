@@ -249,7 +249,24 @@
 			}
 		});
 
-	
+		//after clicking out of the search bar
+		$('#zip-search').on('focusout', function(event){
+			var search_query = $('#zip-search').val();
+			sessionStorage.setItem("search_query", search_query);
+		});
+
+		//search bar submit
+		$('#zip-search-button').on('click', function(event) {
+			event.preventDefault();
+			var search_query = $('#zip-search').val();
+			if(!(search_query === null) && !(search_query === "")){
+				sessionStorage.setItem("search_query", search_query);
+				window.location = "basicsearch.php";
+			}
+			else {
+				alert("Please enter a valid zipcode to search for warehouses.");
+			}
+		});
 		
 
 	</script>

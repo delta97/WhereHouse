@@ -520,6 +520,26 @@ h1 {
 	cursor: pointer;
 }
 
+.search-button-home {
+	display: flex;
+	height: 45px;
+	width: 500px;
+	background-color: #4d4d4d;
+	color: white;
+	align-content: center;
+	align-self: center;
+	margin-right: 25px;
+	border: 2px solid white;
+	border-radius: 8px;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.search-button-home:hover {
+	background-color: #86eae3;
+	color: #4d4d4d;
+	border: 2px solid white;
+	cursor: pointer;
+}
+
 .search-flex {
 	display: flex;
 	flex-direction: column;

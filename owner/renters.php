@@ -185,6 +185,8 @@
 		});
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
+			sessionStorage.clear();
+			
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";

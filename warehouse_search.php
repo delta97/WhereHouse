@@ -68,24 +68,24 @@
 	$rating_result = mysqli_query($connection, $query_rating);
 
 	if($id_result){
-		$id_numeric = mysqli_fetch_all($id_result, MYSQLI_NUM);
+		$id_numeric = mysqli_fetch_all($id_result, MYSQLI_NUM); //numeric array of warehouse IDs
 	}
 	else{
-		$id_numeric_error = "There was an error with generating the numeric id array.";
+		$id_numeric_error = "There was an error with generating the numeric id array."; //return this
 	}
 
 	if($zip_result){
 		$zip_numeric = mysqli_fetch_all($zip_result, MYSQLI_NUM);
 	}
 	else{
-		$zip_numeric_error = "There was an error with generating the numeric zipcode array.";
+		$zip_numeric_error = "There was an error with generating the numeric zipcode array."; //return this
 	}
 
 	if($rating_result){
 		$rating_numeric = mysqli_fetch_all($rating_result, MYSQLI_NUM);
 	}
 	else{
-		$rating_numeric_error = "There was an error with generating the numeric rating array.";
+		$rating_numeric_error = "There was an error with generating the numeric rating array."; //return this
 	}
 
 	$warehouse_row_size = sizeof($id_numeric);
@@ -93,9 +93,9 @@
 
 	$warehouse_info_matrix = array("id" => $id_numeric, "zip" => $zip_numeric, "rating" => $rating_numeric);
 	for($x=0; $x < $warehouse_matrix_size + 1; $x++){
-		$zipcode_compare = $warehouse_info_matrix["zip"][$x];
-		$lat_compare = $ziplatlong_assoc['latitude'][$zipcode_compare];
-		$long_compare = $ziplatlong_assoc['longitude'][$zipcode_compare];
+		$zipcode_compare = $warehouse_info_matrix["zip"][$x]; //numeric array of all of the zipcodes from warehouses in the database
+		$lat_compare = $ziplatlong_assoc['latitude'][$zipcode_compare]; //latitude for each of the warehouses in the database 
+		$long_compare = $ziplatlong_assoc['longitude'][$zipcode_compare]; //longitude for each of the warehouses in the database
 
 	}
 		

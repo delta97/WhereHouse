@@ -6,6 +6,7 @@
 	$connection = serverConnect();
 
 	$user_id = $_POST['user_id'];
+	$user_id = 12345
 
 	$query = "SELECT * FROM Contract WHERE owner_id = $user_id AND Status='Active' ORDER BY lessee_id DESC";
 	$result = mysqli_query($connection, $query);

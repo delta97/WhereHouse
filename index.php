@@ -45,10 +45,9 @@
 				<div class="flex-logo">
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
-				<form class="search" action="searchquery.php">
-					<input id="zip-search" name="zip-search" type="number" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
-				</form>
+				<div class="search">
+					<button id="zip-search" class="search-button-home" placeholder="Search Warehouses By Zipcode" aria-label="Search"><span class="login-button-text">Search Available Warehouses by Zipcode</span></button>
+				</div>
 
 				<div class="flex-logo">
 					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
@@ -75,72 +74,97 @@
 						</div>
 					</div>
 				</div>
-			<!-- registration modal -->
-				<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-title" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content modal-formatting">
-							<div class="modal-header">
-								<h4 class="modal-title" id="registration-modal-title">Are you leasing or renting through WhereHouse?</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form>
-									<div class="form-group flex-center">
-										<button value="0" type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
-	   									<button value="1" type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
- 							</div>
-						</div>
-					</div>
-				</div>
-			<!-- Login Modal -->
-				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" >
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content modal-formatting">
-							<div class="modal-header">
-								<h4 class="modal-title" id="login-modal-title">Existing User? Login</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form method="post" id="login-modal-form" action="login.php" target="submit-redirect">
-									<div class="form-group">
-								    	<label for="login-modal-email">Email address</label>
-								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
-								  	</div>
-								  	<div id="modal-pass" class="form-group">
-								    	<label for="login-modal-password">Password</label>
-								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
-								    </div>
-								    <div class="alerts">
-								    </div>
-								    <div class="modal-footer">
-										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-next" id="submit-button">Log In</button>
- 									</div>
- 									<iframe id="submit-redirect" name="submit-redirect" style="display: none"></iframe>
-								</form>
+				<!-- search modal -->
+				<div class="modal fade" id="search-modal" tabindex="-1" role="dialog">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content modal-formatting">
+								<div class="modal-header">
+									<h4 class="modal-title" id="registration-modal-title">Are you leasing or renting through WhereHouse?</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="form-group flex-center">
+											<button value="0" type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
+		   									<button value="1" type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn submit-btn">Search Warehouses</button>
+	   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+	 							</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-			</div>
-			<div class="footer" style="display: flex; flex-direction: row; justify-content: space-between; align-content: center;">
-				<div class="footer-left" style="align-self:center;margin-left: 200px; color:white;">
-					<p><a href="lessee/dashboard.php" style="color:white;">Go to Lessee</a></p>
+				<!-- registration modal -->
+					<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-title" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content modal-formatting">
+								<div class="modal-header">
+									<h4 class="modal-title" id="registration-modal-title">Are you leasing or renting through WhereHouse?</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form>
+										<div class="form-group flex-center">
+											<button value="0" type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
+		   									<button value="1" type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+	   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+	 							</div>
+							</div>
+						</div>
+					</div>
+				<!-- Login Modal -->
+					<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" >
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content modal-formatting">
+								<div class="modal-header">
+									<h4 class="modal-title" id="login-modal-title">Existing User? Login</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form method="post" id="login-modal-form" action="login.php" target="submit-redirect">
+										<div class="form-group">
+									    	<label for="login-modal-email">Email address</label>
+									    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
+									  	</div>
+									  	<div id="modal-pass" class="form-group">
+									    	<label for="login-modal-password">Password</label>
+									    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password"/>
+									    </div>
+									    <div class="alerts">
+									    </div>
+									    <div class="modal-footer">
+											<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-next" id="submit-button">Log In</button>
+	 									</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
-				<div class="footer-right" style="align-self:center;margin-right: 200px; color: white;">
-					<p><a href="owner/dashboard.php" style="color:white;">Go to Owner</a></p>
+				<div class="footer" style="display: flex; flex-direction: row; justify-content: space-between; align-content: center;">
+					<div class="footer-left" style="align-self:center;margin-left: 200px; color:white;">
+						<p><a href="lessee/dashboard.php" style="color:white;">Go to Lessee</a></p>
+					</div>
+					<div class="footer-right" style="align-self:center;margin-right: 200px; color: white;">
+						<p><a href="owner/dashboard.php" style="color:white;">Go to Owner</a></p>
+					</div>
 				</div>
-			</div>
 			
 
 		</div>
@@ -208,25 +232,10 @@
 		});
 		
 
-
-		//after clicking out of the search bar
-		$('#zip-search').on('focusout', function(event){
-			var search_query = $('#zip-search').val();
-			sessionStorage.setItem("search_query", search_query);
+		$('#zip-search').click(function(event){
+			window.location = "basicsearch.php";
 		});
-
-		//search bar submit
-		$('#zip-search-button').on('click', function(event) {
-			event.preventDefault();
-			var search_query = $('#zip-search').val();
-			if(!(search_query === null) && !(search_query === "")){
-				sessionStorage.setItem("search_query", search_query);
-				window.location = "basicsearch.php";
-			}
-			else {
-				alert("Please enter a valid zipcode to search for warehouses.");
-			}
-		});
+		
 
 
 
