@@ -19,7 +19,6 @@ install.packages("RMySQL")
 install.packages("httr")
 install.packages("XML")
 install.packages("stringi")
-install.packages("tidyverse")
 ```
 
 ```{r}
@@ -37,30 +36,9 @@ library(stringi)
 library(RMySQL)
 ```
 
-```{r}
-
-con <- dbConnect(MySQL(),
-         user="g1090429", password="WhereHouse?",
-         dbname="g1090429", host="mydb.ics.purdue.edu")
-on.exit(dbDisconnect(con))
-
-
-
-```
-
-```{r}
-all_cons <- dbListConnections(MySQL())
-for (con in all_cons)
-dbDisconnect(con)
-```
-
-For every owner there will be around 235 lessees, this number is found from the airbnb number of hosts(640,000) and number of users(150 million).
-We have scraped 500 warehouse data from loopnet however we have omitted the warehouses that does not disclose the rent price and also omitted the ones with 
-
-```{r user}
+```{r data}
 #USER DATATABLE
-sample_size <- lesse_num + nrow(owner)
-
+sample_size <- 39909
 
 #First and Last Names
 full_name <- r_full_names(sample_size)
@@ -68,8 +46,7 @@ df <- as.data.frame(full_name)
 names <- tidyr::separate(df, full_name, sep = " ", c("First_name", "Last_name" ))
 
 #User type
-user_type <- as.data.frame(rbinom(sample_size, 1, nrow(owner)/ sample_size))
-sum(user_type) - length(user_type)
+user_type <- as.data.frame(rbinom(sample_size, 1, 0.35))
 
 #Phone Number
 Phone_num <- r_phone_numbers(sample_size)
@@ -83,91 +60,52 @@ Email <- as.data.frame(Email)
 DOB <- sample(seq(as.Date('1950/01/01'), as.Date('2000/01/01'), by="day"), sample_size, replace = TRUE )
 DOB <- as.data.frame(DOB)
 
+#Bank Account Number 
+bank_account <- sample(10000000000:999999999999, sample_size,replace=TRUE)
+bank_account <- as.data.frame(bank_account)
+
+#Routing Number
+routing_number <- sample(1e9:1e10,sample_size,replace=TRUE)
+routing_number <- as.data.frame(routing_number)
 
 #Address
 data <- read.csv("data.csv")
 address_2 <- 0
 
 #Password
-password<- stri_rand_strings(n=sample_size, length=15, pattern="[A-Za-z0-9]")
+password<- stri_rand_strings(n=sample_size, length=8, pattern="[A-Za-z0-9]")
 password <- as.data.frame(password)
 
-a <- data.frame(DOB,Phone_num, user_type, Email, password)
-
-
+a <- data.frame(DOB,Phone_num, routing_number, bank_account, user_type, Email, password)
 
 user <- names
-user$First_name <- as.character(names$First_name)
-user$Last_name <- as.character(names$Last_name)
-user$Address_1 <- as.character(data$Street.Address)
-user$Address_2 <- as.character(0)
-user$City <- as.character(data$City)
-user$State <- as.character(data$State)
-user$Zipcode <- as.integer(data$Zip.Code)
+user$first_name <- names$First_name
+user$last_name <- names$Last_name
+user$address_1 <- data$Street.Address
+user$address_2 <- 0
+user$city <- data$City
+user$state <- data$State
+user$zip <- data$Zip.Code
 user$DOB <- a$DOB
-user$Phone_num <- as.integer(a$Phone_num)
-user$Email <- as.character(a$Email)
-user$Password <- as.character(a$password)
+user$phone_num <- a$Phone_num
+user$routing_num <- a$routing_number
+user$bank_acc <- a$bank_account
+user$user_type <- a$user_type
+user$email <- a$Email
+user$password <- a$password
+
+user <- as.data.frame(user)
 user <- user[, -c(1:2)]
-user <- tibble::rowid_to_column(user, "id")
-
-
 
 dbWriteTable(con, "User", user, overwrite = TRUE)
 
 
-
-
 ```
 
-```{r owner}
-
-#Company Name 
-company_names <- lapply(paste0('http://www.hoovers.com/company-information/company-search.html?term=warehousing-and-storage--&nvcnt=76&maxitems=100&page=', 1:10,sep="/"),
-                function(url){
-                  url %>% read_html() %>% 
-                    html_nodes(".company_name") %>% 
-                    html_text() %>%
-                    str_trim() 
-                })
-company_names <- unlist(company_names)
-company_names<- as.data.frame(company_names)
-owner <- company_names
-colnames(owner)[1] <- "Company_name"
-
-#Bank Account Number 
-bank_account <- sample(10000000000:999999999999, nrow(company_names),replace=TRUE)
-bank_account <- as.data.frame(bank_account)
-
-#Routing Number
-routing_number <- sample(1e9:1e10,nrow(company_names),replace=TRUE)
-routing_number <- as.data.frame(routing_number)
-
-
-a <- bind_cols(bank_account,routing_number)
-owner$bank_acc <- a$bank_account
-owner$routing_num <- a$routing_number
-
-specific <- sample(1:1000,376)
-owner <- owner[specific,]
-
-owner <- tibble::rowid_to_column(owner, "owner_id")
-
-dbWriteTable(con, "Owner", owner, overwrite = TRUE)
-
-```
-
-```{r lessee}
-lesse_num <- nrow(owner) * 100
-credit_card_num <- r_credit_card_numbers(lesse_num)
-credit_card_num <- gsub("-","", credit_card_num)
-credit_card_num <- as.data.frame(credit_card_num)
-dbWriteTable(con, "Lessee", credit_card_num, overwrite = TRUE)
-
-```
 
 ```{r warehouse}
-Street <- lapply(paste0("https://www.loopnet.com/warehouses-for-lease/", 1:20,sep="/"),
+#Street Adress
+Street <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
                 function(url){
                   url %>% read_html() %>% 
                     html_nodes(".listingTitle") %>% 
@@ -175,7 +113,7 @@ Street <- lapply(paste0("https://www.loopnet.com/warehouses-for-lease/", 1:20,se
                     str_trim() %>%
                     gsub('-* Warehouse for Lease', '', .)
                   
-              })
+                })
 
 Street <- unlist(Street)
 Street <- as.data.frame(Street)
@@ -259,6 +197,9 @@ warehouse$used <- 0
 warehouse <- bind_cols(warehouse,day)
 warehouse$freq <- NULL
 
+
+
+
 warehouse$id <- warehouse$ID
 warehouse$adress_1 <- warehouse$Street
 warehouse$adress_2 <- 0
@@ -282,7 +223,14 @@ day <- day[rep(seq_len(nrow(day)), 375), ]
 
 
 
+con <- dbConnect(MySQL(),
+         user="g1090429", password="WhereHouse?",
+         dbname="g1090429", host="mydb.ics.purdue.edu")
+on.exit(dbDisconnect(con))
 
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons)
+dbDisconnect(con)
 
 ```
 

@@ -3,13 +3,7 @@
 	require 'serverconnect.php';
 	$connection = serverConnect();
 
-	$user_email;//passed in by ajax
-
-	$query = "SELECT User_id FROM User WHERE email = '".$user_email."';";
-	$result = mysqli_query($result);
-
-	$assoc_id = mysqli_assoc($result);
-	$user_id = $assoc_id['User_id'];
+	$user_id = $_SESSION['user_id'];
 
 
 	$query = "SELECT message_id FROM Messages WHERE message_status = 0 AND recipient_id = '".$user_email."';";

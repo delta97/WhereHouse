@@ -9,11 +9,11 @@
 	$user_address_2 = $_POST['user-address-line2'];
 	$user_city = $_POST['user-city'];
 	$user_state = $_POST['user-state'];
-	$user_zip = $_POST['user-zip]'];
+	$user_zip = $_POST['user-zip'];
 	$user_phone = $_POST['user-phone'];
 
 
-	$query = "UPDATE User SET first_name = '".$user_first_name."', last_name = '".$user_last_name."',  address_1 = '".$user_address_1."', address_2 '".$user_address_2."', ;
+	$query = "UPDATE User SET first_name = '$user_first_name', last_name = '$user_last_name',  address_1 = '$user_address_1', address_2 '$user_address_2', ;
 
 
 	$result = mysqli_query($connection, $query);

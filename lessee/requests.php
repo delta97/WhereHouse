@@ -43,7 +43,7 @@
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
-					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
+					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
 					<span class="header-username">Doe, John</span>

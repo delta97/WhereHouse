@@ -77,6 +77,7 @@
 								</tr>
 							</thead>
 							<tbody>
+								<tr data-contractID=""
 							</tbody>
 						</table>
 					</div>

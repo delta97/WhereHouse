@@ -3,7 +3,7 @@
 	<head>
 		<!-- add favicon -->
 		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
-		
+
 		<!-- 3rd party footer content -  -->
 		
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -66,7 +66,6 @@
   margin-top: 40px;
 }
 .cen{
-  max-width: 1200px;
   margin: auto;
   overflow: hidden;
   padding: 20px;
@@ -99,14 +98,42 @@
   font-size: 15px;
   font-weight: 500;
 }
+.team{
+  display: inline-block;
+  width: calc(100%);
+  margin: 0 -2px;
+  padding: 25px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.team:hover{
+  background: #ddd;
+}
+.team i{
+  color: #fbb413;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+.team p{
+  color: gray;
+  font-size: 15px;
+  font-weight: 500;
+}
 @media screen and (max-width: 800px) {
   .service{
     width: 50%;
+  }
+  .team{
+	  width: 50%;
   }
 }
 @media screen and (max-width: 500px) {
   .service{
     width: 100%;
+  }
+  .team{
+	  width: 100%;
   }
 }
 		</style>
@@ -140,46 +167,58 @@
 					
 					
 					
-							<div class="services">
+			<div class="services">
 							  <h1>Our Services</h1>
 							  <div class="cen">
 								<div class="service">
 								  <i class="fas fa-box-open"></i>
 								  <h2>Storage Solutions</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <p>Gain access to tailored search features, 
+								  secure partnerships, detailed analytics, and an optimized user interface.</p>
 								</div>
 
 								<div class="service">
-								  <i class="fab fa-android"></i>
-								  <h2>Moblie App</h2>
-								  <p>Releasing on the app store in 2020!</p>
+								  <i class="fas fa-file-signature"></i>
+								  <h2>Benefits to Owners</h2>
+								  <p>Maintain revenue even in off seasons or when long term storage contracts aren't reaching your warehouse capacity. 
+								  </p>
 								</div>
 
 								<div class="service">
-								  <i class="fab fa-angellist"></i>
-								  <h2>24/7 Support</h2>
-								  <p>Your warehousing needs don't take vacations, so neither do we!</p>
+								  <i class="fas fa-users"></i>
+								  <h2>Benefits to Lesses</h2>
+								  <p>Avoid steep premiums charged by other companies for short term or small scale agreements.</p>
 								</div>
 
 								<div class="service">
-								  <i class="fas fa-apple-alt"></i>
-								  <h2>Peer-to-Peer Communication System</h2>
-								  <p>You are only ever one message away from solving your warehousing problems.</p>
+								  <i class="fas fa-dollar-sign"></i>
+								  <h2>Affordable Membership</h2>
+								  <p>A commission based fee structure makes it is easy to register as a warehouse owner no matter
+								  the scale of your business.</p>
 								</div>
 
 								<div class="service">
-								  <i class="fas fa-archway"></i>
-								  <h2>Mario's Personal Phone Number</h2>
-								  <p>We don't have it yet, but we will let you know when we do.</p>
+								  <i class="fas fa-lightbulb"></i>
+								  <h2>Machine Learning</h2>
+								  <p>Warehouse Inc benefits both owners and lessees by recommending warehouse solutions based 
+								  on individual user's search and preference history.</p>
 								</div>
 
 								<div class="service">
-								  <i class="far fa-angry"></i>
-								  <h2>Satisfaction Guaranteed</h2>
-								  <p>WhereHouse boasts the world's deepest network of warehousing experts; if you can't find it here, you won't find it anywhere.</p>
+								  <i class="fas fa-user-lock"></i>
+								  <h2>Security</h2>
+								  <p>Never worry about the security of your data, payments, or assets thanks to detailed security 
+								  measurments put in place throughout the website.</p>
 								</div>
 							  </div>
-							</div>	
+							  
+							  <br><h1>The Team</h1><br>
+							  <div class="team">
+							  <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i>
+							  <p>Amanda Crowe, Cole Parsons, Collin Jewett, Kayla Parker, Michael Campbell, Shriya Das, Utkuhan Genc</p>
+							  </div>
+
+				</div>	
 								
 								
 		

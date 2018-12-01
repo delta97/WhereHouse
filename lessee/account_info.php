@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<?php
-	require "serverconnect.php";
-	$connection = serverConnect();
 
-	$query = "SELECT * FROM User WHERE email = '".$_SESSION['user_email']."';";
-	$result = mysqli_query($connection, $query);
-
-
-	if(!$result){
-		
-	}
-?>
 <html>
 	<head>
 		<!-- add favicon -->
 		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+		<!-- 3rd party footer content -  -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+		<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -44,73 +41,71 @@
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
-					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
+					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
-					<span class="header-username">Doe, John</span>
+					<span class="header-username"></span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
 			<div class="body dashboard-flex">
 				<div class="sidebar">
-					<div id="dashboard" class="sidebar-btn">
+					<div id="dashboard-btn" class="sidebar-btn ">
 						<span class="sidebar-btn-text">Dashboard</span>
 					</div>
-					<div id="renters" class="sidebar-btn">
-						<span class="sidebar-btn-text">Your Renters</span>
+					<div id="rentals-btn" class="sidebar-btn">
+						<span class="sidebar-btn-text">Your Rentals<span class="notification-span-rentals"></span>
 					</div>
-					<div id="manage-warehouses" class="sidebar-btn">
-						<span class="sidebar-btn-text">Manage Warehouses</span>
+					<div id="requests-btn" class="sidebar-btn">
+						<span class="sidebar-btn-text">Manage Requests<span class="notification-span-requests"></span>
 					</div>
-					<div id="inbox" class="sidebar-btn">
-						<span class="sidebar-btn-text">Inbox</span>
+					<div id="inbox-btn" class="sidebar-btn">
+						<span class="sidebar-btn-text">Inbox<span class="notification-span-messages"></span>
+						
 					</div>
-					<div id="analytics" class="sidebar-btn">
-						<span class="sidebar-btn-text">Analytics Portal</span>
-					</div>
-					<div id="account-info" class="sidebar-btn  active-btn">
+					<div id="account-info" class="sidebar-btn active-btn">
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
 				<div class="page-content-account-info flex-center-account-info">
 					<h1 class="dashboard-header">Account Information</h1>
 					<div id="save-notifications"></div>
-					<iframe id="submit-redirect" style="display:none;"></iframe>
+					
 					<div class="account-info">
 						<form id="edit-information-form" action="update_general_information.php" target="#submit-redirect" method="post">
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-first-name">First Name</label>
-									<input type="text" class="form-control" name="user-first-name" id="user-first-name" aria-describedby="enter first name" value="User First Name From Server">
+									<input type="text" class="form-control" name="user-first-name" id="user-first-name" aria-describedby="enter first name" placeholder="User First Name From Server">
 								</div>
 								<div class="col">
 									<label for="user-last-name">Last Name</label>
-									<input type="text" class="form-control" name="user-last-name" aria-describedby="enter last name" value="User Last Name From Server">
+									<input type="text" class="form-control" name="user-last-name" aria-describedby="enter last name" placeholder="User Last Name From Server">
 								</div>
 							</div>
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-address-line1">Address Line 1</label>
-									<input type="text" class="form-control" name="user-address-line1" id="user-address-line1" value="User Address Line 1 From Server">
+									<input type="text" class="form-control" name="user-address-line1" id="user-address-line1" placeholder="User Address Line 1 From Server">
 								</div>
 							</div>
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-address-line2">Address Line 2</label>
-									<input type="text" class="form-control" name="user-address-line2" id="user-address-line2" value="User Address Line 2 From Server">
+									<input type="text" class="form-control" name="user-address-line2" id="user-address-line2" placeholder="User Address Line 2 From Server">
 								</div>
 							</div>
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-city">City
 									</label>
-									<input type="text" class="form-control" name="user-city" id="user-city" value="User City From Server">
+									<input type="text" class="form-control" name="user-city" id="user-city" placeholder="User City From Server">
 								</div>
 								<div class="col">
 									<label for="user-state">
 									State</label>
 									<select type="text" class="form-control" name="user-state" id="user-state">
-										<option value="null">User State From Server</option>
+										<option value="null">Select a State</option>
 										<option value="AL">Alabama</option>
 										<option value="AK">Alaska</option>
 										<option value="AZ">Arizona</option>
@@ -167,14 +162,7 @@
 								<div class="col">
 									<label for="user-zip">Zip Code
 									</label>
-									<input type="text" class="form-control" name="user-zip" id="user-zip" value="User Zipcode From Server">
-								</div>
-							</div>
-							<div class="form-row form-spacing">
-								<div class="col">
-									<label for="user-phone">Phone Number
-									</label>
-									<input type="text" class="form-control" name="user-phone" id="user-phone" value="User Phone From Server">
+									<input type="text" class="form-control" name="user-zip" id="user-zip" placeholder="User Zipcode From Server">
 								</div>
 							</div>
 							<div class="button-center">
@@ -229,26 +217,73 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">Footer</div>
 	</body>
+	<footer style="margin-top: 0px;"class="footer-distributed">
+
+			<div class="footer-left">
+				<span class="company-name">WhereHouse INC. </span> <br>
+				<p class="footer-company-name">IE332 Team Project &copy; 2018</p>
+			</div>
+			<div class="footer-center">
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>610 Purdue Mall</span> West Lafayette, IN 47907</p>
+				</div>
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123 4567</p>
+				</div>
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:wherehouse.8.inc@gmail.com">wherehouse.8.inc@gmail.com</a></p>
+				</div>
+			</div>
+			<div class="footer-right">
+				<p class="footer-company-about">
+					<span>Connect With Us</span>
+					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
+				</p>
+				<div class="footer-icons">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
+					<!-- Add a link to instagram... replace # with actual links> -->
+				</div>
+			</div>
+		</footer>
 	<script type="text/javascript">
-		$("#dashboard").click(function() {
+		//onload of the page
+		$(document).ready(function(event) {
+			//populate the sidebar with notification icons as needed
+			get_notification_badges();
+			populate_account_information();
+			$('.header-username').text("Welcome, "+sessionStorage.getItem("user_first_name"));
+
+		});
+
+
+
+
+		//on click functions for linking divs
+		$("#dashboard-btn").click(function(event) {
 			window.location = "dashboard.php";
 		});
-		$("#renters").click(function() {
-			window.location = "renters.php";
+		$("#rentals-btn").click(function(event) {
+			window.location = "rentals.php";
 		});
-		$("#manage-warehouses").click(function() {
-			window.location = "warehouses.php";
+		$("#requests-btn").click(function(event) {
+			window.location = "requests.php";
 		});
-		$("#inbox").click(function() {
+		$("#inbox-btn").click(function(event) {
 			window.location = "inbox.php";
 		});
-		$("#analytics").click(function() {
-			window.location = "analytics.php";
-		});
-		$(".logout-button").click(function() {
+		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
+			sessionDestroy();
+		});
+		$("#account-info").click(function(event) {
+			window.location = "account_info.php";
 		});
 
 		//submits an ajax request to the php server file 'update_general_information.php'
@@ -262,15 +297,21 @@
 			var user_zipcode = $('#user-zip').value;
 			var user_phone_num = $('#user-phone').value;
 
-			var object = {'first_name':user_first_name, 'last_name':user_last_name, 'address_line_1':user_address_1, 'address_line_2':user_address_2, 'city':user_city, 'state': user_state, 'zipcode':user_zipcode, 'phone_num':user_phone_num};
-			var input = JSON.stringify(object);
+			var serializedGeneralInformation = $('#edit-information-form').serialize();
 
 			$.ajax({
 				url: 'update_general_information.php',
 				type: 'post', 
+				data: serializedGeneralInformation,
 				dataType: 'json',
 				success: function(response){
-					var success_message = response;
+					var message = response;
+					if(message === 0) {
+						//badge a success notification at the top of the screen and scroll to the top
+					}
+					else if(message === 1) {
+						//badge a danger warning notification at the top of the screen
+					}
 				}
 			});
 		});
@@ -307,5 +348,64 @@
 				});
 			}
 		});
+
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
+
+			$.ajax({
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
+
+				}
+			});
+		}
+		//calls a get to destory the php variable session
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
+
+		//populates the placeholders of each of the account information fields
+		function populate_account_information(){
+			$.post('populate_account_information.php',{user_id: sessionStorage.getItem("user_id")}, function(response){
+				var first_name = response['first_name'];
+				var last_name = response['last_name'];
+				var error_general = response['error_general'];
+				var error_banking = response['error_banking'];
+				var email = response['email'];
+				var address_1 = response['address_1'];
+				var address_2 = response['address_2'];
+				var city = response['city'];
+				var state = response['state'];
+				var zipcode = response['zipcode'];
+				var bank_account = response['bank_account'];
+				var bank_routing = response['bank_routing'];
+
+				//general information
+				$('#user-first-name').attr("value",sessionStorage.getItem('user_first_name'));
+				$('#user-last-name').attr("value", sessionStorage.getItem('user_last_name'));
+				$('#user-address-line1').attr("value", sessionStorage.getItem('user_address_1'));
+				$('#user-address-line2').attr("value", sessionStorage.getItem('user_address_2'));
+				$('#user-city').attr("value", sessionStorage.getItem('user_city'));
+				$('#user-state').attr("value", sessionStorage.getItem('user_state'));
+				$('#user-zip').attr("value", sessionStorage.getItem('user_zipcode'));
+
+				//financial information
+				$('#bank-routing-number').attr("value", bank_routing);
+				$('#bank-account-number').attr("value", bank_account);
+
+			});
+		}
 	</script>
 </html>
