@@ -368,11 +368,11 @@ h1 {
 }
 
 .sidebar {
-	display: flex;
-	flex-direction: column;
-	background-color: grey;
-	min-width: 275px;
-	min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f2f2;
+    min-width: 275px;
+    min-height: 100%;
 }
 
 .page-content-dashboard {
@@ -384,6 +384,8 @@ h1 {
 	padding: 50px;
 }
 
+
+/*KAYLA background color of dashboard page... changed the color to light grey instead of white */
 .page-content {
 	display: flex;
 	flex-direction: column;
@@ -419,26 +421,45 @@ h1 {
 }
 
 .sidebar-btn {
-	display: flex;
-	align-self: center;
-	width: 100%;
-	height: 40px;
-	background-color: #86eae3;
-	color: #4d4d4d;
-	padding: 5px;
-	justify-content: center;
-	align-content: center;
-	cursor: pointer;
+    display: flex;
+    align-self: center;
+    width: 100%;
+    height: 40px;
+    background-color: #f2f2f2;
+    color: #4d4d4d;
+    padding: 5px;
+    justify-content: center;
+    align-content: center;
+    cursor: pointer;
 }
 
 .sidebar-btn:hover {
-	background-color: #a8f0eb;
+	background-color: #86eae3;
 }
 .active-btn{
+    background-color: white;
+    box-shadow: -3px 1px 2px -1px;
+    transform: translateY(1px);
+    filter: saturate(150%)
+}
+.search-button-home {
+	display: flex;
+	height: 45px;
+	width: 500px;
+	background-color: #4d4d4d;
+	color: white;
+	align-content: center;
+	align-self: center;
+	margin-right: 25px;
+	border: 2px solid white;
+	border-radius: 8px;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+.search-button-home:hover {
 	background-color: #86eae3;
-	-webkit-box-shadow:0px 0px 11px 2px #4d4d4d inset;
-	-moz-box-shadow:0px 0px 11px 2px #4d4d4d inset;
-	box-shadow:0px 0px 11px 2px #4d4d4d inset;
+	color: #4d4d4d;
+	border: 2px solid white;
+	cursor: pointer;
 }
 
 
@@ -517,26 +538,6 @@ h1 {
 	background-color: #86eae3;
 	color: #4d4d4d;
 	border: 2px solid #4d4d4d;
-	cursor: pointer;
-}
-
-.search-button-home {
-	display: flex;
-	height: 45px;
-	width: 500px;
-	background-color: #4d4d4d;
-	color: white;
-	align-content: center;
-	align-self: center;
-	margin-right: 25px;
-	border: 2px solid white;
-	border-radius: 8px;
-	font-family: 'Roboto Condensed', sans-serif;
-}
-.search-button-home:hover {
-	background-color: #86eae3;
-	color: #4d4d4d;
-	border: 2px solid white;
 	cursor: pointer;
 }
 
@@ -631,6 +632,8 @@ h1 {
 	padding: 15px;
 
 }
+
+/*KAYLA deleted box shadow */
 .dashboard-tile {
 	display: flex;
 	flex-direction: column;
@@ -639,16 +642,24 @@ h1 {
 	min-height: 300px;
 	width: auto;
 	height: auto;
-
-	/*border: 3px solid black;
-	border-radius: 5px;
-	margin: 20px;*/
 	background-color: white;
 	margin: 20px;
 	align-self: center;
 	padding: 10px;
-	box-shadow: 0px 0px 24px 7px rgba(107,107,107,.5);
 }
+
+/*KAYLA*/
+.profile-box{
+  background: white;
+  display: inline-block;
+  width: calc(100% / 3);
+  margin: 0 -2px;
+  padding: 25px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
 
 .dashboard-tile-clickable {
 	cursor: pointer;
@@ -1064,44 +1075,6 @@ h1 {
 	background-color: white;
 	box-shadow: 0px 0px 14px 2px rgba(219,219,219,1);
 }
-@media (min-width: 768px) {
-  .modal-renter {
-    width: 40%;
-   max-width:1200px;
-  }
-}
-
-
-@media (min-width: 768px) {
-  .modal-xl {
-    width: 90%;
-   max-width:1200px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
