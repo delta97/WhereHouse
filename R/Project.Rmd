@@ -20,6 +20,7 @@ install.packages("httr")
 install.packages("XML")
 install.packages("stringi")
 install.packages("tidyverse")
+install.packages("geosphere")
 ```
 
 ```{r}
@@ -35,17 +36,14 @@ library(stringr)
 library(ggplot2)
 library(stringi)
 library(RMySQL)
+library(geosphere)
 ```
 
 ```{r}
-
 con <- dbConnect(MySQL(),
          user="g1090429", password="WhereHouse?",
          dbname="g1090429", host="mydb.ics.purdue.edu")
 on.exit(dbDisconnect(con))
-
-
-
 ```
 
 ```{r}
@@ -53,9 +51,6 @@ all_cons <- dbListConnections(MySQL())
 for (con in all_cons)
 dbDisconnect(con)
 ```
-
-For every owner there will be around 235 lessees, this number is found from the airbnb number of hosts(640,000) and number of users(150 million).
-We have scraped 500 warehouse data from loopnet however we have omitted the warehouses that does not disclose the rent price and also omitted the ones with 
 
 ```{r user}
 #USER DATATABLE
@@ -84,6 +79,7 @@ DOB <- sample(seq(as.Date('1950/01/01'), as.Date('2000/01/01'), by="day"), sampl
 DOB <- as.data.frame(DOB)
 
 
+
 #Address
 data <- read.csv("data.csv")
 address_2 <- 0
@@ -105,19 +101,22 @@ user$City <- as.character(data$City)
 user$State <- as.character(data$State)
 user$Zipcode <- as.integer(data$Zip.Code)
 user$DOB <- a$DOB
-user$Phone_num <- as.integer(a$Phone_num)
+user$Phone_num <- a$Phone_num
 user$Email <- as.character(a$Email)
 user$Password <- as.character(a$password)
 user <- user[, -c(1:2)]
 user <- tibble::rowid_to_column(user, "id")
-
+user <- left_join(user, zipcode, by= "Zipcode")
 
 
 dbWriteTable(con, "User", user, overwrite = TRUE)
 
+```
 
-
-
+```{r foreign keys}
+owner_id <- user[sample(nrow(user), 399), 1]
+user[owner_id,1]
+lessee_id <- user[-owner_id,1]
 ```
 
 ```{r owner}
@@ -148,10 +147,11 @@ a <- bind_cols(bank_account,routing_number)
 owner$bank_acc <- a$bank_account
 owner$routing_num <- a$routing_number
 
-specific <- sample(1:1000,376)
-owner <- owner[specific,]
+specific <- sample(1:1000,3)
+owner <- owner[sample(nrow(owner),399),]
 
-owner <- tibble::rowid_to_column(owner, "owner_id")
+owner$owner_id <- owner_id 
+owner <- owner[c(4,1,2,3)]
 
 dbWriteTable(con, "Owner", owner, overwrite = TRUE)
 
@@ -162,7 +162,17 @@ lesse_num <- nrow(owner) * 100
 credit_card_num <- r_credit_card_numbers(lesse_num)
 credit_card_num <- gsub("-","", credit_card_num)
 credit_card_num <- as.data.frame(credit_card_num)
-dbWriteTable(con, "Lessee", credit_card_num, overwrite = TRUE)
+
+expiration_month <- sample(1:12,lesse_num, replace = TRUE)
+expiration_year <- sample(2018:2050, lesse_num, replace = TRUE)
+expiration <- data.frame(expiration_month, expiration_year)
+CVC <- sample(100:999, lesse_num, replace = TRUE)
+CVC <- as.data.frame(CVC)
+
+lessee_id <- as.data.frame(lessee_id)
+lessee <- bind_cols(lessee_id,credit_card_num,expiration, CVC)
+
+dbWriteTable(con, "Lessee", lessee, overwrite = TRUE)
 
 ```
 
@@ -233,57 +243,90 @@ Size <- as.data.frame(Size)
 #Temperature control 
 temp <- c("dry", "temp_controlled", "cooler", "frozen")
 
+#Capacity
+capacity <- floor(capacity_find(warehouse$Size))
 
 #Warehouse data frame 
-warehouse <- bind_cols(Street,city_state,price, Size) 
+warehouse <- data.frame(Street,city_state,price, Size) 
 warehouse <- as.data.frame(warehouse) %>%
   mutate(price = price * 12) %>% 
-  mutate(price, replace(price, price > 20, NA)) %>%
+  mutate(price, replace(price, price > 30, NA)) %>%
   na.omit
-warehouse$`replace(price, price > 20, NA)` <- NULL
+warehouse$`replace(price, price > 30, NA)` <- NULL
+
+warehouse <- left_join(warehouse,zipcode, by = "city")
+
 warehouse <- tibble::rowid_to_column(warehouse, "ID")
 warehouse <- left_join(warehouse, zipcodes, by = "ID")
 warehouse <- warehouse %>% na.omit
 warehouse$temp <- sample(temp, nrow(warehouse), replace = TRUE, prob = c(.30,.50,.15,.05))
-warehouse$capacity <- floor(capacity_find(warehouse$Size))
+warehouse$capacity <- capacity
 warehouse$lowest_temp[warehouse$temp == "frozen"] <- 0
 warehouse$lowest_temp[warehouse$temp == "cooler"] <- 34
 warehouse$lowest_temp[warehouse$temp == "temp_controlled"] <- 55
 warehouse$lowest_temp[warehouse$temp == "dry"] <- 75
 warehouse$highest_temp <- 75 
-warehouse$rating <- round(runif(nrow(warehouse), 0, 10),1)
+warehouse$Price_per_skid <- warehouse$price *16 / 365
+warehouse$Adress_2 <- 0
+warehouse$ID <- NULL
 
-warehouse$freq <- 366
-warehouse<- warehouse[rep(row.names(warehouse), warehouse$freq),1:9]
-warehouse$used <- 0
-warehouse <- bind_cols(warehouse,day)
-warehouse$freq <- NULL
 
-warehouse$id <- warehouse$ID
-warehouse$adress_1 <- warehouse$Street
-warehouse$adress_2 <- 0
-warehouse$city <- warehouse$city
-warehouse$state <- warehouse$State
-warehouse$price_per_skid <- warehouse$price * 16 / 365
-warehouse$capacity <- warehouse$capacity
-warehouse$sq_ft <- warehouse$Size
-warehouse$strg_type <- warehouse$temp
-warehouse$lowest_temp <- warehouse$lowest_temp
-warehouse$highest_temp <- warehouse$highest_temp
-warehouse$Day <- warehouse$day
-warehouse$Used <- warehouse$used
-warehouse$Avg_rating <- rating
-warehouse <- warehouse[, -c(1:11)]
+warehouse %>% select(city, S)
 
-#We generated day 
-day <- seq(as.Date('2018/01/01'), as.Date('2019/01/01'), by="day")
-day <- as.data.frame(day)
-day <- day[rep(seq_len(nrow(day)), 375), ]
+
+warehouse <- warehouse[c(1,2,12,3,4,5,6,7,8,9,10,11)]
+warehouse <- as.data.frame(warehouse)
+warehouse$owner_id <- owner$owner_id
+head(warehouse)
+
+
+head(warehouse)
+dbWriteTable(con, "Warehouse", warehouse, overwrite = TRUE)
+
+```
+
+```{r contract}
+selected_id <- sample(nrow(lessee), 1, 1)
+lessee_pref <- sample(temp, 1)
+selected_user <- user[selected_id, ]
 
 
 
+  
+distance <- mapply(distance_calc, warehouse$longitude, warehouse$latitude)
+distance <- distance * 0.000621371
+
+warehouses <- warehouse[which(distance < 200),]
+
+warehouses <- warehouse[which(warehouse$temp == lessee_pref),]
+
+warehouses <- which(distance < 200)
+selected_warehouse <- sample(nrow(warehouse),1,)
+
+start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
+
+repeat {
+    end_date <- sample(seq(as.Date('2018/01/02'), as.Date('2018/12/31'), by="day"), 1)
+    if (end_date > start_date){
+      break
+    }
+}
+
+date_diff <-  as.Date(start_date, format="%Y/%m/%d")- as.Date(end_date, format="%Y/%m/%d")
+num_skids <- repeat {
+    num_skids <- rnorm(1, mean=20, sd=30)
+    num_skids <- num_skids - (num_skids %% 1)
+    if (num_skids > 0){
+      break
+    }
+    return(num_skids)
+}
+
+total_price <- num_skids * selected_warehouse[9] * date_diff 
 
 
+
+contract <- data.frame(selected_warehouse[,1],start_date, end_date, total_price, selected_user)
 ```
 
 ```{r function}
@@ -294,4 +337,8 @@ capacity_find <- function(size){
   stack_height <- sample(c(1,2,3,4))
   capacity <- size * utilization * stack_height / 16
   return(capacity)
+}
+
+calc_dist <- function(lon,lat){
+  distm(c(user[selected_id,]$longitude, user[selected_id,]$latitude), c(lon , lat), fun = distHaversine)   
 }

@@ -1,9 +1,9 @@
-
+library(RMySQL)
 gen_lessee <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
-  lessee_id <- sqlQuery(con, "SELECT id FROM Lessee ORDER BY RAND() LIMIT 1;")
+  lessee_id <- dbSendQuery(con, "SELECT lessee_id FROM Lessee ORDER BY RAND() LIMIT 1;")
   
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
@@ -13,25 +13,29 @@ gen_lessee <- function(){
 }
 
 
-gen_warehouse_id <- function(){
+user_id <- dbSendQuery(con,"SELECT id FROM User WHERE lessee_id == id ORDER BY RAND() LIMIT 1;")
+
+gen_warehouse <- function(){
   
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
-  warehouse_id <- sqlQuery(con, "SELECT id FROM Warehouse ORDER BY RAND() LIMIT 1;")
+  selected_warehouse <- sqlQuery(con, "SELECT id, State, Size FROM Warehouse ORDER BY RAND() LIMIT 1;")
+  warehouse_id <- selected_warehouse[,1]
   
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
     dbDisconnect(con)
   
-  return (warehouse_id)
+  return (selected_warehouse)
   
 }
 
 
+
 gen_startdate <- function(){
 
-    start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
+    start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/31'), by="day"), 1)
     
     print (start_date)
     return (start_date)
@@ -55,7 +59,7 @@ gen_total_price <- function(WH_id){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
-  ans <- sqlQuery(con, paste("SELECT price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
+  ans <- sqlQuery(con, paste("SELECT Price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
   
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
