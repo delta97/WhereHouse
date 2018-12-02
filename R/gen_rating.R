@@ -1,5 +1,5 @@
 #Generates Weighted Average
-gen_avg_rating <- function(amount){
+gen_rating <- function(amount){
   
   rating_avg <- 0
   
