@@ -33,7 +33,6 @@ gen_startdate <- function(){
 
     start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
     
-    print (start_date)
     return (start_date)
 }
 
@@ -62,7 +61,7 @@ gen_total_price <- function(WH_id){
   for (con in all_cons)
     dbDisconnect(con)
   
-  print(ans)
+  return (ans)
   
 }
 
