@@ -147,7 +147,7 @@
 			<div class="service2">
 			<!-- Replace with either their join date, their last contract exp, etc... -->
 			<h5><b>Today's Date:</b> <?php echo date("m/d/Y") ?></h5>
-			<h5><b>Current Time:</b> <?php echo date("h:i"); ?>
+			<h5><b>Current Time:</b> <?php echo date("h:i"); ?></h5>
 			</div>
 		</div>		
 		
