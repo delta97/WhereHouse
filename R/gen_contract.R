@@ -1,3 +1,28 @@
+#Creates Matrix of Contracts
+make_contract <- function(){
+  
+  
+  #con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
+  #on.exit(dbDisconnect(con))
+  
+  contract <- c(gen_lessee(), gen_warehouse_id(), gen_startdate(), gen_enddate(), gen_total_price(), gen_num_skids(), gen_temp(), gen_security_dep(), gen_status())
+  
+  
+  
+  #all_cons <- dbListConnections(MySQL())
+  #for (con in all_cons)
+  #  dbDisconnect(con)
+  
+  
+}
+
+
+
+
+
+
+
+
 #Generates Lessee for Contract
 gen_lessee <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
