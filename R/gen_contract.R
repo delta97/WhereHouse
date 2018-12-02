@@ -158,6 +158,7 @@ gen_status <- function(){
   
 }
 
+#Generates Rental Rating
 gen_rating <- function(){
   stat_gen <- sample.int(100, 1)
   if (stat_gen > 64){
