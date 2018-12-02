@@ -81,7 +81,8 @@ DOB <- as.data.frame(DOB)
 
 
 #Address
-data <- read.csv("data.csv")
+data <- read.csv("address.csv")
+data <- as.data.frame(data)
 address_2 <- 0
 
 #Password
@@ -93,20 +94,21 @@ a <- data.frame(DOB,Phone_num, user_type, Email, password)
 
 
 user <- names
-user$First_name <- as.character(names$First_name)
-user$Last_name <- as.character(names$Last_name)
-user$Address_1 <- as.character(data$Street.Address)
-user$Address_2 <- as.character(0)
-user$City <- as.character(data$City)
-user$State <- as.character(data$State)
-user$Zipcode <- as.integer(data$Zip.Code)
-user$DOB <- a$DOB
-user$Phone_num <- a$Phone_num
-user$Email <- as.character(a$Email)
-user$Password <- as.character(a$password)
+user$first_name <- as.character(names$First_name)
+user$last_name <- as.character(names$Last_name)
+user$address_1 <- data$Street.Address
+user$address_2 <- address_2
+user$city <- as.character(data$City)
+user$state <- as.character(data$State)
+user$zipcode <- as.integer(data$Zip.Code)
+user$dob <- a$DOB
+user$phone_num <- a$Phone_num
+user$email <- as.character(a$Email)
+user$password <- as.character(a$password)
 user <- user[, -c(1:2)]
 user <- tibble::rowid_to_column(user, "id")
-user <- left_join(user, zipcode, by= "Zipcode")
+
+user1 <- left_join(user, zipcode, by= "zipcode")
 
 
 dbWriteTable(con, "User", user, overwrite = TRUE)
@@ -166,8 +168,8 @@ credit_card_num <- as.data.frame(credit_card_num)
 expiration_month <- sample(1:12,lesse_num, replace = TRUE)
 expiration_year <- sample(2018:2050, lesse_num, replace = TRUE)
 expiration <- data.frame(expiration_month, expiration_year)
-CVC <- sample(100:999, lesse_num, replace = TRUE)
-CVC <- as.data.frame(CVC)
+cvc <- sample(100:999, lesse_num, replace = TRUE)
+cvc <- as.data.frame(CVC)
 
 lessee_id <- as.data.frame(lessee_id)
 lessee <- bind_cols(lessee_id,credit_card_num,expiration, CVC)
@@ -206,7 +208,7 @@ city_state <- as.data.frame(city_state)
 city_state <- city_state %>% separate(city_state, sep = "," ,c("city","State"))
 
 #Zipcodes
-zipcodes <- read.csv("test.csv") %>% select("Zipcode", "ID")
+zipcodes <- read.csv("test.csv") %>% select("zipcode", "ID", "Street")
 
 #Attributes 
 df1 <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:20,sep="/"),
@@ -254,7 +256,12 @@ warehouse <- as.data.frame(warehouse) %>%
   na.omit
 warehouse$`replace(price, price > 30, NA)` <- NULL
 
-warehouse <- left_join(warehouse,zipcode, by = "city")
+warehouse <- warehouse %>% arrange(city)
+
+
+warehouse <- left_join(warehouse, zipcodes, by = "ID")
+
+warehouse$Street.y <- NULL
 
 warehouse <- tibble::rowid_to_column(warehouse, "ID")
 warehouse <- left_join(warehouse, zipcodes, by = "ID")
@@ -267,17 +274,14 @@ warehouse$lowest_temp[warehouse$temp == "temp_controlled"] <- 55
 warehouse$lowest_temp[warehouse$temp == "dry"] <- 75
 warehouse$highest_temp <- 75 
 warehouse$Price_per_skid <- warehouse$price *16 / 365
-warehouse$Adress_2 <- 0
+warehouse$adress_2 <- 0
 warehouse$ID <- NULL
+warehouse$adress_1 <- warehouse$Street.x
 
-
-warehouse %>% select(city, S)
-
-
-warehouse <- warehouse[c(1,2,12,3,4,5,6,7,8,9,10,11)]
+warehouse <- warehouse[c(1,15,14,3,4,7,6,9,12,8,10,11)]
 warehouse <- as.data.frame(warehouse)
 warehouse$owner_id <- owner$owner_id
-head(warehouse)
+colnames(warehouse) <- c("warehouse_id", "address_1", "address_2", "city", "state", "zipcode", "size", "capacity", "price_per_skid", "storage_pref", "lowest_temp", "highest_temp" )
 
 
 head(warehouse)
@@ -289,9 +293,6 @@ dbWriteTable(con, "Warehouse", warehouse, overwrite = TRUE)
 selected_id <- sample(nrow(lessee), 1, 1)
 lessee_pref <- sample(temp, 1)
 selected_user <- user[selected_id, ]
-
-
-
   
 distance <- mapply(distance_calc, warehouse$longitude, warehouse$latitude)
 distance <- distance * 0.000621371
