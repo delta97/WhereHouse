@@ -86,11 +86,8 @@ gen_num_skids <- function(){
 gen_temp <- function(){
   
   #1 Dry
-  
   #2 Cooled
-  
   #3 Frozen
-  
   #4 Temp Control
   
   temptype <- sample.int(100, 1)
