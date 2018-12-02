@@ -1,4 +1,4 @@
-
+#Generates Lessee for Contract
 gen_lessee <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
@@ -33,7 +33,6 @@ gen_startdate <- function(){
 
     start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
     
-    print (start_date)
     return (start_date)
 }
 
@@ -56,13 +55,13 @@ gen_total_price <- function(WH_id){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
-  ans <- sqlQuery(con, paste("SELECT price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
+  price_per_skid <- sqlQuery(con, paste("SELECT price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
   
   all_cons <- dbListConnections(MySQL())
   for (con in all_cons)
     dbDisconnect(con)
   
-  print(ans)
+  return (price_per_skid)
   
 }
 
@@ -125,6 +124,7 @@ gen_security_dep <- function(num_skids){
 
 #Generates Status of Contract
 gen_status <- function(){
+  #NEEDS PROBABILITY EVIDENCE
   
   #1 Pending
   #2 Declined
