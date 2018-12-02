@@ -175,4 +175,5 @@ gen_rating <- function(){
   else{
     rating = 5
   }
+  return (rating)
 }
