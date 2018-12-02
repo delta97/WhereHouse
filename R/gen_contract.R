@@ -1,4 +1,4 @@
-#Selects Lessee for Contract
+
 gen_lessee <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
@@ -28,11 +28,12 @@ gen_warehouse_id <- function(){
   
 }
 
-#Generates Start Date for Contract
+#Generates Start Date of Contract
 gen_startdate <- function(){
 
     start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
     
+    print (start_date)
     return (start_date)
 }
 
@@ -61,7 +62,7 @@ gen_total_price <- function(WH_id){
   for (con in all_cons)
     dbDisconnect(con)
   
-  return (ans)
+  print(ans)
   
 }
 
@@ -79,7 +80,40 @@ gen_num_skids <- function(){
   }
   
   return (num_skids)
+}
+
+
+#Generates Temp Control Type
+gen_temp <- function(){
+  
+  #1 Dry
+  
+  #2 Cooled
+  
+  #3 Frozen
+  
+  #4 Temp Control
+  
+  temptype <- sample.int(100, 1)
+  
+  if (temptype > 90){
+    temptype = 1
   }
+  else if (stat_gen > 80){
+    temptype = 2
+  }
+  else if (stat_gen > 70){
+    temptype = 3
+  }
+  else if (stat_gen > 20){
+    temptype = 4
+  }
+  else{
+    temptype = 5
+  }
+  
+  return (temptype)
+}
 
 #Generates Security Deposit Value
 gen_security_dep <- function(num_skids){
@@ -91,7 +125,6 @@ gen_security_dep <- function(num_skids){
 
 #Generates Status of Contract
 gen_status <- function(){
-  #NEEDS PROBABILITY EVIDENCE
   
   #1 Pending
   #2 Declined
