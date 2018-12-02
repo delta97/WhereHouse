@@ -157,3 +157,22 @@ gen_status <- function(){
   return (status)
   
 }
+
+gen_rating <- function(){
+  stat_gen <- sample.int(100, 1)
+  if (stat_gen > 90){
+    rating = 1
+  }
+  else if (stat_gen > 80){
+    rating = 2
+  }
+  else if (stat_gen > 70){
+    rating = 3
+  }
+  else if (stat_gen > 20){
+    rating = 4
+  }
+  else{
+    rating = 5
+  }
+}
