@@ -1,24 +1,16 @@
 #Creates Matrix of Contracts
 make_contract <- function(){
   
-  
   #con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   #on.exit(dbDisconnect(con))
   
   contract <- c(gen_lessee(), gen_warehouse_id(), gen_startdate(), gen_enddate(), gen_total_price(), gen_num_skids(), gen_temp(), gen_security_dep(), gen_status())
   
-  
-  
   #all_cons <- dbListConnections(MySQL())
   #for (con in all_cons)
   #  dbDisconnect(con)
   
-  
 }
-
-
-
-
 
 
 
@@ -28,11 +20,9 @@ gen_lessee <- function(){
   con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", host="mydb.ics.purdue.edu", dbname="g1090429")
   on.exit(dbDisconnect(con))
   
-  lessee_id <- sqlQuery(con, "SELECT id FROM Lessee ORDER BY RAND() LIMIT 1;")
+  lessee_id <- dbGetQuery(con, "SELECT lessee_id FROM Lessee ORDER BY RAND() LIMIT 1;")
   
-  all_cons <- dbListConnections(MySQL())
-  for (con in all_cons)
-    dbDisconnect(con)
+  dbDisconnect(con)
   
   return (lessee_id)
 }
@@ -45,9 +35,7 @@ gen_warehouse_id <- function(){
   
   warehouse_id <- sqlQuery(con, "SELECT id FROM Warehouse ORDER BY RAND() LIMIT 1;")
   
-  all_cons <- dbListConnections(MySQL())
-  for (con in all_cons)
-    dbDisconnect(con)
+  dbDisconnect(con)
   
   return (warehouse_id)
   
@@ -55,10 +43,10 @@ gen_warehouse_id <- function(){
 
 #Generates Start Date of Contract
 gen_startdate <- function(){
-
-    start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
-    
-    return (start_date)
+  
+  start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
+  
+  return (start_date)
 }
 
 #Generates End Date of Contract
@@ -82,9 +70,7 @@ gen_total_price <- function(WH_id){
   
   price_per_skid <- sqlQuery(con, paste("SELECT price_per_skid FROM Warehouse WHERE id =", WH_id, sep=""))
   
-  all_cons <- dbListConnections(MySQL())
-  for (con in all_cons)
-    dbDisconnect(con)
+  dbDisconnect(con)
   
   return (price_per_skid)
   
@@ -117,20 +103,17 @@ gen_temp <- function(){
   
   temptype <- sample.int(100, 1)
   
-  if (temptype > 90){
+  if (temptype > 69){
     temptype = 1
   }
-  else if (stat_gen > 80){
+  else if (stat_gen > 56){
     temptype = 2
   }
-  else if (stat_gen > 70){
+  else if (stat_gen > 53){
     temptype = 3
   }
-  else if (stat_gen > 20){
-    temptype = 4
-  }
   else{
-    temptype = 5
+    temptype = 4
   }
   
   return (temptype)
