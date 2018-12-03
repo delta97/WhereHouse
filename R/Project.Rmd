@@ -300,6 +300,7 @@ colnames(warehouse) <- c("warehouse_id", "address_1", "address_2", "city", "stat
 
 warehouse$temp <- NULL
 
+
 warehouse1 <- warehouse
 colnames(warehouse1)[6] <- "zip"
 
@@ -318,19 +319,34 @@ lessee_pref <- matrix()
 selected_user <- user1[FALSE,]
 distance <- warehouse1[FALSE,]
 warehouses <- warehouse[FALSE,]
-contract_final <- data.frame()
+contract_final <-data.frame()
+user1 <- user1[!(user1$state.x == "AK" & user1$state.x != "HI"),]
+lessee1 <- user1[-owner_id,1]
+lessee1 <- as.data.frame(lessee1)
+
+day <- seq(as.Date('2018/01/01'), as.Date('2018/12/31'), by="day")
+
+
+warehouse1 <- warehouse1 %>% slice(rep(1:n(), each = 365))
 
 contract <-NULL
+num_contracts <- sample(1:nrow(lessee),1)
 
 
-for(i in 1:nrow(lessee)){
-  selected_id<- sample(lessee$lessee_id, 1, 1)
+for(i in 1:nrow(lessee1)){
+  selected_id <- sample(lessee1$lessee1, 1)
   selected_id <- as.vector(selected_id)
-  selected_user <- user1[selected_id, ]
-  distance <- mapply(calc_dist, warehouse1$longitude, warehouse1$latitude)
-  distance <- distance * 0.000621371
-  warehouses <- warehouse[which(distance < 500),]
-  
+  lessee_pref <- sample(temp, 1, replace = TRUE, prob = c(.32,.54,.09,.05))
+  selected_warehouse <- warehouse[which(warehouse$storage_pref == lessee_pref),]
+  num_skids <- rnorm(1,100,30)
+  num_skids <- floor(num_skids) 
+  if (num_skids > 0){
+    num_skids <- num_skids
+  }else if(num_skids < 0) {
+    num_skids <- num_skids * -1
+  }else{
+    num_skids <- 1
+  }
   start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
   repeat{
     end_date <- sample(seq(as.Date('2018/01/02'), as.Date('2018/12/31'), by="day"), 1)
@@ -338,31 +354,76 @@ for(i in 1:nrow(lessee)){
       break
     }
   }
-  diff_in_days<- as.numeric(difftime(end_date,start_date , units = c("days")))
-  repeat {
-    num_skids <- rnorm(1,100,30)
-    num_skids <- num_skids - (num_skids %% 1)
-    if (num_skids > 0){
+  
+  selected_warehouse <-selected_warehouse[sample(nrow(selected_warehouse),1),]
+  repeat{
+    selected_warehouse <-selected_warehouse[sample(nrow(selected_warehouse),1),]
+    if (num_skids < selected_warehouse$capacity){
       break
     }
-    return(num_skids)
   }
+  capacity_check <- 
   
-  selected_warehouse <- warehouses[sample(nrow(warehouses),1),]
+  diff_in_days<- as.numeric(difftime(end_date,start_date , units = c("days")))
+  
+  
+  
   total_price <- as.numeric(num_skids * selected_warehouse[,7] * diff_in_days) 
+  total_price <- round(total_price, digits = 2)
   deposit <- total_price * 0.1
   
-  selected_owner <- owner[which(owner_id == selected_warehouse$owner_id),1:2]
-
-  selected_owner$owner_first_name <- user[selected_owner[1,1],2]
-  selected_owner$owner_last_name <- user[selected_owner[1,1],3]
-  selected_lessee <- lessee[which(lessee_id == selected_id),1]
-  selected_lessee <- user[selected_lessee,1:3]
+  selected_owner <- selected_warehouse[,13]
+  status <- sample(c("Pending", "Accepted", "Declined", "Active", "Terminated" ),1)
  
-  contract  <- data.frame(selected_lessee,selected_owner[,c(1,3,4)],selected_warehouse[,1:6],start_date, end_date, num_skids, total_price, deposit)
+  contract  <- data.frame(selected_id,selected_owner,selected_warehouse[,1],start_date, end_date, num_skids,lessee_pref, total_price, deposit, status)
   contract_final <- rbind(contract_final,contract)
 }
 
+colnames(contract_final) <- c("lessee_id", "owner_id", "wh_id", "start_date", "end_date", "num_skids", "storage_pref", "total_price", "deposit" , "status")
+
+contract_final <- tibble::rowid_to_column(contract_final, "contract_id")
+
+dbWriteTable(con, "Contract", contract_final, overwrite = TRUE)
+
+
+contract_final <- read.csv("Contract.csv")
+contract_final %>% group_by(wh_id) %>% summarise(sum(num_skids))
+
+warehouse[which(contract_final %>% group_by(wh_id) %>% summarise(sum(num_skids)) > warehouse$capacity),]
+```
+
+```{r rating}
+#Generates Weighted Average
+
+terminated_contracts <- contract_final[which(contract_final$status == "Terminated"),] 
+test <- terminated_contracts %>% group_by(wh_id) %>% count()
+  
+gen_rate <- function(n){
+  rating_avg <- 0
+  ratings <- c(1,2,3,4,5)
+  rate <- data.frame()
+  for(i in 1:6){
+    for(j in 1:n){
+      rate[j,i] <- sample(ratings, 1, replace = TRUE, prob = c(0.11,0.05,0.07,0.41,0.36))
+      
+    }
+    
+  }
+  rating_avg = rating_avg + 0.4*(rate[,1]+rate[,2])/2 + 0.3*(rate[,3]+rate[,4]+rate[,5]+rate[,6])/2
+  rating_avg <- as.data.frame(rating_avg) 
+  rating_avg <- rating_avg/n
+  
+  return(rating_avg)
+}
+  
+test1 <- sapply(test$n, gen_rate)
+test1 <- unlist(test1)
+test1 <- as.data.frame(test1)
+
+
+
+rating <- 
+  
 
 ```
 
@@ -377,6 +438,6 @@ capacity_find <- function(size){
 }
 
 calc_dist <- function(lon,lat){
-  distm(c(user1[98437,]$longitude, user1[98437,]$latitude), c(lon , lat), fun = distHaversine)   
+  distm(c(user1[selected_id,]$longitude, user1[selected_id,]$latitude), c(lon , lat), fun = distHaversine)   
 }
 
