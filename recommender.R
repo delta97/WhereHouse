@@ -1,10 +1,35 @@
-#download plyr, dplyr, rmysql, matrix, ggplot2, ggthemes, plyr, recommenderlab, 
+#download plyr, dplyr, rmysql, matrix, ggplot2, ggthemes, recommenderlab, 
 #arules, proxy, registry, data.table, knitr, tidyr, psych, dbi, rlang, magrittr, reshape2
-#cli
+library(plyr)
+library(dplyr)
+library(RMySQL)
+library(Matrix)
+library(ggplot2)
+library(ggthemes)
+library(recommenderlab)
+library(arules)
+library(proxy)
+library(registry)
+library(data.table)
+library(knitr)
+library(tidyr)
+library(psych)
+library(DBI)
+library(rlang)
+library(magrittr)
+library(reshape2)
 
 #whratings <- dbSendQuery(con, "SELECT weighted_average_rating, warehouse_id, count(*) FROM Warehouse GROUP BY weighted_average_rating")
 #whratings <- dbGetQuery(con, "SELECT weighted_average_rating, warehouse_id, count(*) FROM Warehouse GROUP BY weighted_average_rating")
 #ratings <- fetch(whratings, n=-1)
+
+on.exit(dbDisconnect(con))
+con <- dbConnect(MySQL(), user="g1090429", password="WhereHouse?", dbname="g1090429", host="mydb.ics.purdue.edu")
+on.exit(dbDisconnect(con))
+
+all_cons <- dbListConnections(MySQL())
+for(con in all_cons)
+  dbDisconnect(con)
 
 #lessee
 #getlessee<- dbSendQuery(con, "SELECT * FROM User ")
