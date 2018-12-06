@@ -8,19 +8,19 @@
 
 	$user_id = $_SESSION['user_id'];
 
-	$query = "SELECT * FROM Contracts WHERE Lessee_id = $user_id AND Status = 'Accepted' OR Status = 'Active' OR Status = 'Terminated' ORDER BY start_date DESC";
+	$query = "SELECT * FROM Contracts WHERE lessee_id = $user_id AND status = 'Accepted' OR status = 'Active' OR status = 'Terminated' ORDER BY start_date DESC";
 	$result = mysqli_query($connection, $query);
 	$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-	$contract_id = $assoc_array['id'];
+	$contract_id = $assoc_array['contract_id'];
 	$start_date = $assoc_array['start_date'];
-	$end_date = $assoc_array['total_price'];
+	$end_date = $assoc_array['end_date'];
 	$total_price = $assoc_array['total_price'];
-	$Skid_num = $assoc_array['Skid_num'];
-	$Temp_control = $assoc_array['Temp_control'];
-	$Security_depost = $ssoc_array['Security_dep'];
-	$Status = $assoc_array['Status'];
-	$WH_id = $assoc_array['WH_id'];
+	$Skid_num = $assoc_array['num_skids'];
+	$storage_pref = $assoc_array['storage_pref'];
+	$deposit = $ssoc_array['deposit'];
+	$Status = $assoc_array['status'];
+	$WH_id = $assoc_array['wh_id'];
 
 	$num_requests = sizeof($contract_id);
 

@@ -1,16 +1,15 @@
 <?php
-
-header('Content-type:application/json;charset=utf-8');
-
-require "serverconnect.php";
+	if(!function_exists(serverConnect)){
+		require "serverconnect.php";
+	}
 
 $connection = serverConnect();
 
 
-$warehouseID = $_POST['warehouseID'];
+$warehouseID = $_POST['warehouse_id'];
 
 
-$query = "SELECT * FROM Warehouse WHERE id = ".$warehouseID.";";
+$query = "SELECT * FROM Warehouse WHERE warehouse_id = $warehouseID";
 $result = mysqli_query($connection, $query);
 if($result){ 
 	$assoc_array = mysqli_fetch_assoc($result);
@@ -22,9 +21,10 @@ if($result){
 	$zipcode = $assoc_array['zip'];
 	$price_per_skid = $assoc_array['price_per_skid'];
 	$capacity = $assoc_array['capacity'];
-	$square_footage = $assoc_array['sq_footage'];
+	$square_footage = $assoc_array['size'];
 	$owner_id = $assoc_array['owner_id'];
-	echo (json_encode(array("address_line_1" => $address_line_1, "address_line_2" => $address_line_2, "city" => $city, "state" => $state, "zipcode" => $zipcode, "price_per_skid" => $price_per_skid, "capacity" => $capacity, "square_footage" => $square_footage, "owner_id" => $owner_id), JSON_PRETTY_PRINT));
+	$storage_pref = $assoc_array['storage_pref'];
+	echo (json_encode(array("address_line_1" => $address_line_1, "address_line_2" => $address_line_2, "city" => $city, "state" => $state, "zipcode" => $zipcode, "price_per_skid" => $price_per_skid, "capacity" => $capacity, "square_footage" => $square_footage, "owner_id" => $owner_id)));
 
 }
 else {

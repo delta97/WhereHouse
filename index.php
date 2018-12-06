@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130199470-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-130199470-1');
+		</script>
 		<!-- add favicon -->
-		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+		<link rel='icon' href='favicon.ico' type='image/x-icon'>
 		
 		<!-- 3rd party footer content -  -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -31,7 +40,7 @@
 
 
 		<!-- jQuery -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 		<!-- AJAX -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -45,10 +54,9 @@
 				<div class="flex-logo">
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
-				<form class="search" action="searchquery.php">
-					<input id="zip-search" name="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-					<button id="zip-search-button" type="submit" class="btn btn-dark">Search</button>
-				</form>
+				<div class="search">
+					<button id="zip-search" class="search-button-home" aria-label="Search"><span class="login-button-text">Search Available Warehouses by Zipcode</span></button>
+				</div>
 
 				<div class="flex-logo">
 					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
@@ -75,7 +83,8 @@
 						</div>
 					</div>
 				</div>
-			<!-- registration modal -->
+			
+				<!-- registration modal -->
 				<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="registration-modal-title" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content modal-formatting">
@@ -88,8 +97,8 @@
 							<div class="modal-body">
 								<form>
 									<div class="form-group flex-center">
-										<button value="0" type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
-	   									<button value="1" type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
+										<button type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
+	   									<button type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
 									</div>
 								</form>
 							</div>
@@ -99,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-			<!-- Login Modal -->
+				<!-- Login Modal -->
 				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" >
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content modal-formatting">
@@ -117,7 +126,7 @@
 								  	</div>
 								  	<div id="modal-pass" class="form-group">
 								    	<label for="login-modal-password">Password</label>
-								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
+								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password"/>
 								    </div>
 								    <div class="alerts">
 								    </div>
@@ -125,7 +134,6 @@
 										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 										<button type="button" class="btn btn-next" id="submit-button">Log In</button>
  									</div>
- 									<iframe id="submit-redirect" name="submit-redirect" style="display: none"></iframe>
 								</form>
 							</div>
 						</div>
@@ -133,16 +141,6 @@
 				</div>
 
 			</div>
-			<div class="footer" style="display: flex; flex-direction: row; justify-content: space-between; align-content: center;">
-				<div class="footer-left" style="align-self:center;margin-left: 200px; color:white;">
-					<p><a href="lessee/dashboard.php" style="color:white;">Go to Lessee</a></p>
-				</div>
-				<div class="footer-right" style="align-self:center;margin-right: 200px; color: white;">
-					<p><a href="owner/dashboard.php" style="color:white;">Go to Owner</a></p>
-				</div>
-			</div>
-			
-
 		</div>
 	</body>
 	<footer style="margin-top: 0px;"class="footer-distributed">
@@ -171,17 +169,22 @@
 					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
 				</p>
 				<div class="footer-icons">
-					<a href="#"><i class="fa fa-facebook"></i></a>
-					<a href="#"><i class="fa fa-twitter"></i></a>
-					<a href="#"><i class="fa fa-linkedin"></i></a>
-					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fa fa-instagram"></i></a>
+					<a href="https://www.facebook.com/kayla.parker.90260403"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
 					<!-- Add a link to instagram... replace # with actual links> -->
 				</div>
 			</div>
 		</footer>
 	<script type="text/javascript">
+		$(document).ready(function(event){
+			//clear the session caches
+			sessionDestroy();
+			sessionStorage.clear();
+		});
 
-
+		//div links
 		$("#home").on('click touch', function(event) {
 			window.location = "index.php";
 		});
@@ -192,160 +195,90 @@
 			window.location = "./home/FAQ.php";
 		});
 		
-		
-		
-		$("#btn-register-owner").on('click touch', function(event) {
+		//registration buttons
+		$("#btn-register-owner").on('click', function(event) {
 			window.location = "./home/registration/owner-registration.php"; 
-			sessionStorage.setItem("user_type", "1"); //user_type is set to 1 for owners
+			
 		});
-		$("#btn-register-lessee").on('click touch', function(event) {
+		$("#btn-register-lessee").on('click', function(event) {
 			window.location = "./home/registration/lessee-registration.php";
 
 		});
 		
 
+		$('#zip-search').click(function(event){
+			window.location = "basicsearch.php";
+		});
 		
 
 
 
-		//saves the value of the search query to a session variable called "searchQuery"
-		$("#zip-search").on("focusout", function(event){
-			var search_value = $("#zip-search").value;
-			sessionStorage.setItem("searchQuery", search_value);
-			
-		});
 
-		$("#zip-search-button").on("click", function(event){
-			var search_value = $("#zip-search").value;
-			if((search_value != null) && (search_value != "")) {
-				window.location = "basicsearch.php";
-			}
-		});
-		$('#submit-button').on('click', function(){
-			$('#submit-redirect').empty();
-			$('#login-modal-form').submit();
 
-		});
 
+		
+		//login submission
 		$('#submit-button').on('click', function(event){
 			event.preventDefault();
 			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
-			var email = $('#login-modal-email').value;
-			var password = $('#login-modal-password').value;
-
-			var json_object = {'email': $('#login-modal-email').value, 'password':$('#login-modal-password').value};
-			var inputArray =  JSON.stringify(json_object);
 		
-			$.ajax(console.log('sdfsdf'),{
+			var serializedData = $('#login-modal-form').serialize();
+			$.ajax(console.log("ajax called"),{
 				type: 'POST', 
 				url: 'login.php',
-				data: inputArray,
-				dataType:'json',
-				success: function(resp) {
+				data: serializedData,
+				dataType: 'json',
+				
+				// dataType:'json', //by declaring the server return dataType as 'json' it will automatically JSON.parse(resp) to convert it back to a JSON object from a string with JSON content within it
+				success: function(response) {
+					
+					var email = response['email'];
+					var user_type = response['user_type'];
+					var user_first_name = response['user_first_name'];
+					var user_last_name = response['user_last_name'];
+					var user_id = response['user_id'];
 
- 					var user_type = resp.user_type;
- 					var user_id = resp.user_id;
- 					var user_first_name = resp.user_first_name;
- 					var user_last_name = resp.user_last_name;
- 					var user_email = resp.email;
-
-
+					console.log(email);
  					console.log(user_type);
  					console.log(user_id);
  					console.log(user_first_name);
- 					
+ 					console.log(user_last_name);
+ 	
 					if(user_type === -1){
 		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
 		 			} else if(user_type === -2){
 		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
 		 			} else if(user_type === 0){
+		 				//setting session items
+						sessionStorage.setItem("user_id", user_id);
+						sessionStorage.setItem("user_email", email);
+						sessionStorage.setItem("user_first_name", user_first_name);
+						sessionStorage.setItem("user_last_name", user_last_name);
+						sessionStorage.setItem("user_type", user_type);
 		 				window.location = "./lessee/dashboard.php";
+
 		 			} else if(user_type === 1) {
+		 				//setting session items
+						sessionStorage.setItem("user_id", user_id);
+						sessionStorage.setItem("user_email", email);
+						sessionStorage.setItem("user_first_name", user_first_name);
+						sessionStorage.setItem("user_last_name", user_last_name);
+						sessionStorage.setItem("user_type", user_type);
 		 				window.location = "./owner/dashboard.php";
 		 			}
- 					return;
+		 			else if(user_type === -4){
+		 				window.location = "./admin/dashboard.php";
+		 			}
  				}
  			});
 		});
 
 
-
-
-			// var inputArray = {email: email_address, password:password};
-
-
-			// $.ajax({
-			// 	type: 'POST', 
-			// 	url: 'login.php',
-			// 	contentType: "application/json",
-			// 	data: inputArray,
-			// 	dataType: 'json',
-			// 	success: function(resp) {
-			// 		var response = JSON.parse(resp);
- 		// 			var user_type = response.user_type;
- 		// 			var user_id = response.user_id;
- 		// 			var user_first_name = response.user_first_name;
- 		// 			var user_last_name = response.user_last_name;
- 		// 			var user_type_should_be = response.sql;
- 		// 			var user_email = response.email;
-
-
- 		// 			console.log(user_type);
- 		// 			console.log(user_id);
- 		// 			console.log(user_first_name);
-
-
- 					
-			// 	}
-			// });
-		
-
-
-		// $('#submit-button').on('click', function(event) {
-		// 	sendobj = new Object();
-		// 	sendobj.email = $('#login-modal-email').value;
-		// 	sendobj.password = $('#login-modal-password').value;
-
-		// 	dbParam = JSON.stringify(sendobj);
-
-		// 	if (window.XMLHttpRequest) {
-		// 		login = new XMLHttpRequest();
-
-		// 	} 
-		// 	else {
-		// 		login = new ActiveXObject("Microsoft.XMLHTTP");
-		// 	}
-		// 	login.onreadystatechange = function() {
-		// 		if(this.readyState == 4 && this.status == 200) {
-		// 			var response = JSON.parse(this.responseText);
-		// 			handleResponse(response);
-		// 		}
-		// 	};
-
-		// 	var url = "login.php" + $.param(sendobj);
-
-		// 	login.open("POST","login.php", true);
-		// 	login.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		// 	login.send("x=" + dbParam);
-
-		// 	function handleResponse(resp) {
-		// 		alert(resp);
-		// 		var sql = resp.sql;
-		// 		var id = resp.user_id;
-		// 		var user_type = resp.user_type;
-		// 		var user_first_name = resp.user_first_name;
-		// 		var user_last_name = resp.user_last_name;
-		// 		var user_email = resp.email;
-
-		// 		console.log("sql: " + sql);
-		// 		console.log("user_id: " + id);
-		// 		console.log("user_first_name: " + user_first_name);
-		// 		console.log("user_last_name: " + user_last_name);
-		// 		console.log("email: " + user_email);
-
-		// 	}
-		// });
-
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
 
 	</script>
 

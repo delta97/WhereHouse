@@ -5,66 +5,78 @@ author: Utkuhan Genc, Cole Parsons, Amanda Crowe, Collin Jewett, Kayla Parker, M
 date: "November 5, 2018"
 output: html_document
 ---
-
+Installing required packaged for the realistic data generation. 
 ```{r setup, eval  = FALSE}
-install.packages("zipcode")
+install.packages("tidyverse")
 install.packages("generator")
-install.packages("RMySQL")
-install.packages("random")
+install.packages("zipcode")
 install.packages("tidyr")
-install.packages("sampling")
-install.packages("ggmap")
-install.packages("rvest")
 install.packages("RMySQL")
+install.packages("dplyr")
+install.packages("rvest")
 install.packages("httr")
 install.packages("XML")
+install.packages("ggplot2")
 install.packages("stringi")
-install.packages("tidyverse")
 install.packages("geosphere")
 ```
 
+Required libraries for the data generation and analysis.
 ```{r}
 library(tidyverse) 
 library(generator)
 library(zipcode)
 library(tidyr)
+library(RMySQL)
 library(dplyr)
-library(sampling)
-library(ggmap)
 library(rvest)
-library(stringr)  
+library(httr)
+library(XML)
 library(ggplot2)
 library(stringi)
-library(RMySQL)
 library(geosphere)
 ```
 
-```{r}
+Connecting our R to the our mysql group account to populate the sql with our data. 
+```{r sql connection}
 con <- dbConnect(MySQL(),
          user="g1090429", password="WhereHouse?",
          dbname="g1090429", host="mydb.ics.purdue.edu")
 on.exit(dbDisconnect(con))
 ```
 
-```{r}
+To ensure that connection is cut so mysql page won' crush.
+```{r sql disconnect}
 all_cons <- dbListConnections(MySQL())
 for (con in all_cons)
 dbDisconnect(con)
 ```
 
+This is first step of our data generation. In order to do that we have scraped the warehouses from loopnet and determined a number of owners that is greater than the number of warehouses that we are gonna populate our database with. The number of users we have determined is 399 because we wanted our website to have around the same size of the Purdue which is approximately 40,000. From [this website](https://expandedramblings.com/index.php/airbnb-statistics/) we have determined AIRBNB has host to user ratio 1:235 and becauase we are a business targeting bigger companies we have assumed that our ration will be 1:100 (owner:lessee). That resulted in total of 40299 users. We have used the r package `generator` to generate random first names, email addresses, phone numbers. We have used [randomlist.com](https://www.randomlists.com/random-addresses) and compile them in an csv file in order to load it in to the r. 
+
 ```{r user}
 #USER DATATABLE
+#nrow(owner) selected to be equal to 399 so we would have total number of users ~40,000, lesse_num is equal to 100 times of the owners
 sample_size <- lesse_num + nrow(owner)
 
 
+
 #First and Last Names
+#we used the package generator for the 
 full_name <- r_full_names(sample_size)
 df <- as.data.frame(full_name)
 names <- tidyr::separate(df, full_name, sep = " ", c("First_name", "Last_name" ))
 
 #User type
-user_type <- as.data.frame(rbinom(sample_size, 1, nrow(owner)/ sample_size))
-sum(user_type) - length(user_type)
+#we used binomial distribution for the user_type and keep sampling until the type was equal to determined owner size
+#if user_type = 1 that will say thet user is an owner if it's 0, that user become lessee
+repeat{
+  user_type <- as.data.frame(rbinom(sample_size, 1, nrow(owner)/ sample_size))
+  if(sum(user_type) - length(user_type) == nrow(owner)){
+    break
+  }
+}
+
 
 #Phone Number
 Phone_num <- r_phone_numbers(sample_size)
@@ -78,9 +90,8 @@ Email <- as.data.frame(Email)
 DOB <- sample(seq(as.Date('1950/01/01'), as.Date('2000/01/01'), by="day"), sample_size, replace = TRUE )
 DOB <- as.data.frame(DOB)
 
-
-
 #Address
+#We use randomlist.com to generate these addresses and read them with read.csv file 
 data <- read.csv("address.csv")
 data <- as.data.frame(data)
 address_2 <- 0
@@ -89,10 +100,11 @@ address_2 <- 0
 password<- stri_rand_strings(n=sample_size, length=15, pattern="[A-Za-z0-9]")
 password <- as.data.frame(password)
 
+
 a <- data.frame(DOB,Phone_num, user_type, Email, password)
 
 
-
+#Changing the names of the colums of the user table to appropriate names
 user <- names
 user$first_name <- as.character(names$First_name)
 user$last_name <- as.character(names$Last_name)
@@ -108,25 +120,20 @@ user$password <- as.character(a$password)
 user <- user[, -c(1:2)]
 user <- tibble::rowid_to_column(user, "id")
 
-data(zipcode)
-
-user1 <- user
-colnames(user1)[8] <- "zip" 
-user1$zip <- as.numeric(user1$zip)
-
-
-zipcode$zip <- as.numeric(zipcode$zip)
-user1 <- left_join(user1, zipcode, by= "zip")
 
 
 dbWriteTable(con, "User", user, overwrite = TRUE)
 
+
 ```
 
 ```{r foreign keys}
+#Determining which users to be owners and lessees
 owner_id <- user[sample(nrow(user), 399), 1]
 user[owner_id,1]
 lessee_id <- user[-owner_id,1]
+
+
 ```
 
 ```{r owner}
@@ -163,16 +170,22 @@ owner <- owner[sample(nrow(owner),399),]
 owner$owner_id <- owner_id 
 owner <- owner[c(4,1,2,3)]
 
+owner <- read.csv("Owner.csv")
+
 dbWriteTable(con, "Owner", owner, overwrite = TRUE)
 
 ```
 
 ```{r lessee}
+#Number of lessees is equal to 100 times of the number of owner
 lesse_num <- nrow(owner) * 100
+
+#Generate credit card numbers 
 credit_card_num <- r_credit_card_numbers(lesse_num)
 credit_card_num <- gsub("-","", credit_card_num)
 credit_card_num <- as.data.frame(credit_card_num)
 
+#Generare expiration month and year 
 expiration_month <- sample(1:12,lesse_num, replace = TRUE)
 expiration_year <- sample(2018:2050, lesse_num, replace = TRUE)
 expiration <- data.frame(expiration_month, expiration_year)
@@ -187,6 +200,8 @@ dbWriteTable(con, "Lessee", lessee, overwrite = TRUE)
 ```
 
 ```{r warehouse}
+#We have scraped the warehouse data from LoopNet to ensure our data is realistic. We are extracting Street address, city, state, price per square footage per month and the size 
+
 Street <- lapply(paste0("https://www.loopnet.com/warehouses-for-lease/", 1:20,sep="/"),
                 function(url){
                   url %>% read_html() %>% 
@@ -214,8 +229,6 @@ city_state <- lapply(paste0('https://www.loopnet.com/warehouses-for-lease/', 1:2
 city_state <- unlist(city_state)
 city_state <- as.data.frame(city_state)
 city_state <- city_state %>% separate(city_state, sep = "," ,c("city","State"))
-
-#Zipcodes
 
 
 #Attributes 
@@ -255,9 +268,11 @@ temp <- c("dry", "climate_controlled", "cooler", "frozen")
 
 #Capacity
 capacity <- floor(capacity_find(warehouse$Size))
+warehouse$capacity <- capacity
 
 #Warehouse data frame 
 
+#Omitted the price per year for square footage that is biggeer than 30 for data clarity 
 warehouse <- data.frame(Street,city_state,price, Size) 
 warehouse <- as.data.frame(warehouse) %>%
   mutate(price = price * 12) %>% 
@@ -266,26 +281,25 @@ warehouse <- as.data.frame(warehouse) %>%
 warehouse$`replace(price, price > 30, NA)` <- NULL
 
 
-
-warehouse <- read.csv("test.csv")
-
-warehouse$X <- NULL
-
-
-
 warehouse <- tibble::rowid_to_column(warehouse, "ID")
-warehouse <- left_join(warehouse, zipcodes, by = "ID")
 
+#Added the latitude and longitude at the warehouse table for distance calculation
+
+warehouse <- left_join(warehouse, zipcodes, by = "ID")
 warehouse <- warehouse %>% na.omit
+
+#Sampling a warehouse storage type for each warehouse
 warehouse$temp <- sample(temp, nrow(warehouse), replace = TRUE, prob = c(.32,.54,.09,.05))
 
 
-warehouse$capacity <- capacity
+#Lowest temperature and highest temperature depending on the storage type 
 warehouse$lowest_temp[warehouse$temp == "frozen"] <- 0
 warehouse$lowest_temp[warehouse$temp == "cooler"] <- 34
 warehouse$lowest_temp[warehouse$temp == "climate_controlled"] <- 55
 warehouse$lowest_temp[warehouse$temp == "dry"] <- 75
 warehouse$highest_temp <- 75 
+
+#A skid is eqaul to 16 sqft and we want the per day price
 warehouse$price_per_skid <- warehouse$Price *16 / 365
 warehouse$adress_2 <- 0
 warehouse$adress_1 <- warehouse$Street
@@ -300,45 +314,67 @@ colnames(warehouse) <- c("warehouse_id", "address_1", "address_2", "city", "stat
 
 warehouse$temp <- NULL
 
-
+#adding latitude and longitude data to the warehouse table 
 warehouse1 <- warehouse
-colnames(warehouse1)[6] <- "zip"
+colnames(zipcode)[1] <- "zipcode"
+warehousex <- left_join(warehousex, zipcode, by = "zipcode")
+
+#Adding number of rating for each warehouse and the weighted average from the ratings 
+num_ratings <- terminated_contracts %>% group_by(warehouse_id) %>% count() 
+warehousex <- left_join(warehouse, warehouse_avg, by = "warehouse_id") 
+warehousex <- left_join(warehousex,num_ratings, by = "warehouse_id")
 
 
-warehouse1 <- left_join(warehouse1, zipcode, by = "zip")
+colnames(warehouse_avg)[1] <- "warehouse_id"
+colnames(num_ratings)[1] <- "warehouse_id"
+colnames(warehousex)[14:15] <- c("weighted_average_rating" ,"number_of_ratings")
+warehousex$city.y <- NULL
+warehousex$state.y <- NULL
 
-head(warehouse)
-dbWriteTable(con, "Warehouse", warehouse, overwrite = TRUE)
 
+warehousex$weighted_average_rating <- round(warehousex$weighted_average_rating, digit=2)
 
+dbWriteTable(con, "Warehouse", warehousex, overwrite = TRUE)
 ```
 
 ```{r contract}
-selected_id <- matrix()
-lessee_pref <- matrix()
-selected_user <- user1[FALSE,]
-distance <- warehouse1[FALSE,]
-warehouses <- warehouse[FALSE,]
-contract_final <-data.frame()
-user1 <- user1[!(user1$state.x == "AK" & user1$state.x != "HI"),]
-lessee1 <- user1[-owner_id,1]
-lessee1 <- as.data.frame(lessee1)
+#Create an empty data frame
+contract_final1 <- data.frame()
+contract1 <-NULL
 
-day <- seq(as.Date('2018/01/01'), as.Date('2018/12/31'), by="day")
+#Create a new data frame withot the data only keep the headers
+selected_warehouse <- warehouse1[FALSE,]
 
 
-warehouse1 <- warehouse1 %>% slice(rep(1:n(), each = 365))
 
-contract <-NULL
-num_contracts <- sample(1:nrow(lessee),1)
+#Create a data frame consisting the days in specified days
+day <- seq(as.POSIXct('2018/01/01'), as.POSIXct('2018/11/30'), by="day")
+#Replicate the data frame with the number of warehouses we have in system
+day <- rep(day, times = nrow(warehouse))
+day <- unlist(day)
+day <- as.data.frame(day)
+
+#Create a new data frame of warehouses where it has the days and the used capacity for each day 
+warehouse1 <- warehouse
+warehouse1 <- warehouse1 %>% slice(rep(1:n(), each = 334))
+warehouse1 <- data.frame(warehouse1,day)
+warehouse1 <- tibble::rowid_to_column(warehouse1, "id")
+warehouse1$use <- 0
 
 
-for(i in 1:nrow(lessee1)){
+for(i in 1:80000){
+  
+  #sample a lessee id for the contract
   selected_id <- sample(lessee1$lessee1, 1)
   selected_id <- as.vector(selected_id)
+  
+  #sampling a lessee storage preference 
   lessee_pref <- sample(temp, 1, replace = TRUE, prob = c(.32,.54,.09,.05))
-  selected_warehouse <- warehouse[which(warehouse$storage_pref == lessee_pref),]
-  num_skids <- rnorm(1,100,30)
+  
+  #sampling the number of skids each lessee is going to request per contact from a normal distribution with 
+  #mean = 50 and sd = 30 These numbers are decided on our assumption of we are offering our partners that 
+  #the lessees are usually looking for more a lot more than a skid to store in a warehous
+  num_skids <- rnorm(1,50,30)
   num_skids <- floor(num_skids) 
   if (num_skids > 0){
     num_skids <- num_skids
@@ -347,87 +383,113 @@ for(i in 1:nrow(lessee1)){
   }else{
     num_skids <- 1
   }
-  start_date <- sample(seq(as.Date('2018/01/01'), as.Date('2018/12/30'), by="day"), 1)
+  
+  #sampling a start date of contract from the first day of january in 2018
+  
+  start_date <- sample(seq(as.POSIXct('2018/01/01'), as.POSIXct('2018/11/29'), by="day"), 1)
+  
+  #sampling an end_date with the requirement of it being later than the start date
   repeat{
-    end_date <- sample(seq(as.Date('2018/01/02'), as.Date('2018/12/31'), by="day"), 1)
+    end_date <- sample(seq(as.POSIXct('2018/01/02'), as.POSIXct('2018/11/30'), by="day"), 1)
     if (end_date > start_date){
       break
     }
   }
   
-  selected_warehouse <-selected_warehouse[sample(nrow(selected_warehouse),1),]
-  repeat{
-    selected_warehouse <-selected_warehouse[sample(nrow(selected_warehouse),1),]
-    if (num_skids < selected_warehouse$capacity){
-      break
-    }
-  }
-  capacity_check <- 
+  #select the warehouses with matching storage options for the lessee preference
+  selected_warehouse <- warehouse1[which(warehouse1$storage_pref == lessee_pref),]
   
+  #select the warehouses and the days between start date and end date in order to make sure number of skids
+  #requested by lessee is not exceeding the currnt capacity on those days
+  selected_warehouse <- selected_warehouse[which(selected_warehouse$day >= start_date & selected_warehouse$day <= end_date),]
+  
+  #update used space on the days that are selected
+  selected_warehouse[,16] <- selected_warehouse[,16] + num_skids
+  
+  selected_warehouse <- selected_warehouse[which(selected_warehouse$capacity > selected_warehouse$use),]
+  
+  b <- unique(selected_warehouse$warehouse_id)
+  #sample a warehouse from the list 
+  selected_warehouse <- selected_warehouse[which(sample(b,1) == selected_warehouse$warehouse_id) ,]
+  
+  #modify the use column of warehouse1
+  warehouse1[selected_warehouse$id ,16] <- as.numeric(selected_warehouse$use)
+  
+  #find the number of days between contract start date and end date
   diff_in_days<- as.numeric(difftime(end_date,start_date , units = c("days")))
   
-  
-  
-  total_price <- as.numeric(num_skids * selected_warehouse[,7] * diff_in_days) 
+  #Find total price per multipling price per skid per day with the number of skids and difference days 
+  total_price <- as.numeric(num_skids * selected_warehouse[1,8] * diff_in_days) 
   total_price <- round(total_price, digits = 2)
   deposit <- total_price * 0.1
   
-  selected_owner <- selected_warehouse[,13]
+  #Select the owner_id
+  selected_owner <- selected_warehouse[1,14]
+  
+  #Choose the status for the contract
   status <- sample(c("Pending", "Accepted", "Declined", "Active", "Terminated" ),1)
- 
-  contract  <- data.frame(selected_id,selected_owner,selected_warehouse[,1],start_date, end_date, num_skids,lessee_pref, total_price, deposit, status)
-  contract_final <- rbind(contract_final,contract)
+  contract1  <- data.frame(selected_id,selected_owner,selected_warehouse[1,2],start_date, end_date, num_skids,lessee_pref, total_price, deposit, status)
+  contract_final1 <- rbind(contract_final1,contract1)
+  selected_warehouse <- NULL
 }
 
-colnames(contract_final) <- c("lessee_id", "owner_id", "wh_id", "start_date", "end_date", "num_skids", "storage_pref", "total_price", "deposit" , "status")
-
-contract_final <- tibble::rowid_to_column(contract_final, "contract_id")
-
-dbWriteTable(con, "Contract", contract_final, overwrite = TRUE)
 
 
-contract_final <- read.csv("Contract.csv")
-contract_final %>% group_by(wh_id) %>% summarise(sum(num_skids))
+contract_final1 <- tibble::rowid_to_column(contract_final1, "contract_id")
 
-warehouse[which(contract_final %>% group_by(wh_id) %>% summarise(sum(num_skids)) > warehouse$capacity),]
+colnames(contract_final1) <- c("contract_id","lessee_id", "owner_id", "warehouse_id", "start_date", "end_date", "num_skids", "storage_pref", "total_price", "deposit" , "status")
+
+#Write the contract table on sq datatable
+dbWriteTable(con, "Contract", contract_final1, overwrite = TRUE)
+
 ```
 
 ```{r rating}
 #Generates Weighted Average
 
-terminated_contracts <- contract_final[which(contract_final$status == "Terminated"),] 
-test <- terminated_contracts %>% group_by(wh_id) %>% count()
+#Get the terminated contracts because the survey is sent after the contract is terminated
+terminated_contracts <- contract_final1[which(contract_final1$status == "Terminated"),]
+test <- terminated_contracts %>% group_by(warehouse_id) %>% count()
   
-gen_rate <- function(n){
-  rating_avg <- 0
-  ratings <- c(1,2,3,4,5)
-  rate <- data.frame()
-  for(i in 1:6){
-    for(j in 1:n){
-      rate[j,i] <- sample(ratings, 1, replace = TRUE, prob = c(0.11,0.05,0.07,0.41,0.36))
-      
-    }
+
+ratings <- c(1,2,3,4,5)
+
+rating_avg <- data.frame()
+rate <- data.frame()
+
+#Sample a rating for each question for each contract
+for(i in 1:6){
+  for(j in 1:nrow(terminated_contracts)){
+    rate[j,i] <- sample(ratings, 1, replace = TRUE, prob = c(0.11,0.05,0.07,0.41,0.36))
     
   }
-  rating_avg = rating_avg + 0.4*(rate[,1]+rate[,2])/2 + 0.3*(rate[,3]+rate[,4]+rate[,5]+rate[,6])/2
-  rating_avg <- as.data.frame(rating_avg) 
-  rating_avg <- rating_avg/n
-  
-  return(rating_avg)
 }
-  
-test1 <- sapply(test$n, gen_rate)
-test1 <- unlist(test1)
-test1 <- as.data.frame(test1)
+
+#Weighted average formula for the rating satisfacyt
+for(i in 1:nrow(rate)){
+ rating_avg[i,1] <- 0.4*(rate[i,1]+rate[i,2])/2 + 0.3*(rate[i,3]+rate[i,4]+rate[i,5]+rate[i,6])/2
+}
 
 
+a <- terminated_contracts %>% arrange(warehouse_id) %>% select(contract_id, warehouse_id)
 
-rating <- 
-  
+rate <- data.frame(a,rate,rating_avg)
 
+
+colnames(rate) <- c("contract_id","wh_id", "satisfaction", "quality", "handling", "storage", "consistency", "communication", "weighted_average_rating")
+
+#Used for the warehouse table (the average rating displayed for the warehouse )
+warehouse_avg <- rate %>% group_by(wh_id) %>% summarise(mean(weighted_average_rating))
+colnames(warehouse_avg)[1] <- "warehouse_id"
+
+rate <- rate %>% select(-wh_id)
+rate <- tibble::rowid_to_column(rate, "rating_id")
+
+
+dbWriteTable(con, "Rating", rate, overwrite = TRUE)
 ```
 
-```{r function}
+```{r functions}
 #This function is for the capacity of each warehouse depending on their size. We have used a source from 
 
 capacity_find <- function(size){
@@ -437,7 +499,22 @@ capacity_find <- function(size){
   return(capacity)
 }
 
+#Function to calculate distance between the user and warehouses we didn't use it because users in alaka and hawaii was ended up bigger than the threshold 
+
 calc_dist <- function(lon,lat){
   distm(c(user1[selected_id,]$longitude, user1[selected_id,]$latitude), c(lon , lat), fun = distHaversine)   
 }
+```
 
+```{r damage report}
+concern <- c("Property was damaged due to lessee's incorrect storage preference(lessee stored perishable item in not frozen)", "Lessee's product damaged the other products in the warehouse", "Lessee brought more than defined number skids which caused our warehouse storage problems", "Lessee didn't communicated well, causing us delays in our supply chain system", "Lessee's product was broken before it even got to the warehouse and lessee is asking for refund")
+concern_report <- data.frame()
+
+terminated_contracts <- which(contract_final1$status == "Terminated")
+number_of_concern_reports <- length(terminated_contracts) * 0.05
+
+concern_report <- contract_final1[sample(which(contract_final1$status == "Terminated"), number_of_concern_reports), 1]
+concern_report$description <- sample(concern, nrow(concern_report), replace = TRUE)
+
+dbWriteTable(con, "Concern" , concern_report, overwrite= TRUE)
+```

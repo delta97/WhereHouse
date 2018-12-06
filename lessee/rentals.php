@@ -4,6 +4,14 @@
 	<head>
 		<!-- add favicon -->
 		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+		<!-- 3rd party footer content -  -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+		<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -17,10 +25,9 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 		<!-- jQuery -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		<!-- AJAX -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
 
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -28,6 +35,7 @@
 		<!-- Link to the style sheet -->
 		<link rel="stylesheet" href="../style.css">
 	</head>
+	<!-- Inbox Content -->
 	<body>
 		<div class="flexbox-wrapper">
 			<div class="header">
@@ -35,8 +43,11 @@
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
 					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
 				</div>
+				<div class="search">
+					<button id="zip-search" class="search-button-home" aria-label="Search"><span class="login-button-text">Search Available Warehouses by Zipcode</span></button>
+				</div>
 				<div class="flex-logo">
-					<span class="header-username">Doe, John</span>
+					<span class="header-username">[Last Name], [First Name]</span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
@@ -65,13 +76,6 @@
 
 
 					</div>
-
-					<!-- <?php 
-						//query the open rental contracts 
-						//if query returns number of results equal to zero then do the following:
-
-						//echo "Oh no, you don't have any current rentals! You can fix that by searching for a warehouse to rent on our <a href="searchpage.html">search page</a>."
-					?> -->
 					<div class="past-rentals">
 						<h1 style="text-align: center;">Past Rentals</h1>
 						<?php include "get_past_rentals_tables.php";?>
@@ -90,8 +94,8 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
-							
+						<div id="contract-table" class="modal-body">
+
 						</div>
 						<div class="modal-footer">
 							<button type="button" data-dismiss="modal" data-toggle="modal" data-target="#rent-again" class="btn btn-info">Rent Again</button>
@@ -112,7 +116,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
+						<div id='rent-again-table' class="modal-body">
 							
 						</div>
 						<div class="modal-footer">
@@ -125,9 +129,44 @@
 
 		</div>
 		</div>
-		<div class="footer">Footer</div>
 	</body>
+	<!-- Footer -->
+	<footer style="margin-top: 0px;"class="footer-distributed">
 
+			<div class="footer-left">
+				<span class="company-name">WhereHouse INC. </span> <br>
+				<p class="footer-company-name">IE332 Team Project &copy; 2018</p>
+			</div>
+			<div class="footer-center">
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>610 Purdue Mall</span> West Lafayette, IN 47907</p>
+				</div>
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123 4567</p>
+				</div>
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:wherehouse.8.inc@gmail.com">wherehouse.8.inc@gmail.com</a></p>
+				</div>
+			</div>
+			<div class="footer-right">
+				<p class="footer-company-about">
+					<span>Connect With Us</span>
+					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
+				</p>
+				<div class="footer-icons">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
+					<!-- Add a link to instagram... replace # with actual links> -->
+				</div>
+			</div>
+		</footer>
+
+		<!-- Javascript Functionality -->
 	<script type="text/javascript">
 		$("#dashboard-btn").on('click', function(event) {
 			window.location = "./dashboard.php";
@@ -143,10 +182,50 @@
 		});
 		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
-			<?php session_destroy();?>
+			sessionStorage.clear();
+			sessionDestroy();
 		});
 		$("#account-info").click(function(event) {
 			window.location = "./account_info.php";
 		});
+		$('#zip-search').on('click', function(event) {
+			window.location = "warehouse-search.php";
+		});
+
+		$(document).ready(function(event){
+			$('.header-username').text(sessionStorage.getItem("user_last_name")+ ", "+sessionStorage.getItem("user_first_name"));
+		});
+
+
+		$("tr").on('click', function(event){
+			var contract_id_click = $(this).attr("data-contractid");
+			console.log(contract_id_click);
+			$.ajax({
+				url:'get_rental_details.php',
+				type: 'post',
+				dataType: 'json',
+				data: {contract_id: contract_id_click},
+				success: function(response){
+					console.log(response);
+					console.log("function success");
+					var owner_id = response['owner_id'];
+					var warehouse_id = response['warehouse_id'];
+					var start_date = response['start_date'];
+					var end_date = response['end_date'];
+					var num_skids = response['num_skids'];
+					var storage_pref = response['storage_pref'];
+					var total_price = response['total_price'];
+					var deposit = response['deposit'];
+					var status = response['status'];
+
+					$('#contract-table').append("<table><tr><td>Contract ID: </td><td>"+contract_id_click+"</td></tr><tr><td>Owner ID: </td><td>"+owner_id+"</td></tr><tr><td>Warehouse ID: </td><td>"+warehouse_id+"</td></tr><tr><td>Start Date: </td><td>"+start_date+"</td></tr><tr><td>End Date: </td><td>"+end_date+"</td></tr><td>Number of Skids: </td><td>"+num_skids+"</td></tr><tr><td>Storage Preference: </td><td>"+storage_pref+"</td></tr><tr><td>Deposit: </td><td>"+deposit+"</td></tr><tr><td>Price Total: </td><td>"+total_price+"</td></tr><tr><td>Rental Status: </td><td>"+status+"</td></tr></table>");
+				}
+			});
+		});
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
 	</script>
 </html>

@@ -237,5 +237,41 @@
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
 		});
+
+		$(document).ready(function(event){
+			var user_last_name = sessionStorage.getItem("user_last_name");
+			var user_first_name = sessionStorage.getItem("user_first_name");
+			var user_email = sessionStorage.getItem("user_email");
+			var user_id = sessionStorage.getItem("user_id");
+			get_notification_badges();
+			$('.header-username').text(user_last_name+", "+user_first_name);
+		});
+		//calls a get to destory the php variable session
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
+
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
+
+			$.ajax({
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				data:{user_id: sessionStorage.getItem("user_id")}
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
+
+				}
+			});
 	</script>
 </html>

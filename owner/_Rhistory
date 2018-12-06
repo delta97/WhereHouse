@@ -1,0 +1,512 @@
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+MYPLOT
+myplot
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_point() +
+geom_line(colour="red") +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw()
+myplot
+head(df1)
+View(df1)
+df1$start_date <- as.Date(df$start_month)
+View(df1)
+df1$start_date <- as.Date(df$start_date)
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(dfu$start_date,"%m")
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_point() +
+geom_line(colour="red") +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw()
+myplot
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_point() +
+geom_line(colour="red") +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+myploy
+myplot
+myplot
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_point() +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+myplot
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_bar() +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+myplot
+aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+View(total)
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_bar() +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+myplot
+myplot <- ggplot(df1, aes(x = df1$start_date, y = df1$`SUM(total_price)`)) +
+geom_bar() +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw()
+myplot
+View(total)
+myplot <- ggplot(df1, aes(x = total$start_date, y = total$`SUM(total_price)`)) +
+geom_bar()
+myplot
+ggplot(df1, aes(x = total$start_date, y = total$price)) +
+geom_line()
+ggplot(total, aes(x = total$start_date, y = total$price)) +
+geom_line()
+ggplot(total) +
+geom_line aes(x = total$start_date, y = total$price))
+ggplot(total) +
+geom_line(aes(x = total$start_date, y = total$price))
+ggplot(total) +
+geom_line(aes(x = start_date, y = price))
+colnames(total)[2] <- "price"
+ggplot(total) +
+geom_line(aes(x = start_date, y = price))
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red"))
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1") +
+legend(NULL)
+ggplot(total) +
+geom_point()+
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_point()+
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+geom_point()+
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1") +
+guides(color = "none")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1") +
+guides(color = "none")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1") +
+guides(color = "none")
+ggplot(total) +
+geom_area(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_step(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+geom_smooth(span = 0.25) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+geom_smooth() +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+ggplot(total) +
+geom_smooth(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start day")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+installed.packages()
+library(ggplot2)
+library(RMySQL)
+args <- commandArgs(TRUE)
+N <- args[1]
+N <- as.numeric(N)
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+df1 <- dbSendQuery(mydb, "SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id = N GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbFetch(df1)
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons) dbDisconnect(con)
+installed.packages()
+library(ggplot2)
+library(RMySQL)
+args <- commandArgs(TRUE)
+N <- args[1]
+N <- as.numeric(N)
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+df1 <- dbSendQuery(mydb, "SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id = 72 GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbFetch(df1)
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons) dbDisconnect(con)
+setwd("Z:/www/owner")
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons) dbDisconnect(con)
+installed.packages()
+library(ggplot2)
+library(RMySQL)
+args <- commandArgs(TRUE)
+N <- args[1]
+N <- as.numeric(N)
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+df1 <- dbSendQuery(mydb, "SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id = 72 GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbFetch(df1)
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons) dbDisconnect(con)
+installed.packages()
+library(ggplot2)
+library(RMySQL)
+args <- commandArgs(TRUE)
+N <- args[1]
+N <- as.numeric(N)
+#If 2017 data is added, this will need to be adapted. Basically data needs to be seperated by year (change the group_by statement) and 2 plots will be made.
+#will need to connect to SQL database instead here and get the Contract table
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+df1 <- dbSendQuery(mydb, "SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id = 72 GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbFetch(df1)
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+myplot <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+?plot
+plot(total$start_date, total$price, type = "l", col = "red")
+?grid
+plot(total$start_date, total$price, type = "l", col = "red")
+grid(NULL,NULL)
+?plot
+plot(total$start_date, total$price, type = "l", col = "red", xlab = Month, ylab = Revenue, main = "Time Series of Monthly Revenue for 2018 Contracts")
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue", main = "Time Series of Monthly Revenue for 2018 Contracts")
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1,c("Jan","Feb","Mar", "Apr", "May", "June". "July", "Aug", "Sep", "Oct", "Nov","Dec"))
+axis(1, at=1:12, labels=month.name, cex.axis=0.5)
+axis(1, at=1:11, labels=month.name, cex.axis=0.5)
+axis(1, at=1:11, labels=month.name)
+axis(1, at=1:12, labels=month.name)
+axis(1, at=as.numeric(total$start_date, labels = total$start_date))
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date, labels = total$start_date))
+axis(1, at=as.numeric(total$start_date, labels = month.name))
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date, labels = month.name))
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+png(filename="myplot.png", width=500, height=500, type="cairo")
+#myplot <- ggplot(total) +
+# geom_line(aes(x = start_date, y = price, color = "red")) +
+# theme_bw()+
+#labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+#scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+#scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+#scale_color_brewer("", palette = "Set1") +
+#theme(legend.position="none")
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+df1 <- dbSendQuery(mydb, "SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id = N GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbFetch(df1)
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+N <- args[1]
+args <- commandArgs(TRUE)
+N <- args[1]
+N <- as.numeric(N)
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+df1 <- dbSendQuery(mydb, "SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id = N GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbFetch(df1)
+a <- paste("SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id =",N)
+a
+b <- pasted(a,"GROUP BY start_date ORDER BY warehouse_id, start_date")
+b <- paste(a,"GROUP BY start_date ORDER BY warehouse_id, start_date")
+b
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+a <- paste("SELECT owner_id, warehouse_id, start_date, SUM(total_price) FROM Contract WHERE owner_id =",N)
+b <- paste(a,"GROUP BY start_date ORDER BY warehouse_id, start_date")
+df1 <- dbSendQuery(mydb, b)
+df1 <- dbFetch(df1)
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot.png", width=500, height=500, type="cairo")
+plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+dev.off()
+df1$start_date <- as.Date(df1$start_date)
+df1$start_date <- format(df1$start_date,"%m")
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+dev.off()
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+dev.off()
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+dev.off()
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+colnames(total)[2] <- "price"
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- ggplot(total) +
+geom_line(aes(x = start_date, y = price, color = "red")) +
+theme_bw()+
+labs(title="Time Series of Monthly Revenue for 2018 Contracts", y="Returns $",x="Months", subtitle = "Monthly revenue calculated by contract start date")  +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000)) +
+scale_color_brewer("", palette = "Set1") +
+theme(legend.position="none")
+dev.off()
+df1$start_date <- as.numeric(df1$start_date)
+total <- aggregate(`SUM(total_price)`~start_date,data=df1,FUN=sum)
+colnames(total)[2] <- "price"
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+dev.off()
+png(filename="myplot2.png", width=500, height=500, type="cairo")
+myplot2 <- plot(total$start_date, total$price, type = "l", col = "red", xlab = "Month", ylab = "Revenue$", main = "Time Series of Monthly Revenue for 2018 Contracts")
+grid(NULL,NULL)
+axis(1, at=as.numeric(total$start_date))
+dev.off()

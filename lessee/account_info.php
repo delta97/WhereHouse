@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-<?php
-	require "serverconnect.php";
-	$connection = serverConnect();
-
-	$query = "SELECT * FROM User WHERE email = '".$_SESSION['user_email']."';";
-	$result = mysqli_query($connection, $query);
-
-
-	if(!$result){
-		
-	}
-?>
 <html>
 	<head>
 		<!-- add favicon -->
@@ -22,7 +10,7 @@
 		<!-- Roboto Condensed Font -->
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
-		<title>John Doe | Account Information</title>
+		<title>Lessee | Account Information</title>
 
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -72,12 +60,11 @@
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
-				<div class="page-content-account-info flex-center-account-info">
+				<div class="page-content flex-center-account-info">
 					<h1 class="dashboard-header">Account Information</h1>
 					<div id="save-notifications"></div>
-					<iframe id="submit-redirect" style="display:none;"></iframe>
 					<div class="account-info">
-						<form id="edit-information-form" action="update_general_information.php" target="#submit-redirect" method="post">
+						<form id="edit-information-form">
 							<div class="form-row form-spacing">
 								<div class="col">
 									<label for="user-first-name">First Name</label>
@@ -201,28 +188,28 @@
 						</form>
 					
 					<h1 class="dashboard-header">Reset Your Password</h1>
-					<div class="account-info account-info-password">
+					<div class="account-info">
 						<form id="password-reset" class="field-center">
-							<div class="form-row form-spacing align-center ">
-								<div class="col password-col">
+							<div class="form-row form-spacing align-center">
+								<div class="col">
 									<label for="current-password">Current Password</label>
 									<input type="password" class="form-control" name="current-password" id="currrent-password" placeholder="Current Password">
 								</div>
 							</div>
 							<div class="form-row form-spacing align-center">
-								<div class="col password-col">
+								<div class="col">
 									<label for="new-password">New Password</label>
 									<input type="password" class="form-control" name="new-password" id="new-password" placeholder="New Password">
 								</div>
 							</div>
 							<div class="form-row form-spacing align-center">
-								<div class="col password-col">
+								<div class="col">
 									<label for="new-password-confirm">Confirm New Password</label>
 									<input class="form-control" type="password" name="new-password-confirm" id="new-password-confirm" placeholder="Confirm New Password">
 								</div>
 							</div>
 							<div class="button-center">
-								<div class="update-password-btn" id="update-password-save"><span class="login-button-text-invert">Update Password</span></div>
+								<div class="update-password-btn" id="banking-information-save"><span class="login-button-text-invert">Update Password</span></div>
 							</div>
 						</form>
 					</div>
@@ -251,61 +238,40 @@
 			window.location = "../index.php";
 		});
 
-		//submits an ajax request to the php server file 'update_general_information.php'
-		$('#general-information-save').on('click', function(event) {
-			var user_first_name = $('#user-first-name').value;
-			var user_last_name = $('#user-last-name').value;
-			var user_address_1 = $('#user-address-line1').value;
-			var user_address_2 = $('#user-address-line2').value;
-			var user_city = $('#user-city').value;
-			var user_state = $('#user-state').value;
-			var user_zipcode = $('#user-zip').value;
-			var user_phone_num = $('#user-phone').value;
-
-			var object = {'first_name':user_first_name, 'last_name':user_last_name, 'address_line_1':user_address_1, 'address_line_2':user_address_2, 'city':user_city, 'state': user_state, 'zipcode':user_zipcode, 'phone_num':user_phone_num};
-			var input = JSON.stringify(object);
-
-			$.ajax({
-				url: 'update_general_information.php',
-				type: 'post', 
-				dataType: 'json',
-				success: function(response){
-					var success_message = response;
-				}
-			});
+		$(document).ready(function(event){
+			var user_last_name = sessionStorage.getItem("user_last_name");
+			var user_first_name = sessionStorage.getItem("user_first_name");
+			var user_email = sessionStorage.getItem("user_email");
+			var user_id = sessionStorage.getItem("user_id");
+			get_notification_badges();
+			$('.header-username').text(user_last_name+", "+user_first_name);
 		});
+		//calls a get to destory the php variable session
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
 
-		$('#banking-information-save').on('click', function(event){
-			var account_number = $('#bank-account-number').value;
-			var routing_number = $('#bank-routing-number').value;
-			var banking_object = {'account':account_number, 'routing':routing_number};
-			var banking_object_input = JSON.stringify(banking_object);
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
 
 			$.ajax({
-				url: '',
-				type: 'post',
-				dataType: 'json',
-				success: function(response) {
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				data:{user_id: sessionStorage.getItem("user_id")}
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
 
 				}
 			});
-		});
-		$('#update-password-save').on('click', function(event){
-			var old_password = $('#current-password').value;
-			var new_passwowrd_1 = $('#new-password').value;
-			var new_password_2 = $('#new-password-confirm').value;
-
-			if(new_password_1 === new_password_2){
-				var password_object = {'old_password':old_password, 'new_password':new_password};
-				var password_object_input = JSON.stringify(password_object);
-
-				$.ajax({
-					url: '',
-					type:'post',
-					dataType:'json',
-					
-				});
-			}
-		});
 	</script>
 </html>

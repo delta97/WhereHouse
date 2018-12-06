@@ -7,9 +7,11 @@
 		<!-- 3rd party footer content -  -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
 		<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -37,15 +39,19 @@
 		<!-- javascript click functions -->
 		<script src="../javascript/click_functions.js"></script>
 	</head>
+	<!-- Page Functionality -->
 	<body>
 		<div class="flexbox-wrapper">
 			<div class="header">
 				<div class="flex-logo">
 					<span><a href="../index.php"><img class="logo" src="../images/logo.png"></a></span>
-					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
+					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
+				</div>
+				<div class="search">
+					<button id="zip-search" class="search-button-home" aria-label="Search"><span class="login-button-text">Search Available Warehouses by Zipcode</span></button>
 				</div>
 				<div class="flex-logo">
-					<span class="header-username">Doe, John</span>
+					<span class="header-username">[Last Name], [First Name]</span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
@@ -67,6 +73,7 @@
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
+				<!-- Inbox Content -->
 				<div class="page-content-inbox">
 					<div class="inbox-header">
 						<h1>Your Inbox</h1>
@@ -220,7 +227,8 @@
 				</div>
 			</div>
 		</footer>
-
+		
+	<!-- Javascript Functionality -->
 	<script type="text/javascript">
 		$("#dashboard-btn").click(function() {
 			window.location = "dashboard.php";
@@ -236,13 +244,25 @@
 		});
 		$(".logout-button").click(function() {
 			window.location = "../index.php";
+			sessionDestroy();
+			sessionStorage.clear();
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
 		});
+		$('#zip-search').on('click', function(event) {
+			window.location = "warehouse-search.php";
+		});
 
+		$(document).ready(function(event){
+			$('.header-username').text(sessionStorage.getItem("user_last_name")+ ", "+sessionStorage.getItem("user_first_name"));
+		});
 
-
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
 
 
 

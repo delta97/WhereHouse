@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- add favicon -->
+		<link rel='icon' href='favicon.ico' type='image/x-icon'>
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -34,13 +37,8 @@
 				<div class="flex-logo">
 					<span><a href="index.php"><img class="logo" src="./images/logo.png"></a></span>
 				</div>
-				<div class="search">
-					<input id="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-					<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
-				</div>
 				<div class="flex-logo">
-					<div class="login-button" id="login" data-toggle="modal" data-target="#login-modal"><span class="login-button-text">Log in</span></div>
-					<div class="login-button" id="register" data-toggle="modal" data-target="#registration-modal"><span class="login-button-text">Register</span></div>
+				
 				</div>
 			</div>
 			<div class="nav">
@@ -52,80 +50,9 @@
 				<span id="FAQ" class="navbar-item"><a href="./home/FAQ.php">FAQ</a></span>
 			</div>
 			<div class="search-body no-space search-flex">
-				<div class="flex-header">
-					<div class="search-header"><?php echo"Search for: ".$_SESSION['zip_search_query']."";?></div>
-					<div class="search-filter-options">
-						<form class="form-inline">
-							<label class="my-1 mr-2" for="wh-search-options"><b>Search Options</b></label>
-							<select class="custom-select my-1 mr-sm-2" id="wh-search-options">
-								<option selected>Distance Ascending</option>
-								<option>Distance Descending</option>
-								<option>Price Ascending</option>
-								<option>Price Descending</option>
-							</select>
-						</form>
-					</div>
-				</div>
-				
-				<!-- Function that returns distance in miles given 2 long/lat -->
-				<p id="demo">
-			<script>
-				var rad = function(x) {
-				return x * Math.PI / 180;
-				};
-			</script>
-			<script>
-				var getDistance = function(p1lat, p1long, p2lat, p2long) {
-				var R = 6378137; // Earth’s mean radius in meter
-				var dLat = rad(p2lat - p1lat);
-				var dLong = rad(p2long - p1long);
-				var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-				Math.cos(rad(p1lat)) * Math.cos(rad(p2lat)) *
-				Math.sin(dLong / 2) * Math.sin(dLong / 2);
-				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-				var d = R * c;
-				var e = d / 1609.344;
-				return e; // returns the distance in miles
-				};
-				document.getElementById("demo").innerHTML = getDistance(40.436244, -86.936343, 40.437093, -86.937432);
-			</script>
-			</p>
-			
-				<div class="search-container">
-						<table class="search-item table">
-							<thead>
-								<tr>
-									<th class="text-center" scope="col">
-										Name
-									</th>
-									<th class="text-center" scope="col">
-										Rating
-									</th>
-									<th class="text-center" scope="col">
-										Price (Per Skid)
-									</th>
-									<th class="text-center" scope="col">
-										Distance From (Zipcode will be entered by PHP)<?php $_SESSION["search_zipcode"]; ?>
-									</th>
-								</tr>
-								<tbody>
-									<tr>
-										<td class="text-center">
-											Warehouse Name
-										</td>
-										<td class="text-center">
-											5 Stars
-										</td>
-										<td class="text-center">
-											$5
-										</td>
-										<td class="text-center">
-											8 miles
-										</td>
-									</tr>
-								</tbody>
-							</thead>
-						</table>
+				<div class="flex-center-column">
+					<h1 style="font-size: 45px; margin-top: 25px"> Register for an account to search warehouses</h1>
+					<h2 style="font-size: 30px; margin-top: 10px;">The page will refresh and return home.</h2>
 				</div>
 			</div>
 			<!-- registration modal -->
@@ -215,11 +142,9 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		//add the "searchQuery" 
+		
 		$(document).ready(function() {
-			var search_value = sessionStorage.getItem("searchQuery");
-			$("#zip-search").val(search_value);
-			$(".search-header").text("Search For: " + search_value);
+			setTimeout("window.location = 'index.php'", 10000);	//returns to home page after 10 seconds.		
 		});
 
 		//login and registration buttons and modals
@@ -239,16 +164,80 @@
 		});
 
 
-
-		$("#zip-search").on("focusout", function(event){
-			var search_value = $("#zip-search").val();
-			sessionStorage.setItem("searchQuery", search_value);
+		//after clicking out of the search bar
+		$('#zip-search').on('focusout', function(event){
+			var search_query = $('#zip-search').val();
+			sessionStorage.setItem("search_query", search_query);
 		});
 
-	
-		$("#zip-search-button").on("click", function(event) {
-			$(".search-header").text("Search For: " + search_value);
+		//search bar submit
+		$('#zip-search-button').on('click', function(event) {
+			event.preventDefault();
+			var search_query = $('#zip-search').val();
+			if(!(search_query === null) && !(search_query === "")){
+				sessionStorage.setItem("search_query", search_query);
+				window.location = "basicsearch.php";
+			}
+			else {
+				alert("Please enter a valid zipcode to search for warehouses.");
+			}
 		});
+
+
+
+		$('#zip-search-button').on('click', function(event) {
+			var search_query = $('#zip-search').value;
+			if(search_query != null && search_query != ""){
+				sessionStorage.setItem("search_query", search_query);
+				$.ajax({
+					url:'',
+					type: 'post',
+					dataType: 'json',
+					data: {search_query: search_query},
+					success: function(response) {
+
+					}
+				});
+			}
+		});
+
+		//after clicking out of the search bar
+		$('#zip-search').on('focusout', function(event){
+			var search_query = $('#zip-search').val();
+			sessionStorage.setItem("search_query", search_query);
+		});
+
+		//search bar submit
+		$('#zip-search-button').on('click', function(event) {
+			event.preventDefault();
+			var search_query = $('#zip-search').val();
+			if(!(search_query === null) && !(search_query === "")){
+				sessionStorage.setItem("search_query", search_query);
+				window.location = "basicsearch.php";
+			}
+			else {
+				alert("Please enter a valid zipcode to search for warehouses.");
+			}
+		});
+		
 
 	</script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- add favicon -->
+		<link rel='icon' href='favicon.ico' type='image/x-icon'>
 		<title>Lessee Registration</title>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -45,9 +47,9 @@
 						<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 white">
 							<h1 id="lessee-registration-title">WhereHouse Lessee Contact Information</h1>
 							<div class="progress lessee-reg-progress">
-								<div class="progress-bar progress-bar-striped bg-info" role="progressbar progress-bar " style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+								<div class="progress-bar progress-bar-striped bg-info" role="progressbar progress-bar " style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
-							<form action="submit_lessee_registration.php" id="lessee-form" name="form-type" value="1" method="post">
+							<form id="lessee-form" name="submit_lessee_registration.php">
 								<div class="form-row form-spacing">
 									<div class="col">
 										<label for="user-first-name">First Name</label>
@@ -166,17 +168,26 @@
 									</div>
 								</div>
 								<h2>Payment Information</h2>
-								<div class="form-row form-spacing">
-									<div class="col">
-										<label for="user-bank-account">Bank Account Number</label>
-										<input type="text" class="form-control" name="user-bank-account" id="user-bank-account" aria-describedby="enterBankAccountNumber" placeholder="Bank Account Number">
-										<small class="form-text text-muted">This information will be used to pay for rented warehouse space.</small>
+								<div class="form-row form-spacing flex-center">
+									<div class="col-lg-6 col-md-6">
+										<label for="cc_num">Credit Card Number</label>
+										<input type="number" class="form-control" name="cc_num" id="cc_num" placeholder="Credit Card Number">
 									</div>
-									<div class="col">
-										<label for="user-routing">Bank Routing Number</label>
-										<input type="text" class="form-control" name="user-routing" id="user-routing" aria-describedby="enterBankRoutingNumber" placeholder="Bank Routing Number">
+									<div class="col-lg-2 col-md-2">
+										<label for="exp-month">Expiration Month</label>
+										<input class="form-control" type="number" maxlength="2" name="exp-month" id="exp-month" placeholder="MM">
+									</div>
+									<div class="col-lg-2 col-md-2">
+										<label for="exp-year">Expiration Year</label>
+										<input type="number" class="form-control" maxlength="4" name="exp-year" id="exp-year" placeholder="YYYY">
+									</div>
+									<div class="col-lg-2 col-md-2">
+										<label for="CVC">CVC</label>
+										<input type="number" class="form-control" id="CVC" name="CVC" placeholder="CVC">
+
 									</div>
 								</div>
+								<small style="margin-bottom: 5px"class="form-text text-muted">This information will be used to pay for rented warehouse space.</small>
 								<div class="form-row form-spacing">
 									<div class="col-auto">
 										<button id="form-submit-btn" class="btn btn-submit">Submit</button>
@@ -202,6 +213,85 @@
 	
 
 		$("#user-phone").inputmask({"mask": "(999) 999 - 9999"});
+			
+		function validation(){
+			var password = $('#user-password').val();
+			var password_confirm = $('#user-password-confirm').val();
+			if(password.length >= 8 && password.length <= 20){
+				console.log("user_password.length " + user_password.length);
+				console.log("user_password_confirm.length " + user_password_confirm.length);
+				var special_char = false; //false means there are no special characters in the password
+				var capital_letter = false; //false means there are no capital letters in the password
+				var i = 0;
+				while (i < user_password.length) {
+					var letter = user_password.charAt(i);
+					if(letter === '!' || letter ==='@' || letter === '#' || letter === '$' || letter  === '%' || letter === '^' || letter === '&' || letter === '*'){
+						special_char = true;
+					}
+					else if(!(letter === '!' || letter ==='@' || letter === '#' || letter === '$' || letter  === '%' || letter === '^' || letter === '&' || letter === '*')) {
+						if(letter.toUpperCase() === letter){
+						capital_letter = true;
+						}
+					}
+					i++;
+			}
+			if(special_char === false) {
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has at least one of the following characters: <strong>!, @, #, $, %, ^, &, or *</strong>.</div>");
+			}
+			if(capital_letter === false){
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital leter</strong>.</div>");
+			}
+			if(verifyFilled() === false) {
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>All fields are required. Make sure you didn't miss any!</strong></div>");
+			}
+			if(!(password === password_confirm)){
+				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your passwords must match!</strong></div>");
+			}
+			if(capital_letter === true && special_char === true && verifyFilled() === true){
+				
+
+				$.ajax({
+				type: 'POST', 
+				url: 'submit_lessee_registration.php', 
+				data: $('#lessee-form').serialize(), 
+				success: function(response) {
+					var first_name = response['first_name'];
+					var last_name = response['last_name'];
+					var user_id = response['user_id'];
+					var cc_num = response['cc_num'];
+					var exp_month = response['exp_month'];
+					var exp_year = response['exp_year'];
+					var cvc = response['cvc'];
+
+					sessionStorage.setItem("user_first_name", first_name);
+					sessionStorage.setItem("user_last_name", last_name);
+					sessionStorage.setItem("user_id", user_id);
+					window.location = "registration_success.php";
+					$.ajax({
+						url:'submit_lessee_portion.php',
+						type: 'post',
+						dataType: 'json',
+						data: {user_id: user_id, cc_num: cc_num, exp_month: exp_month, exp_year: exp_year, cvc:cvc},
+						success: function(response){
+							var error = response['error'];
+							if(error === 1){
+								$('#submit-div').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There was an error inserting your information into the database. Please register again.</div>");
+							}
+							else {
+								$('#submit-div').append('<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There already exists a user with that email. Please register again with a different email.</div>');
+							}
+						}
+					});
+				}
+			});
+
+			}
+		}
+			
+
+		//checking to make sure the password is between 8 and 20 characters
+			
+					
 		function verifyFilled() {
 			var first_name = $('#user-first-name').value;
 			var last_name = $('#user-last-name').value;
@@ -214,11 +304,14 @@
 			var city = $('#user-city').value;
 			var state = $('#user-state').value;
 			var zipcode = $('#user-zip').value;
-			var bank_account = $('#user-bank-account').value;
-			var routing = $('#user-routing').value;
+			var cc_num = $('#cc_num').value;
+			var exp_month = $('#exp-month').value;
+			var exp_year = $('#exp-year').value;
+			var CVC = $('#CVC').value;
 
 
-			if((first_name === null || first_name === "" || first_name === " ") || (last_name === null || last_name === "" || last_name === " ") || (email === null || email === "" || email === " ") || (phone_num === null || phone_num === "" || phone_num === " ") || (password === null || pasword === "" || password === " ") || (birth_date === null || birth_date === "" || birth_date === " ") || (address1 === null || address1 === "" || address1 === " ") || (address2 === null || address2 === "" || address2 === " ") || (city === null || city === "" || city === " ") || (state === null || state === "" || state === " ") || (zipcode === null || zipcode === "" || zipcode === " ") || (bank_account === null || bank_account === "" || bank_account === " ") || (routing === null || routing === "" || routing === " ")){
+
+			if((first_name === null || first_name === "" || first_name === " ") || (last_name === null || last_name === "" || last_name === " ") || (email === null || email === "" || email === " ") || (phone_num === null || phone_num === "" || phone_num === " ") || (password === null || password === "" || password === " ") || (birth_date === null || birth_date === "" || birth_date === " ") || (address1 === null || address1 === "" || address1 === " ") || (address2 === null || address2 === "" || address2 === " ") || (city === null || city === "" || city === " ") || (state === null || state === "" || state === " ") || (zipcode === null || zipcode === "" || zipcode === " ") || (cc_num === null || cc_num === "" || cc_num === " ") || (exp_month === null || exp_month === "" || exp_month === "") || (exp_year === null || exp_year === "" || exp_year === "") || (CVC === null || CVC === "" || CVC === "")){
 				var submit_okay = false;
 			}
 			else {
@@ -227,33 +320,19 @@
 			return submit_okay;
 		}
 
-		$('#form-submit-btn').on('click', function(event) {
-			if(verifyFilled() == true){
-				$('#lessee-form').submit();
-			}
-			else {
-				$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Make sure all fields are filled before submission</strong></div>");
-			}
-		});
+		
 
 		
 		$('#lessee-form').on('submit', function(event) {
 			event.preventDefault();
 			$('#submit-div').empty();
-			$.ajax({
-				type: 'POST', 
-				url: 'submit_lessee_registration.php', 
-				data: $('#lessee-form').serialize(), 
-				success: function() {
-					window.location = "registration_success.php";
-				}
-			});
+			validation();
 		});
 
 		//password validation function
 
 		
-		/*
+		
 		function validation() {
 			var password = $("#user-password").val();
 			var password_confirm = $("#user-password-confirm").val();
@@ -261,7 +340,9 @@
 			var i = 0;
 			var caps = false;
 			var equivalent = false;
-			/*Form Variable Checking
+			
+
+			//Form Variable Checking
 			var first_name = document.getElementById("user-first-name").value;
 			var last_name = document.getElementById("user-last-name").value;
 			var email = document.getElementById("user-email").value;
@@ -317,7 +398,7 @@
 			if(caps && special_char && equivalent){
 				console.log("password works");
 			}
-		} */
+		} 
 
 	</script>
 		

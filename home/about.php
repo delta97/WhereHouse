@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
+				<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-130199470-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-130199470-1');
+		</script>
 		<!-- add favicon -->
 		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
-		
+
 		<!-- 3rd party footer content -  -->
 		
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -36,9 +45,7 @@
 		<!-- Link to the style sheet -->
 		<link rel="stylesheet" href="../style.css"> 
 		
-		
-		<!-- Meet Team 
-		<meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	
 
     <meta charset="utf-8">
     <title></title>
@@ -66,7 +73,6 @@
   margin-top: 40px;
 }
 .cen{
-  max-width: 1200px;
   margin: auto;
   overflow: hidden;
   padding: 20px;
@@ -99,14 +105,42 @@
   font-size: 15px;
   font-weight: 500;
 }
+.team{
+  display: inline-block;
+  width: calc(100%);
+  margin: 0 -2px;
+  padding: 25px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.team:hover{
+  background: #ddd;
+}
+.team i{
+  color: #fbb413;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+.team p{
+  color: gray;
+  font-size: 15px;
+  font-weight: 500;
+}
 @media screen and (max-width: 800px) {
   .service{
     width: 50%;
+  }
+  .team{
+	  width: 50%;
   }
 }
 @media screen and (max-width: 500px) {
   .service{
     width: 100%;
+  }
+  .team{
+	  width: 100%;
   }
 }
 		</style>
@@ -140,46 +174,58 @@
 					
 					
 					
-							<div class="services">
+			<div class="services">
 							  <h1>Our Services</h1>
 							  <div class="cen">
 								<div class="service">
 								  <i class="fas fa-box-open"></i>
 								  <h2>Storage Solutions</h2>
-								  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								  <p>Gain access to tailored search features, 
+								  secure partnerships, detailed analytics, and an optimized user interface.</p>
 								</div>
 
 								<div class="service">
-								  <i class="fab fa-android"></i>
-								  <h2>Moblie App</h2>
-								  <p>Releasing on the app store in 2020!</p>
+								  <i class="fas fa-file-signature"></i>
+								  <h2>Benefits to Owners</h2>
+								  <p>Maintain revenue even in off seasons or when long term storage contracts aren't reaching your warehouse capacity. 
+								  </p>
 								</div>
 
 								<div class="service">
-								  <i class="fab fa-angellist"></i>
-								  <h2>24/7 Support</h2>
-								  <p>Your warehousing needs don't take vacations, so neither do we!</p>
+								  <i class="fas fa-users"></i>
+								  <h2>Benefits to Lessees</h2>
+								  <p>Avoid steep premiums charged by other companies for short term or small scale agreements.</p>
 								</div>
 
 								<div class="service">
-								  <i class="fas fa-apple-alt"></i>
-								  <h2>Peer-to-Peer Communication System</h2>
-								  <p>You are only ever one message away from solving your warehousing problems.</p>
+								  <i class="fas fa-dollar-sign"></i>
+								  <h2>Affordable Membership</h2>
+								  <p>A commission based fee structure makes it is easy to register as a warehouse owner no matter
+								  the scale of your business.</p>
 								</div>
 
 								<div class="service">
-								  <i class="fas fa-archway"></i>
-								  <h2>Mario's Personal Phone Number</h2>
-								  <p>We don't have it yet, but we will let you know when we do.</p>
+								  <i class="fas fa-lightbulb"></i>
+								  <h2>Machine Learning</h2>
+								  <p>Warehouse Inc benefits both owners and lessees by recommending warehouse solutions based 
+								  on individual user's search and preference history.</p>
 								</div>
 
 								<div class="service">
-								  <i class="far fa-angry"></i>
-								  <h2>Satisfaction Guaranteed</h2>
-								  <p>WhereHouse boasts the world's deepest network of warehousing experts; if you can't find it here, you won't find it anywhere.</p>
+								  <i class="fas fa-user-lock"></i>
+								  <h2>Security</h2>
+								  <p>Never worry about the security of your data, payments, or assets thanks to detailed security 
+								  measurments put in place throughout the website.</p>
 								</div>
 							  </div>
-							</div>	
+							  
+							  <br><h1>The Team</h1><br>
+							  <div class="team">
+							  <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i> <i class="fas fa-child"></i>
+							  <p>Amanda Crowe, Cole Parsons, Collin Jewett, Kayla Parker, Michael Campbell, Shriya Das, Utkuhan Genc</p>
+							  </div>
+
+				</div>	
 								
 								
 		
@@ -200,10 +246,12 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<div class="form-group flex-center">
-									<button type="button" class="btn btn-next" id="btn-register-lessee">I want to lease a warehouse</button>
-   									<button type="button" class="btn btn-next" id="btn-register-owner">I want to rent my warehouse</button>
-								</div>
+								<form>
+									<div class="form-group flex-center">
+										<button type="button" class="btn btn-next btn-reg" id="btn-register-lessee">I want to lease a warehouse</button>
+	   									<button type="button" class="btn btn-next btn-reg" id="btn-register-owner">I want to rent my warehouse</button>
+									</div>
+								</form>
 							</div>
 							<div class="modal-footer">
    								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
@@ -211,8 +259,8 @@
 						</div>
 					</div>
 				</div>
-			<!-- Login Modal -->
-				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" aria-hidden="true">
+				<!-- Login Modal -->
+				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" >
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content modal-formatting">
 							<div class="modal-header">
@@ -222,24 +270,29 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form>
+								<form method="post" id="login-modal-form" action="login.php" target="submit-redirect">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
-								    	<input type="text" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
+								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
 								  	</div>
-								  	<div class="form-group">
+								  	<div id="modal-pass" class="form-group">
 								    	<label for="login-modal-password">Password</label>
-								    	<input type="password" class="form-control" id="login-modal-password" placeholder="Password">
-								  </div>
+								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password"/>
+								    </div>
+								    <div class="alerts">
+								    </div>
+								    <div class="modal-footer">
+										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-next" id="submit-button">Log In</button>
+ 									</div>
+								</form>
 							</div>
-							<div class="modal-footer">
-   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-   								<button type="button" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
-   								<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
- 							</div>
 						</div>
 					</div>
 				</div>
+
+
+
 			</div>
 		</div>
 	
@@ -284,7 +337,7 @@
 
 				<div class="footer-icons">
 
-					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="https://www.facebook.com/kayla.parker.90260403"><i class="fab fa-facebook-f"></i></a>
 					<a href="#"><i class="fab fa-twitter"></i></a>
 					<a href="#"><i class="fab fa-linkedin"></i></a>
 					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
@@ -317,5 +370,57 @@
 			$("#btn-register-lessee").on('click touch', function() {
 				window.location = "./registration/lessee-registration.php";
 			});
+
+			$('#submit-button').on('click', function(event){
+			event.preventDefault();
+			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
+		
+			var serializedData = $('#login-modal-form').serialize();
+			$.ajax(console.log("ajax called"),{
+				type: 'POST', 
+				url: '../login.php',
+				data: serializedData,
+				dataType: 'json',
+				
+				// dataType:'json', //by declaring the server return dataType as 'json' it will automatically JSON.parse(resp) to convert it back to a JSON object from a string with JSON content within it
+				success: function(response) {
+					
+					var email = response['email'];
+					var user_type = response['user_type'];
+					var user_first_name = response['user_first_name'];
+					var user_last_name = response['user_last_name'];
+					var user_id = response['user_id'];
+
+					console.log(email);
+ 					console.log(user_type);
+ 					console.log(user_id);
+ 					console.log(user_first_name);
+ 					console.log(user_last_name);
+ 	
+					if(user_type === -1){
+		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
+		 			} else if(user_type === -2){
+		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
+		 			} else if(user_type === 0){
+		 				//setting session items
+						sessionStorage.setItem("user_id", user_id);
+						sessionStorage.setItem("user_email", email);
+						sessionStorage.setItem("user_first_name", user_first_name);
+						sessionStorage.setItem("user_last_name", user_last_name);
+						sessionStorage.setItem("user_type", user_type);
+		 				window.location = "../lessee/dashboard.php";
+
+		 			} else if(user_type === 1) {
+		 				//setting session items
+						sessionStorage.setItem("user_id", user_id);
+						sessionStorage.setItem("user_email", email);
+						sessionStorage.setItem("user_first_name", user_first_name);
+						sessionStorage.setItem("user_last_name", user_last_name);
+						sessionStorage.setItem("user_type", user_type);
+		 				window.location = "../owner/dashboard.php";
+		 			}
+ 				}
+ 			});
+		});
 		</script>
 </html>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- add favicon -->
+		<link rel='icon' href='favicon.ico' type='image/x-icon'>
 		<title>Owner Registration</title>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -43,6 +45,9 @@
 						</div>
 						<div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 white">
 							<h1 id="owner-registration-title">WhereHouse Owner Registration</h1>
+							<div class="progress lessee-reg-progress">
+								<div class="progress-bar progress-bar-striped bg-info" role="progressbar progress-bar " style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
 							<form id="owner-registration-form" method="post" name="owner-registration-form" action="submit_owner_registration.php" target="submit-redirect">
 								<div class="form-row form-spacing">
 									<div class="col">
@@ -238,29 +243,48 @@
 						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has at least one of the following characters: <strong>!, @, #, $, %, ^, &, or *</strong>.</div>");
 					}
 					if(capital_letter === false){
-						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital letter</strong>.</div>");
+						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">Make sure your password has <strong>at least one capital leter</strong>.</div>");
 					}
 					if(verifyFilled() === false) {
 						$("#submit-div").append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>All fields are required. Make sure you didn't miss any!</strong></div>");
 					}
 					if(capital_letter === true && special_char === true && verifyFilled() === true){
-						var serializedData = $("#owner-registration-form").serialize();
+						var user_first_name = $('#user-first-name').val();
+						var user_last_name = $('#user-last-name').val();
+						var user_email = $('#user-email').val();
+						var user_phone_number = $('#user-phone').val();
+						var user_password = $('#user-password').val();
+						var user_dob = $('#user-dob').val();
+						var user_street_1 = $('#user-street-1').val();
+						var user_street_2 = $('#user-street-2').val();
+						var user_city = $('#user-city').val();
+						var user_state = $('#user-state').val();
+						var user_zipcode = $('#user-zip').val();
+						var user_bank_account = $('#user-bank-account').val();
+						var user_bank_routing = $('#user-bank-routing').val();
+						var user_id = sessionStorage.getItem("user_id");
 						$.ajax({
 							type:'post',
 							url: 'submit_owner_registration.php',
-							data: serializedData,
+							data: {user_first_name: user_first_name, user_last_name: user_last_name, user_email: user_email, user_phone_number: user_phone_number, user_password: user_password, user_dob: user_dob, user_street_1: user_street_1, user_street_2: user_street_2, user_city: user_city, user_state: user_state, user_zipcode: user_zipcode, user_bank_account: user_bank_account, user_bank_routing: user_bank_routing},
 							dataType: 'json',
 							success: function(response) {
 								var error = response['error'];
 								console.log(error);
 								if(error === 0){
+									var user_first_name = response['user_first_name'];
+									var user_last_name = response['user_last_name'];
+									sessionStorage.setItem('user_first_name', user_first_name);
+									sessionStorage.setItem('user_last_name', user_last_name);
+									console.log(user_first_name, user_last_name);
+									
 									window.location = "registration_success.php";
 
 								}
 								else if(error === 1) {
 									$('#submit-div').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There was an error inserting your information into the database. Please register again.</div>");
 								}
-								else if(error == 2) {
+								else if(error === 2) {
 									$('#submit-div').append('<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\">There already exists a user with that email. Please register again with a different email.</div>');
 								}
 

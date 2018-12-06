@@ -49,65 +49,109 @@
 						<script type="text/javascript">
 							$(".success-home-btn").on("click",function(event) {
 								window.location = "../../index.php";
+								sessionStorage.clear();
 							});				
 						</script>
 						
-						<button type="button" class="btn success-login-btn" data-toggle="modal" data-target="#login-modal">Log In</button>
+						
 					</div>
 				</div>
 			</div>
-			<!-- login modal -->
-			<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" aria-hidden="true">
+			
+				<!-- Login Modal -->
+				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-title" >
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content modal-formatting">
 							<div class="modal-header">
-								<h2 class="modal-title" id="login-modal-title">Log In</h2>
+								<h4 class="modal-title" id="login-modal-title">Existing User? Login</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div class="modal-body">
-								<form method="post">
+								<form method="post" id="login-modal-form" action="login.php" target="submit-redirect">
 									<div class="form-group">
 								    	<label for="login-modal-email">Email address</label>
 								    	<input type="text" name="login-modal-email" class="form-control" id="login-modal-email" aria-describedby="enterEmail" placeholder="Enter email">
 								  	</div>
-								  	<div class="form-group">
+								  	<div id="modal-pass" class="form-group">
 								    	<label for="login-modal-password">Password</label>
-								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password">
-								  </div>
+								    	<input name="login-modal-password" type="password" class="form-control" id="login-modal-password" placeholder="Password"/>
+								    </div>
+								    <div class="alerts">
+								    </div>
+								    <div class="modal-footer">
+										<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-next" id="submit-button">Log In</button>
+ 									</div>
 								</form>
-								
 							</div>
-							<div class="modal-footer">
-   								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-   								<button type="button" class="btn btn-next" id="btn-login-lessee">Log In Lessee</button>
-   								<button type="button" class="btn btn-next" id="btn-login-owner">Log In Owner</button>
- 							</div>
 						</div>
 					</div>
 				</div>
+
 			<div class="footer">
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript">
-		$(window).on('load', function(event) {
-			event.preventDefault();
-			$.ajax({
-				type: 'GET',
-				method: 'GET',
-				url: 'get_user_name.php',
-				success: function(response) {
-					var user_first_name = response.user_first_name;
-					var user_last_name = response.user_last_name;
+		$(document).ready(function(event){
+			var user_first_name = sessionStorage.getItem("user_first_name");
 
-
-					console.log(user_first_name + "," + user_last_name);
-					$('.success-message').append("<h1>Congratulations, " + user_first_name + " you are now a registered member of <span class=\"logo-text\"WhereHouse Inc.</span></h1>");
-				}
-			});
-
+			$('.success-message').append("<h1>Congratulations, " + user_first_name + " you are now a registered member of <span class=\"logo-text\">WhereHouse Inc.</span></h1>");
 		});
-	
+
+
+		//login submission
+		$('#submit-button').on('click', function(event){
+			event.preventDefault();
+			$('.alerts').empty(); //gets rid of any existing alerts on re-submission
+		
+			var serializedData = $('#login-modal-form').serialize();
+			$.ajax(console.log("ajax called"),{
+				type: 'POST', 
+				url: 'login.php',
+				data: serializedData,
+				dataType: 'json',
+				success: function(response) {
+					
+					var email = response['email'];
+					var user_type = response['user_type'];
+					var user_first_name = response['user_first_name'];
+					var user_last_name = response['user_last_name'];
+					var user_id = response['user_id'];
+
+					console.log(email);
+ 					console.log(user_type);
+ 					console.log(user_id);
+ 					console.log(user_first_name);
+ 					console.log(user_last_name);
+ 	
+					if(user_type === -1){
+		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Looks like you haven't made an account yet. Please make an account before you try to log in.</strong></div>");
+		 			} else if(user_type === -2){
+		 				$('.alerts').append("<div style=\"margin: 10px;\" class=\"alert alert-danger\" role=\"alert\"><strong>Your password or email is incorrect.</strong></div>");
+		 			} else if(user_type === 0){
+		 				//setting session items
+						sessionStorage.setItem("user_id", user_id);
+						sessionStorage.setItem("user_email", email);
+						sessionStorage.setItem("user_first_name", user_first_name);
+						sessionStorage.setItem("user_last_name", user_last_name);
+						sessionStorage.setItem("user_type", user_type);
+		 				window.location = "./lessee/dashboard.php";
+
+		 			} else if(user_type === 1) {
+		 				//setting session items
+						sessionStorage.setItem("user_id", user_id);
+						sessionStorage.setItem("user_email", email);
+						sessionStorage.setItem("user_first_name", user_first_name);
+						sessionStorage.setItem("user_last_name", user_last_name);
+						sessionStorage.setItem("user_type", user_type);
+		 				window.location = "./owner/dashboard.php";
+		 			}
+ 				}
+ 			});
+		});
+					
+	</script>
 </html>

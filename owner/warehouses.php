@@ -1,25 +1,7 @@
- <!DOCTYPE html>
-
- <?php 
- 	include "serverconnect.php";
- 	$connection = serverConnect();
-
- 	//query to get the user's id
- 	$id_query = "SELECT id FROM User WHERE Email = '".$_SESSION['user_email']."'";
-
- 	$result = mysqli_query($connection, $id_query);
-	$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$user_id = $assoc_array["id"];
-
- 	//query to get the warehouses that correspond to that user id
-	$query = "SELECT id FROM Warehouse WHERE owner_id = '".$user_id."'";
-	$result = mysqli_query($connection, $query);
-	$_SESSION["owner_warehouse_ids"] = mysqli_fetch_all($result, MYSQLI_NUM);
-	$num_ids = count($_SESSION['owner_warehose_ids']);
-
-	mysqli_close($connection);
- ?>
-<!-- owner dashboard -->
+<?php
+session_start();
+?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<!-- add favicon -->
@@ -37,22 +19,17 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 		<!-- jQuery -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		<!-- AJAX -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 
 		<!-- Bootstrap -->
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+		<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+		<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 		<!-- Link to the style sheet -->
 		<link rel="stylesheet" href="../style.css"> 
 
-		<!-- javascript click functions -->
-		<script src="../javascript/click_functions.js"></script>
-
-		<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-		<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<!-- My Warehouses Functionality -->
 	</head>
 	<body>
 		<div class="flexbox-wrapper">
@@ -62,7 +39,7 @@
 					<span class="logo-text"><a href="index.php">WhereHouse</a></span>
 				</div>
 				<div class="flex-logo">
-					<span class="header-username">Doe, John</span>
+					<span class="header-username">[Last Name], [First Name]</span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 			</div>
@@ -92,44 +69,67 @@
 						<h1>Manage Your Warehouses</h1>
 						<button type="button" class="btn btn-primary add-warehouse-btn" data-toggle="modal" data-target="#add-warehouse-modal">Add a Warehouse</button>
 					</div>
-					<div class="warehouse-tiles">
-						<div class="warehouse">
-							helo
-							
-						</div>
-						<?php 
-							$connection = serverConnect();
-							$index = 0;
-							$query = "SELECT address_1, address_2, city, [state], zip, Price_per_skid, sq_footage, cap, Temp_control FROM Warehouse WHERE id = '" . $_SESSION['owner_warehouse_ids'] . "';";
-							
-							$result = mysqli_query($connection, $query);
+					<div class="userbox2">
+					
+					 <?php
+                    $servername = "mydb.ics.purdue.edu";
+                    $username = "g1090429";
+                    $password = "WhereHouse?";
+                    $dbname = "g1090429";
 
-							if(!$result) {
-								echo "You have no warehouses. Add one.";
+                    // Create connection
+                    $conn = new mysqli($servername, $username, $password, $dbname);
+                    // Check connection
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+					//Use US monetary values
+					setlocale(LC_MONETARY, 'en_US');
+                    $user_id = $_SESSION['user_id'];
+                        
+						//Access SQL
+                        $sqlWH1 = "SELECT address_1, city, state, zipcode, warehouse_id, price_per_skid, capacity, size, storage_pref, lowest_temp, highest_temp FROM Warehouse WHERE owner_id = $user_id";
+                        $resultWH1 = $conn->query($sqlWH1);
+                        
+						//print SQL results in seperate divs
+						if ($resultWH1->num_rows > 0) {
+							
+						
+						while($row1 = $resultWH1->fetch_assoc()) {
+							$address = $row1['address_1'];
+							$city = $row1['city'];
+							$state = $row1['state'];
+							$zipcode = $row1['zipcode'];
+							$warehouse = $row1['warehouse_id'];
+							$price = $row1['price_per_skid'];
+							$rprice = money_format('0%i',$price);
+							$capacity = $row1['capacity'];
+							$size = $row1['size'];
+							$storage = $row1['storage_pref'];
+							$lowt = $row1['lowest_temp'];
+							$hight = $row1['highest_temp'];
+							$x = 1;
+							for ($i = 0; $i < count($warehouse); $i++) {
+							echo"<div class=\"userbox2\">";
+							//echo"Warehouse $x<br><br>";
+							echo"<b>Address: </b>$address, $city, $state $zipcode<br>";
+							echo"<b>Price-per-skid: </b>\$$rprice<br>";
+							echo"<b>Capacity: </b>$capacity skids<br>";
+							echo"<b>Size of your warehouse: </b>$size sq-ft<br>";
+							echo"<b>Storage capability: </b>$storage<br>";
+							echo"<b>Lowest Temperature: </b>$lowt degrees<br>";
+							echo"<b>Highest Temperature: </b>$hight degrees<br>";
+							echo"</div>";
+							$x++;
 							}
-							else {
-								$assoc_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-								$address_1 = $assoc_array["address_1"];
-								$address_2 = $assoc_array["address_2"];
-								$city = $assoc_array["city"];
-								$state = $assoc_array["state"];
-								$zip = $assoc_array["zip"];
-								$price_per_skid = $assoc_array["Price_per_skid"];
-								$sq_footage = $assoc_array["sq_footage"];
-								$capacity = $assoc_array["cap"];
-								$temp_control = $assoc_array["Temp_control"];
-								 
-								while($index < $num_ids) {
-									$current_warehouse = array("address_1" => $address_1[$index], "address_2" => $address_2[$index], "city" => $city[$index],"state" => $state[$index], "zip" => $zip[$index], "price_per_skid" => $price_per_skid[$index], "sq_footage" => $sq_footage[$index], "capacity" => $capacity[$index], "temp_control" => $temp_control[$index]);
-									$index++;
-									/*echo " this is the code that will create a new div*/
-								}
+								
 							}
-							$warehouse_index = 0;
-							while($warehouse_index < $num_ids) {
-
-							}
-						?>
+						}
+						 else {
+							echo "You have no warehouses :(";
+						}		
+                $conn->close();
+                ?>
 					</div>
 				</div>
 			</div>
@@ -147,8 +147,10 @@
 							<form>
 								<div class="form-row form-spacing">
 									<div class="col">
-										<label for="warehouse-name">Warehouse Name</label>
+										<label for="warehouse-name">Warehouse Name</label> 
 										<input type="text" class="form-control" name="warehouse-name" id="warehouse-name" aria-describedby="enter warehouse name" placeholder="Warehouse Name">
+										<small>This won't be shown to users but is for your own record-keeping purposes</small>
+
 									</div>
 								</div>
 								<div class="form-row form-spacing">
@@ -177,13 +179,17 @@
 										  </label>
 										</div>
 									</div>
-									<div class="col">
+									<div class="col-lg-2">
 										<label for="temperature-lower-bound">Coldest Sustainable Temperature (&deg;F)</label>
-										<input type="number" class="form-control" name="temperature-lower-bound" id="temperature-lower-bound" placeholder="Lowest Sustainable Temperature">
+										<input type="number" class="form-control" name="temperature-lower-bound" id="temperature-lower-bound" placeholder="Low &deg;F">
 									</div>
-									<div class="col">
+									<div class="col-lg-2">
 										<label for="temperature-upper-bound">Warmest Sustainable Temperature (&deg;F)</label>
-										<input type="number" class="form-control" name="temperature-upper-bound" id="temperature-upper-bound" placeholder="Warmest Sustainable Temperature">
+										<input type="number" class="form-control" name="temperature-upper-bound" id="temperature-upper-bound" placeholder="High &deg;F">
+									</div>
+									<div class="col-lg-2">
+										<label style="margin-top:40px; margin-bottom:40px"for="price-per-skid">Price Per Skid</label>
+										<input type="number" class="form-control" name="price-per-skid" id="price-per-skid" placeholder="$">
 									</div>
 								</div>
 								<h3>Address Information</h3>
@@ -204,7 +210,7 @@
 									</div>
 									<div class="col">
 										<label for="warehouse-state">State</label>
-										<select type="text" class="form-control" name="user-state" id="user-state">
+										<select type="text" class="form-control" name="warehouse-state" id="warehouse-state">
 											<option value="null">Choose a State</option>
 											<option value="AL">Alabama</option>
 											<option value="AK">Alaska</option>
@@ -267,7 +273,7 @@
 							</form>
 						</div>
 						<div class="modal-footer">
-								<button type="submit" class="btn btn-submit">Add Warehouse</button>
+								<button id="submit-warehouse" type="button" class="btn btn-submit">Add Warehouse</button>
 								<button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
 						</div>
 					</div>
@@ -277,6 +283,30 @@
 	</body>
 
 	<script type="text/javascript">
+		$(document).ready(function(){
+			var user_last_name = sessionStorage.getItem("user_last_name");
+			var user_first_name = sessionStorage.getItem("user_first_name");
+			var user_email = sessionStorage.getItem("user_email");
+			var user_id = sessionStorage.getItem("user_id");
+
+			$('.header-username').text(user_last_name+", "+user_first_name);
+			
+			get_notification_badges();
+
+			$.ajax({
+				url:'warehouse_onload.php',
+				type: 'post', 
+				dataType: 'json',
+				data: {user_id: sessionStorage.getItem("user_id")},
+				success: function(response){
+					console.log(response);
+					var id = response['id'];
+					var address_1 = 1;
+				}
+			});
+		});
+
+
 		$("#dashboard").click(function() {
 			window.location = "dashboard.php";
 		});
@@ -293,11 +323,15 @@
 			window.location = "analytics.php";
 		});
 		$(".logout-button").click(function() {
+			sessionStorage.clear();
 			window.location = "../index.php";
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
 		});
+
+
+		
 		$('#temperature-yes').on('click', function() {
 			$('#temperature-yes').prop('checked', true);
 			$('#temperature-no').prop('checked', false);
@@ -311,9 +345,70 @@
 			$('#temperature-upper-bound').prop('disabled', true);
 		});
 
-		function reloadOnSubmit() {
-			window.location = "warehouses.php";
-			document.location.reload();
+
+		$('#submit-warehouse').on('click', function(event){
+			var user_id = sessionStorage.getItem("user_id");
+			var name = $('#warehouse-name').val();
+			var size = $('#warehouse-sqft').val();
+			var capacity = $('#warehouse-skids').val();
+			var temp_low = $('#temperature-lower-bound').val();
+			var temp_high = $('#temperature-upper-bound').val();
+			var price_per_skid = $('#price-per-skid').val();
+			var address_1 = $('#warehouse-address-1').val();
+			var address_2 = $('#warehouse-address-2').val();
+			var city = $('#warehouse-city').val();
+			var state = $('#warehouse-state').val();
+			var zipcode = $('#warehouse-zipcode').val();
+			console.log(user_id, name, size, capacity, temp_low, temp_high, price_per_skid, address_1, address_2, city, state, zipcode);
+			$.ajax({
+				url:'add_warehouse.php',
+				type: 'post',
+				dataType: 'json',
+				data: {price_per_skid: price_per_skid, user_id: user_id, name: name, size: size, capacity: capacity, temp_low, temp_low, temp_high: temp_high, address_1: address_1, address_2: address_2, city: city, state: state, zipcode: zipcode},
+				success: function(response){
+					var error_response = response['error'];
+					if(error_response === 1){
+						alert("There was an error inserting your warehouse data into the database. Please try again.");
+					}
+					else {
+						alert("Data submitted successfully");
+						location.reload(); //reloads the window to populate the page with the current warehouse that was just added
+					}
+					console.log(error_response);
+				}
+			});
+		});
+
+		//calls a get to destory the php variable session
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
 		}
+
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
+
+			$.ajax({
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				data:{user_id: sessionStorage.getItem("user_id")}
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
+
+				}
+			});
+		}
+
+
+
 	</script>
 </html>

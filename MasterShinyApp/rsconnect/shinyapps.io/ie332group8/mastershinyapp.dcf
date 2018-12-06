@@ -1,0 +1,10 @@
+name: mastershinyapp
+title:
+username:
+account: ie332group8
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 603853
+bundleId: 1741405
+url: https://ie332group8.shinyapps.io/mastershinyapp/
+when: 1543984818.79699

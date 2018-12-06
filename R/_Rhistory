@@ -1,0 +1,512 @@
+df[,1] == TRUE
+sum(df[,1] == TRUE)
+length(which(df[,1] == TRUE))
+length(which(df[,1] == TRUE)) / length(df[,1])
+length(which(df[,1] == TRUE & df[,2] == TRUE))
+change_neg_values <- function(vec,val){
+if(!is.numeric(val)){
+stop("The vec is not numeric")
+}
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(!is.numeric(vec)){
+stop("The val has to be numeric")
+}
+}ifelse(vec < val, val, vec)
+change_neg_values <- function(vec,val){
+if(!is.numeric(val)){
+stop("The vec is not numeric")
+}
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(!is.numeric(vec)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+a <- c("kjd", "aha")
+change_neg_values(a, 4)
+change_neg_values <- function(vec,val){
+if(is.numeric(val)){
+stop("The vec is not numeric")
+}
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(!is.numeric(vec)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+change_neg_values(a, 4)
+change_neg_values(b, "th")
+b <- c(1,2,4,5,7)
+change_neg_values(b, "th")
+change_neg_values(b, "th")
+change_neg_values <- function(vec,val){
+if(is.numeric(val)){
+stop("The vec is not numeric")
+}
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(is.numeric(vec)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+change_neg_values(b, "th")
+a <- c()
+change_neg_values(a, "th")
+install.packages("testthat")
+library(testthat)
+comparison-expectations(val)
+expect_warning(change_neg_values(test_case1))
+expect_warning(change_neg_values(test_case1.4))
+expect_warning(change_neg_values(test_case1,4))
+expect_warning(change_neg_values(test_case2,4))
+test_case1 <- c("Utku", "Name")
+test_case2 <- c()
+test_case3 <- "Utku"
+expect_warning(change_neg_values(test_case1,4))
+expect_warning(change_neg_values(test_case2,4))
+test_case2 <- c(NA)
+expect_warning(change_neg_values(test_case2,4))
+test_case2 <- c()
+expect_warning(change_neg_values(test_case2,4))
+test_Case4 <- seq(1:30)
+expect_warning(change_neg_values(test_case4,test_case3))
+test_case4 <- seq(1:30)
+expect_warning(change_neg_values(test_case4,test_case3))
+expect_warning(change_neg_values(test_case2,4))
+change_neg_values <- function(vec,val){
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(is.numeric(val)){
+stop("The vec is not numeric")
+}
+if(is.numeric(vec)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+test_case1 <- c("Utku", "Name")
+test_case2 <- c()
+test_case3 <- "Utku"
+test_case4 <- seq(1:30)
+expect_warning(change_neg_values(test_case1,4))
+expect_warning(change_neg_values(test_case2,4))
+expect_warning(change_neg_values(test_case4,test_case3))
+expect_warning(change_neg_values(test_case1,4),"The vec is not numeric" )
+expect_warning(change_neg_values(test_case1,4),The vec is not numeric )
+test_case5 <- 25
+expect_more_than(change_neg_values(test_case4,test_case5), test_case5)
+expect_gt(change_neg_values(test_case4,test_case5), test_case5)
+if(is.numeric(val)){
+stop("The val has to be numeric")
+}
+change_neg_values <- function(vec,val){
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(is.numeric(vec)){
+stop("The vec is not numeric")
+}
+if(is.numeric(val)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+expect_gt(change_neg_values(test_case4,test_case5), test_case5)
+change_neg_values <- function(vec,val){
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(is.numeric(vec)){
+stop("The vec is not numeric")
+}
+if(is.numeric(val)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+test_case1 <- c("Utku", "Name")
+test_case2 <- c()
+test_case3 <- "Utku"
+test_case4 <- seq(1:30)
+test_case5 <- 25
+expect_warning(change_neg_values(test_case1,4))
+expect_warning(change_neg_values(test_case2,4))
+expect_warning(change_neg_values(test_case4,test_case3))
+test_case4 <- c(1,2,3,4,5,6,7,8,9,10)
+expect_warning(change_neg_values(test_case4,test_case3))
+change_neg_values(test_case4,25)
+change_neg_values <- function(vec,val){
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(is.numeric(vec)){
+stop("The vec is not numeric")
+}
+if(is.numeric(val)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+change_neg_values(test_case4,25)
+is.numeric(test_case4)
+change_neg_values <- function(vec,val){
+if(length(vec) == 0){
+stop("The vec has to have at least one element")
+}
+if(!is.numeric(vec)){
+stop("The vec is not numeric")
+}
+if(!is.numeric(val)){
+stop("The val has to be numeric")
+}
+return(ifelse(vec < val, val, vec))
+}
+change_neg_values(test_case4,25)
+expect_gt(change_neg_values(test_case4,test_case5), test_case5)
+expect_more_than(change_neg_values(test_case4,test_case5), test_case5)
+expect_more_than(change_neg_values(test_case4,test_case5))
+expect_gt(change_neg_values(test_case4,test_case5))
+expect_gt(change_neg_values(test_case4,test_case5),25)
+expect_gt(change_neg_values(test_case4,test_case5),15)
+test_Case5 <- c(23, 27,26, 22, 29, 50, 47)
+test_case4 <- sample(c(1:10),15)
+test_case4 <- sample(c(1:100),15)
+test_case5 <- sample(c(1:100),1)
+test_case5
+expect_gt(change_neg_values(test_case4,test_case5), test_case5)
+expect_output(change_neg_values(test_case4,4),4)
+test_case4 <- sample(c(1:100),15)
+expect_output(change_neg_values(test_case4,4),4)
+test_example(change_neg_values(test_case4,4),4)
+test_example(change_neg_values(test_case4,4))
+result1(test_case4, test_case5)
+change_neg_values(test_case4, test_case5)
+test_case5 <- sample(c(50:100),1)
+change_neg_values(test_case4, test_case5)
+plot(val,result, xlab="val", ylab="vec")
+plot(test_case5,result, xlab="val", ylab="vec")
+result <- change_neg_values(test_case4, test_case5)
+plot(test_case5,result, xlab="val", ylab="vec")
+plot(result, xlab="val", ylab="vec")
+test_case4 <- sample(c(1:100),15)
+test_case5 <- sample(c(50:100),1)
+result2 <- change_neg_values(test_case4, test_case5)
+test_case4 <- sample(c(1:100),15)
+test_case5 <- sample(c(50:100),1)
+result3 <- change_neg_values(test_case4, test_case5)
+result <- c(result1,result2, result3)
+test_case4 <- sample(c(1:100),15)
+test_case5 <- sample(c(50:100),1)
+result1 <- change_neg_values(test_case4, test_case5)
+result <- c(result1,result2, result3)
+plot(result, xlab="val", ylab="vec")
+plot(result, xlab="val", ylab="vec", col = "blue")
+plot(result, xlab="val", ylab="vec", col = "blue", type = "l")
+plot(result1, xlab="val", ylab="vec", col = "blue", type = "l")
+plot(result, xlab="val", ylab="vec", col = "blue", type = "l")
+result <- c(result1,result2, result3)
+source('~/.active-rstudio-document', echo=TRUE)
+result1 <- change_neg_values(test_case4, test_case5)
+test_case4 <- sample(c(1:100),15)
+test_case5 <- sample(c(50:100),1)
+result2 <- change_neg_values(test_case4, test_case5)
+result1 <- change_neg_values(test_case4, test_case5)
+test_case4 <- sample(c(1:100),15)
+test_case4_a <- sample(c(45:100),10)
+test_case4_b <- sample(c(1:100),20)
+test_case5 <- sample(c(50:100),1)
+test_case5_a <- sample(c(1:50),1)
+test_case5_b <- sample(c(30:700),1)
+result1 <- change_neg_values(test_case4, test_case5)
+result2 <- change_neg_values(test_case4_a, test_case5_a)
+result3 <- change_neg_values(test_case4_b, test_case5_b)
+result <- c(result1,result2, result3)
+plot(result, xlab="val", ylab="vec", col = "blue", type = "l")
+install.packages("zipcode")
+install.packages("generator")
+install.packages("random")
+install.packages("RMySQL")
+install.packages("dplyr")
+library(data.table)
+install.packages("data.table")
+library(data.table)
+library(RMySQL)
+mydb <- dbConnect(MySQL(), user='g1090429', password='WhereHouse?', dbname='g1090429', host='mydb.ics.purdue.edu')
+dfu <- dbSendQuery(mydb, "SELECT * FROM Contract ") %>% fetch(dfu, n=-1)
+library(magrittr)
+dfu <- dbSendQuery(mydb, "SELECT * FROM Contract ") %>% fetch(dfu, n=-1)
+dfw <- dbSendQuery(mydb, "SELECT * FROM Warehouse") %>% fetch(dfw, n=-1)
+dfu$start_month <- format(dfu$start_date,"%m") %>% as.numeric()
+dfu$end_month <- format(dfu$end_date,"%m") %>% as.numeric()
+dfu$start_date <- as.Date(dfu$start_date)
+dfu$end_date <- as.Date(dfu$end_date)
+dfu$start_month <- format(dfu$start_date,"%m") %>% as.numeric()
+dfu$end_month <- format(dfu$end_date,"%m") %>% as.numeric()
+dfu <- data.table(dfu)
+a <- dfu[,Sum = sum(total_price), by = list(owner_id,warehouse_id,start_month)]
+a <- dfu[,Sum: = sum(total_price), by = list(owner_id,warehouse_id,start_month)]
+a <- dfu[,Sum: = sum(total_price), by = .(owner_id,warehouse_id,start_month)]
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)]
+View(a)
+library(dplyr)
+df <- dfu %>% group_by(owner_id,warehouse_id,start_month) %>% summarise(sum(total_price))
+View(df)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(-start_month)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(start_month)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(start_month),by = owner_id]
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)]
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(owner_id)][order(start_month)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(owner_id,start_month)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(owner_id)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(warehouse_id)]
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(rank(warehouse_id),start_month]
+#Will need to set Owner_ID equal to session variable here
+df1 <- df[which(df$owner_id == N),]
+colnames(df1)[4] <- "Price"
+warehouse_owner <- df1 %>%  distinct(warehouse_id)
+warehouse_names <- dfw[which(warehouse_owner$owner_id == dfw$owner_id),1:2]
+warehouse_names <- as.data.frame(warehouse_names)
+df1 <- left_join(df1,warehouse_names, by = "warehouse_id")
+myplot <- ggplot(df1, aes(x = df1$start_month, y = df1$Price)) +
+geom_point() +
+geom_line(colour="red") +
+facet_grid(.~df1$address_1, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+dev.copy(png,'myplot.png', width = 1500)
+dev.off()
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons) dbDisconnect(con)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(rank(warehouse_id),start_month]
+#Will need to set Owner_ID equal to session variable here
+df1 <- df[which(df$owner_id == N),]
+colnames(df1)[4] <- "Price"
+warehouse_owner <- df1 %>%  distinct(warehouse_id)
+warehouse_names <- dfw[which(warehouse_owner$owner_id == dfw$owner_id),1:2]
+warehouse_names <- as.data.frame(warehouse_names)
+df1 <- left_join(df1,warehouse_names, by = "warehouse_id")
+myplot <- ggplot(df1, aes(x = df1$start_month, y = df1$Price)) +
+geom_point() +
+geom_line(colour="red") +
+facet_grid(.~df1$address_1, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+scale_color_brewer("", palette = "Set1")
+dev.copy(png,'myplot.png', width = 1500)
+dev.off()
+all_cons <- dbListConnections(MySQL())
+for (con in all_cons) dbDisconnect(con)
+View(a)
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(rank(warehouse_id),start_month]
+a <- dfu[,sum(total_price), by = .(owner_id,warehouse_id,start_month)][order(rank(warehouse_id),start_month)]
+View(a)
+df1 <- a[which(df$owner_id == N),]
+df1 <- a[which(df$owner_id == 72),]
+df1 <- left_join(df1,warehouse_names, by = "warehouse_id")
+warehouse_names <- dfw[which(warehouse_owner$owner_id == dfw$owner_id),1:2]
+warehouse_owner <- df1 %>%  unique(warehouse_id)
+warehouse_owner <- unique(df1$warehouse_id)
+View(df1)
+View(df)
+View(a)
+df1 <- a[which(a$owner_id == 72),]
+colnames(df1)[4] <- "Price"
+warehouse_owner <- unique(df1$warehouse_id)
+warehouse_names <- dfw[which(warehouse_owner$owner_id == dfw$owner_id),1:2]
+warehouse_owner <- as.data.frame(warehouse_owner)
+warehouse_names <- dfw[which(warehouse_owner$owner_id == dfw$owner_id),1:2]
+View(warehouse_names)
+warehouse_owner <- as.data.frame(warehouse_owner)
+View(warehouse_owner)
+warehouse_owner <- df1[which(unique(df1$warehouse_id)),]
+View(df1)
+warehouse_names <- dfw[which(unique(df1$warehouse_id) == dfw$warehouse_id),1:2]
+View(warehouse_names)
+which(unique(df1$warehouse_id) == dfw$warehouse_id)
+library(tidyverse)
+library(generator)
+library(zipcode)
+library(tidyr)
+library(dplyr)
+library(sampling)
+library(tidyverse)
+library(generator)
+library(zipcode)
+library(tidyr)
+library(dplyr)
+library(ggmap)
+install.packages("zipcode")
+install.packages("generator")
+install.packages("RMySQL")
+install.packages("random")
+install.packages("zipcode")
+install.packages("generator")
+install.packages("RMySQL")
+install.packages("tidyr")
+install.packages("sampling")
+install.packages("generator")
+install.packages("RMySQL")
+install.packages("tidyr")
+install.packages("ggmap")
+install.packages("RMySQL")
+install.packages("tidyr")
+install.packages("rvest")
+install.packages("RMySQL")
+install.packages("httr")
+install.packages("XML")
+install.packages("tidyr")
+install.packages("rvest")
+install.packages("RMySQL")
+install.packages("httr")
+install.packages("stringi")
+install.packages("tidyverse")
+install.packages("geosphere")
+install.packages("rvest")
+install.packages("RMySQL")
+install.packages("httr")
+install.packages("stringi")
+install.packages("tidyverse")
+install.packages("digest")
+install.packages("RMySQL")
+install.packages("httr")
+install.packages("stringi")
+install.packages("tidyverse")
+install.packages("tictoc")
+install.packages("usmap")
+install.packages("httr")
+install.packages("stringi")
+install.packages("tidyverse")
+install.packages("stringi")
+install.packages("tidyverse")
+library(tidyverse)
+library(generator)
+library(zipcode)
+library(tidyr)
+library(dplyr)
+library(ggmap)
+library(rvest)
+library(stringr)
+library(ggplot2)
+library(stringi)
+library(RMySQL)
+con <- dbConnect(MySQL(),
+user="campb287", password="ACORNS1313",
+dbname="campb287", host="mydb.ics.purdue.edu")
+dbWriteTable(con, "User", user, overwrite = TRUE)
+setwd("//nas01.itap.purdue.edu/puhome/My Documents/GitHub/WhereHouse/R")
+user <- read.csv("User.csv")
+View(user)
+owner <- read.csv("Owner.csv")
+lessee <- read.csv("Lessee.csv")
+warehouse <- read.csv("Warehouse.csv")
+contract_final1 <- read.csv("Contract.csv")
+rate <- read.csv("Rating.csv")
+which(df1$warehouse_id == dfw$warehouse_id)
+dfw[which(df1$warehouse_id == dfw$warehouse_id),1:2]
+View(warehouse_owner)
+which(warehouse_owner == dfw$owner_id)
+View(warehouse_owner)
+warehouse_owner <- unique(df1$warehouse_id)
+warehouse_owner <- as.data.frame(warehouse_owner)
+warehouse_owner <- unique(df1$warehouse_id)
+which(warehouse_owner == dfw$owner_id)
+View(dfw)
+which(warehouse_owner == dfw$warehouse_id)
+warehouse_owner == dfw$warehouse_id
+View(dfw)
+warehouse_owner <- as.data.frame()
+warehouse_owner <- as.data.frame(warehouse_owner)
+warehouse_owner == dfw$warehouse_id
+which(warehouse_owner == dfw$warehouse_id)
+which(dfw$warehouse_id == warehouse_owner)
+warehouse_owner <- df1 %>% distinct(warehouse_id)
+View(warehouse_owner)
+View(warehouse_owner)
+View(warehouse_owner)
+View(df1)
+df1 <- a[which(a$owner_id == 72),]
+warehouse_owner <- df1 %>% distinct(warehouse_id)
+View(warehouse_owner)
+View(df1)
+View(df1)
+View(dfw)
+which(df1$warehouse_id == dfw$warehouse_id)
+df1$address_1 <- dfw[which(df1$warehouse_id == dfw$warehouse_id),2]
+View(df1)
+ifelse(df1$warehouse_id == dfw$warehouse_id,1,0)
+df1$warehouse_id
+ifelse(unique(df1$warehouse_id) == dfw$warehouse_id,1,0)
+myplot <- ggplot(df1, aes(x = df1$start_month, y = df1$Price)) +
+geom_point() +
+geom_line(colour="red") +
+facet_grid(.~df1$warehouse_id, scales='free') +
+labs(title="Monthly Revenue Time Series Chart for 2018 Contracts", y="Returns $",x="Months") +
+theme_bw() +
+scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8,9,10,11), labels = c("1"="Jan", "2"="Feb", "3"="Mar", "4"="Apr", "5"="May", "6"="June", "7"="July", "8"="Aug", "9"="Sept", "10"="Oct", "11"="Nov")) +
+scale_y_continuous(breaks = c(10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000))
+myplot
+library(mapdata)
+library(ggmap)
+usa <- map_data("usa") # we already did this, but we can do it again
+install.packages("usmap")
+library(usmap)
+usa <- map_data("usa")
+?map_data
+library(maps)
+usa <- map_data("usa")
+usa1 <- map_data("usa")
+?sample
+?sample
+?sampling
+citation("rvest")
+citation("hhtr")
+citation("httr")
+citation("XML")
+citation("stringi")
+citation("ggplot2")
+usa<- map_data("usa")
+install.packages("mapdata")
+library(mapdata)
+usa<- map_data("usa")
+library(maps)
+usa<- map_data("usa")
+View(lessee)
+dbWriteTable(con, "Concern_report" , concern_report, overwrite= TRUE)
+con <- dbConnect(MySQL(),
+user="g1090429", password="WhereHouse?",
+dbname="g1090429", host="mydb.ics.purdue.edu")
+on.exit(dbDisconnect(con))
+concern <- c("Property was damaged due to lessee's incorrect storage preference(lessee stored perishable item in not frozen)", "Lessee's product damaged the other products in the warehouse", "Lessee brought more than defined number skids which caused our warehouse storage problems", "Lessee didn't communicated well, causing us delays in our supply chain system", "Lessee's product was broken before it even got to the warehouse and lessee is asking for refund")
+concern_report <- data.frame()
+terminated_contracts <- which(contract_final1$status == "Terminated")
+number_of_concern_reports <- length(terminated_contracts) * 0.05
+concern_report <- contract_final1[sample(which(contract_final1$status == "Terminated"), number_of_concern_reports  ), 1:2]
+concern_report$description <- sample(concern, nrow(concern_report), replace = TRUE)
+dbWriteTable(con, "Concern_report" , concern_report, overwrite= TRUE)
+dbWriteTable(con, "Concern" , concern_report, overwrite= TRUE)
+setwd("Z:/www/R")
+?read.csv
+avg(contract_final1$total_price)
+mean(contract_final1$total_price)

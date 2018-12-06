@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<!-- checks information on all pages to see if there is anything new that needs to be brought to the user's attention (new messages, request status cheanges, etc) -->
-<script>check_for_updates(<?php $_SESSION['user_email']?>);</script>
-<?php
-	require "serverconnect.php";
-	$connection = serverConnect();
-	$user_id = $_SESSION['user_id'];
-
-	$query = "SELECT COUNT(message_id) FROM Messages WHERE recipient_id = '$user_id';";
-	$result = mysqli_query($connection, $query);
-
-	$associative_array = mysqli_fetch_array($result, MYSQLI_NUM);
-	$_SESSION['num_messages'] = $associative_array[0];
-	if($_SESSION['num_messages'] > 0) {
-		echo"<script> $('.notification-icon').text('".$num_messages."');</script>"; //adds the number of messages as an icon over the inbox navbar button
-	}
-
-
-?>
 <html>
 	<head>
 		<!-- add favicon -->
 		<link rel='icon' href='favicon.ico' type='image/x-icon'/ >
+		<!-- 3rd party footer content -  -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+		<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+
 		<!-- Righteous Font -->
 		<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 		<!-- Roboto Font -->
@@ -43,9 +33,7 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 		<!-- Link to the style sheet -->
-		<link rel="stylesheet" href="../style.css"> 
-
-		
+		<link rel="stylesheet" href="../style.css"> 		
 	</head>
 	<body>
 		<div class="flexbox-wrapper">
@@ -55,11 +43,10 @@
 					<span class="logo-text"><a href="../index.php">WhereHouse</a></span>
 				</div>
 				<div class="search">
-						<input id="zip-search" type="text" class="search-input form-control w-100" placeholder="Search Warehouses By Zipcode" aria-label="Search">
-						<button id="zip-search-button" type="button" class="btn btn-dark">Search</button>
-					</div>
+					<button id="zip-search" class="search-button-home" aria-label="Search"><span class="login-button-text">Search Available Warehouses by Zipcode</span></button>
+				</div>
 				<div class="flex-logo">
-					<span class="header-username">Welcome, <?php print($_SESSION['user_first_name'])?></span>
+					<span class="header-username">[Last Name], [First Name]</span>
 					<div class="logout-button" id="logout"><span class="login-button-text">Log Out</span></div>
 				</div>
 				
@@ -83,50 +70,101 @@
 						<span class="sidebar-btn-text">Account Information</span>
 					</div>
 				</div>
-				<div class="page-content flexbox-dashboard">
-					<div id="user-information" class="dashboard-tile">
+			
+			
+			<!-- Begin Page Content -->
+			<div class="page-content">
+				<div class="flex-space-between flex-align-start2">
+					<span class="service2">
+						<img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortWaved&accessoriesType=Wayfarers&hairColor=BrownDark&facialHairType=BeardLight&facialHairColor=Blonde&clotheType=Hoodie&clotheColor=Gray01&eyeType=Close&eyebrowType=UnibrowNatural&mouthType=Smile&skinColor=Yellow' style="width:100pt"/>			
+					</span>
+					<span class="service2">
+						<!-- Replaced with the user's actual name -->
+						<h1 id="user_first_last_name"></h1>
+						<!-- Replaced with the user's actual email -->
+						<h5 id="user_email"></h5>	
+					</span>
+					<span class="service2">
+						<h5><b>Today's Date:</b> <?php echo date("m/d/Y") ?></h5>
+						<h5><b>Login Time:</b> <?php echo date("h:i"); ?></h5>
+					</span>
+				</div>		
+				<div class="userbox2">
+					<div class="attribute">
 						<div class="dashboard-tile-header">User Information</div>		
 						<div class="dashboard-tile-content">
-							<div id="user-name"><b>Name:</b> John Doe</div>
-							<div id="user-email"><b>Email:</b> <a href="mailto:jdoe@purdue.edu">jdoe@purdue.edu</a></div>
-							<div id="billing-address"><b>Billing Address:</b> 400 McCutcheon Dr.<br>West Lafayette, IN 47906</div>
-							<div id="user-phone-num"><b>Phone Number:</b> (123) 456-7890</div>
-							<div id="user-rating"><b>User Rating:</b> -6 Stars</div>
-							<div id=""></div>
+							<div id="user-name"><b>Name: </b><span id="user-information-first-name"></span>&nbsp;<span id="user-information-last-name"></span></div>
+							<div id="user-email"><b>Email: </b><span id="user-information-email"></span></a></div>
+							<div id="billing-address"><b>Billing Address:</b> <span id="user-information-address-1"></span>&nbsp;<span id="user-information-address-2"></span>&nbsp;<span id="user-information-city"></span>,&nbsp;<span id="user-information-state"></span>&nbsp;<span id="user-information-zipcode"></span><br></div>
 							<div class="dashboard-btn-flex">
 								<button class="btn btn-primary dashboard-tile-edit" id="edit-information">Edit</button>
-							</div>
-						</div>
+							</div>	
+						</div>		
 					</div>
-					<div id="user-rentals" class="dashboard-tile dashboard-tile-clickable">
+	
+					<div class="attribute">
 						<div class="dashboard-tile-header">Your Rentals</div>
-						<div class="dashboard-tile-content">
-							<div id="warehouse-1" class="rented-warehouse">
-								<span><b>Warehouse Name</b></span> <br>
-								&nbsp; &nbsp;<span id="contract-from-1"><b>From: </b>August 23</span> <br>
-								&nbsp; &nbsp;<span id="contract-to-1"><b>To: </b> September 14</span>
-							</div>
-						</div>
-					</div>
-					<div id="personalized-search" class="dashboard-tile dashboard-tile-clickable">
-						<div class="dashboard-tile-header">Warehouse Search Tailored For You!</div>
-						<div class="dashboard-tile-content">
-							<div class="personalized-search-results">Result 1</div>
-						</div>
-					</div>
-					<div id="current-requests" class="dashboard-tile dashboard-tile-clickable">
-						<div class="dashboard-tile-header">Pending Requests</div>
-						<div class="dashboard-tile-content">
-							<div id="request-1"><b>Warehouse Name</b></div>
-							<div id="request-1-date">August 16, 2018</div>
-							<div id="request-time">8:52 PM</div>
+						<div id="rented-warehouses" class="dashboard-tile-content">
+							
 						</div>
 					</div>
 				</div>
+		
+				<div class="userbox2">
+				<div class="attribute">
+					<div class="dashboard-tile-header">Warehouse Search Tailored For You!</div>
+					<div class="dashboard-tile-content">
+						<div class="personalized-search-results">Result 1</div>
+					</div>
+				</div>
+				<div class="attribute">
+					<div class="dashboard-tile-header">Pending Requests</div>
+					<div id="pending-requests"class="dashboard-tile-content">
+						
+					</div>
+				</div>
+				</div>
 			</div>
+			<!-- Page Content Ends Here -->
+			
+			
+			
 		</div>
-		<div class="footer">Footer</div>
 	</body>
+	<footer style="margin-top: 0px;"class="footer-distributed">
+
+			<div class="footer-left">
+				<span class="company-name">WhereHouse INC. </span> <br>
+				<p class="footer-company-name">IE332 Team Project &copy; 2018</p>
+			</div>
+			<div class="footer-center">
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>610 Purdue Mall</span> West Lafayette, IN 47907</p>
+				</div>
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123 4567</p>
+				</div>
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:wherehouse.8.inc@gmail.com">wherehouse.8.inc@gmail.com</a></p>
+				</div>
+			</div>
+			<div class="footer-right">
+				<p class="footer-company-about">
+					<span>Connect With Us</span>
+					Keep up to date with innovations happening at WhereHouse Inc. by connecting with us on our socials! 
+				</p>
+				<div class="footer-icons">
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-linkedin"></i></a>
+					<a href="https://www.instagram.com/wherehouse.8.inc/"><i class="fab fa-instagram"></i></a>
+					<!-- Add a link to instagram... replace # with actual links> -->
+				</div>
+			</div>
+		</footer>
 
 	<script type="text/javascript">
 		$("#dashboard-btn").click(function(event) {
@@ -143,7 +181,8 @@
 		});
 		$(".logout-button").click(function(event) {
 			window.location = "../index.php";
-			<?php session_destroy();?>
+			sessionDestroy();
+			sessionStorage.clear(); //clears javascript session information
 		});
 		$("#account-info").click(function(event) {
 			window.location = "account_info.php";
@@ -151,71 +190,130 @@
 		$('#edit-information').on('click', function(event){
 			window.location = "account_info.php";
 		});
+		
 
-		//search field actions
-		$('#zip-search').on('focusout', function(event) {
-			var searchQuery = $('#zip-search').val();
-			if(searchQuery == null || searchQuery == ""){
-				searchQuery = "Oops...you forgot to enter a zipcode to search";
-			}
-			sessionStorage.setItem("searchQuery", searchQuery);
+		$('#zip-search').on('click', function(event) {
+			window.location = "warehouse-search.php";
 		});
-		$('#zip-search-button').on('click', function(event) {
-			sessionStorage.setItem("searchQuery", searchQuery);
-			window.location = "warehousesearch.php";
-		});
-
-
-
-
-
-
 
 		//my rentals redirect
 		$("#user-rentals").on("click", function(event) {
 			window.location = "rentals.php";
 		});
 
-
-		console.log(<?php print($_SESSION['first_name']);?>);
-
-		//ajax script to retrieve information about a user when they click the edit button
-		$('#edit-information').on('click', function(event) {
+		$(document).ready(function(event){
+			$('.header-username').text(sessionStorage.getItem("user_last_name")+ ", "+sessionStorage.getItem("user_first_name"));
+			//populate the user infromation tile on the dashboard 
 			$.ajax({
-				method: 'GET', 
-				type: 'GET', 
-				url: 'get_user_information.php', 
-				success: function (response) {
+				url:'dashboard_onload.php',
+				type: 'post', 
+				dataType: 'json',
+				data: {user_id: sessionStorage.getItem("user_id")},
+				success: function(response) {
+					var first_name = response['first_name'];
+					var last_name = response['last_name'];
+					var email = response['email'];
+					var address_1 = response['address_1'];
+					var address_2 = response['address_2'];
+					var city = response['city'];
+					var state = response['state'];
+					var zipcode = response['zipcode'];
+					if(address_2 = null) {
+						address_2 = "";
+					}
+					$('#user_first_last_name').text(first_name + " " + last_name);
+					$('#user_email').text(email);
+					$('#user-information-first-name').text(first_name);
+					$('#user-information-last-name').text(last_name);
+					$('#user-information-email').text(email);
+					$('#user-information-address-1').text(address_1);
+					$('#user-information-address-2').text(address_2);
+					$('#user-information-city').text(city);
+					$('#user-information-state').text(state);
+					$('#user-information-zipcode').text(zipcode);
+
+					//setting session items for values not initialized in the login
+					sessionStorage.setItem("user_address_1", address_1);
+					sessionStorage.setItem("user_address_2", address_2);
+					sessionStorage.setItem("user_city", city);
+					sessionStorage.setItem("user_state", state);
+					sessionStorage.setItem("user_zipcode", zipcode);
+				}
+			});	
+
+			//call to populate the rentals and requests
+
+			$.ajax(console.log("ajax called"),{
+				url:'dashboard_requests_rentals.php',
+				type:'post',
+				dataType: 'json',
+				data: {user_id: sessionStorage.getItem('user_id')},
+				success: function(response){
+					console.log(response);
+					var warehouse_name_pending = response['warehouse_name_pending'];
+					var warehouse_name_active = response['warehouse_name_active'];
+					var warehouse_id_pending = response['warehouse_id_pending'];
+					var num_pending = warehouse_id_pending.length;
+					var owner_id_pending = response['owner_id_pending'];
+					var contract_start_pending = response['contract_start_pending'];
+					var contract_end_pending = response['contract_end_pending'];
+					var warehouse_id_active = response['warehouse_id_active'];
+					var num_active = warehouse_id_active.length;
+					var owner_id_active = response['owner_id_active'];
+					var contract_start_active = response['contract_start_active'];
+					var contract_end_active = response['contract_end_active'];
+					console.log(typeof(warehouse_name_pending));
+					console.log(warehouse_name_pending);
+
+					//adds elements to the active rentals div
+					for(var x = 0; x < num_active; x++){
+						$('#rented-warehouses').append("<div class='rented-warehouse'><table><tr><td><b>Warehouse Name: </b></td><td>"+warehouse_name_active[x]+"</td></tr><tr><td><b>Warehouse ID: </b></td><td>"+warehouse_id_active[x]+"</td></tr><tr><td><b>Owner ID</b></td><td>"+owner_id_active[x]+"</td></tr><tr><td><b>Contract Start Date:</b></td><td>"+contract_start_active[x]+"</td></tr><tr><td><b>Contract End Date:</b></td><td>"+contract_end_active[x]+"</td></tr></table></div>");
+					}
+
+					//adds elements to the pending requests div
+					for(var x = 0; x < num_pending; x++){
+						$('#pending-requests').append("<div class='rented-warehouse'><table><tr><td><b>Warehouse Name:</b></td><td>"+warehouse_name_pending[x]+"</td></tr><tr><td><b>Warehouse ID:</b></td><td>"+warehouse_id_pending[x]+"</td></tr><tr><td><b>Owner ID:</b></td><td>"+owner_id_pending[x]+"</td></tr><tr><td><b>Contract Start Date:</b></td><td>"+contract_start_pending[x]+"</td></tr><tr><td><b>Contract End Date:</b></td><td>"+contract_end_pending[x]+"</td></tr></table></div>");
 					
+					}
+					//changes the inner text of the name element to the user's first and last name
+					$('#user_first_last_name').text(first_name + " " + last_name);
+					//changes the inner text of the email to the user's email
+					$('#user_email').text(email);
+
 				}
 			});
-		});
 
+			
 
-		function check_for_updates(email) {
+			//populate the sidebar with notification icons as needed
+			get_notification_badges();
+	});
+		
+
+		//function that populates the sidebar with notification icons
+		function get_notification_badges() {
 			$.ajax({
-				url: 'check_for_updates.php',
-				data: email,
-				dataType: 'json',
-				success: function(response){
-					var response_data = JSON.parse(response);
-					var num_unchecked_messages = response_data.num_unchecked_message;
-					var num_requests = response_data.num_requests;
-					var num_rentals = response_data.num_rentals;
-
-					if(num_unchecked_messages > 0) {
-						$("#notification-span-messages").html("<span class=\"notification-icon\">"+num_unchecked_messages+"</span>");
-					}
-					if(num_requests > 0){
-						$("#notification-span-requests").html("<span class=\"notification-icon\">"+num_requests+"</span>");
-					}
-					if(num_rentals > 0) {
-						$("#notification-span-rentals").html("<span class=\"notification-icon\">"+num_rentals+"</span>");
-					}
+				url: 'get_notification_badges.php',
+				type:'post',
+				dataType: 'JSON',
+				succcess: function(response) {
+					var num_unchecked_messages = response['num_unchecked_messages'];
+					var num_rentals = response['num_rentals'];
+					var num_requests = response['num_requests'];
+					console.log(response);
+					console.log(num_unchecked_messages, num_rentals, num_requests);
+					$('.notification-span-rentals').text(num_rentals);
+					$('.notification-span-requests').text(num_requests);
+					$('.notification-span-messages').text(num_unchecked_messages);
 				}
-
 			});
 		}
 
+
+		function sessionDestroy() {
+			$.get('sessiondestroy.php', function(response) {
+				console.log(response);
+			});
+		}
 	</script>
 </html>
