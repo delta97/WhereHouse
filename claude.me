@@ -1,0 +1,221 @@
+# WhereHouse
+
+## Project Overview
+
+WhereHouse is a web-based marketplace platform that connects warehouse owners with businesses seeking short-term or flexible warehouse storage solutions. The platform brings modern flexibility to the warehousing industry by enabling businesses to quickly scale their storage needs without long-term capital investment.
+
+**Team Project**: IE332 Team Project (2018)
+**Institution**: Purdue University
+**Team Members**: Amanda Crowe, Cole Parsons, Collin Jewett, Kayla Parker, Michael Campbell, Shriya Das, Utkuhan Genc
+
+## Key Features
+
+### Core Platform Features
+- **Dual User System**: Separate portals for warehouse owners and lessees
+- **Warehouse Search**: Search available warehouses by zipcode with detailed filtering
+- **Contract Management**: Create, manage, and track warehouse rental contracts
+- **Rating System**: Multi-dimensional rating system (satisfaction, quality, handling, storage, consistency, communication)
+- **Messaging System**: Built-in inbox for communication between owners and lessees
+- **Analytics Dashboard**: Comprehensive analytics for warehouse owners
+
+### Advanced Features
+- **Machine Learning Recommender**: Collaborative filtering-based recommendation system (IBCF & UBCF) to suggest warehouses based on user preferences and history
+- **Data Visualization**: R Shiny application for interactive analytics
+- **User Management**: Secure authentication and session management
+- **Payment Integration**: Bank information and payment tracking
+
+## Technology Stack
+
+### Frontend
+- **HTML/CSS/JavaScript**
+- **Bootstrap 4.0**: Responsive UI framework
+- **jQuery 3.3.1**: DOM manipulation and AJAX
+- **Google Fonts**: Righteous, Roboto, Roboto Condensed
+- **Font Awesome**: Icon library
+
+### Backend
+- **PHP**: Server-side logic and API endpoints
+- **MySQL**: Database (hosted on mydb.ics.purdue.edu)
+- **Session Management**: PHP sessions and sessionStorage
+
+### Analytics & Machine Learning
+- **R Programming Language**
+  - recommenderlab: Recommendation algorithms
+  - shiny: Interactive web applications
+  - ggplot2: Data visualization
+  - dplyr/plyr: Data manipulation
+  - RMySQL: Database connectivity
+  - Matrix: Sparse matrix operations
+
+### External Services
+- **Google Analytics**: User tracking (UA-130199470-1)
+
+## Project Structure
+
+```
+WhereHouse/
+├── index.php                 # Landing page
+├── login.php                 # Authentication handler
+├── basicsearch.php          # Warehouse search interface
+├── style.css                # Main stylesheet
+├── serverconnect.php        # Database connection
+│
+├── home/                    # Public pages
+│   ├── about.php           # About page with services and team info
+│   ├── FAQ.php             # Frequently asked questions
+│   └── registration/       # User registration flows
+│
+├── owner/                   # Warehouse owner portal
+│   ├── dashboard.php       # Owner dashboard
+│   ├── warehouses.php      # Warehouse management
+│   ├── renters.php         # Renter information
+│   ├── analytics.php       # Analytics dashboard
+│   ├── inbox.php           # Messaging system
+│   └── *.R                 # R scripts for analytics visualizations
+│
+├── lessee/                  # Warehouse lessee portal
+│   ├── dashboard.php       # Lessee dashboard
+│   ├── warehouse-search.php # Advanced warehouse search
+│   ├── requests.php        # Rental requests management
+│   ├── rentals.php         # Active and past rentals
+│   ├── contract.php        # Contract details
+│   └── inbox.php           # Messaging system
+│
+├── admin/                   # Administrative functions
+│
+├── R/                       # R scripts and data
+│   ├── recommender.R       # Machine learning recommender system
+│   ├── Project.Rmd         # R Markdown project documentation
+│   └── *.csv               # Data files
+│
+└── MasterShinyApp/          # Shiny visualization app
+    ├── app.r               # Shiny application
+    └── *.csv               # Data for visualizations
+```
+
+## Database Schema
+
+The application uses a MySQL database with the following main tables:
+- **User**: User accounts (owners and lessees)
+- **Warehouse**: Warehouse listings
+- **Contract**: Rental agreements between owners and lessees
+- **Rating**: Multi-dimensional ratings for completed contracts
+
+## Machine Learning Recommender System
+
+The platform includes a sophisticated recommendation engine (R/recommender.R) that:
+
+### Algorithms
+- **IBCF (Item-Based Collaborative Filtering)**: Recommends warehouses based on similarity between warehouses
+- **UBCF (User-Based Collaborative Filtering)**: Recommends based on similar users' preferences
+- **Distance Metrics**: Cosine similarity and Pearson correlation
+
+### Features
+- Filters warehouses with sufficient rating history (median threshold)
+- Handles sparse rating matrices
+- Cross-validation evaluation (4-fold)
+- ROC and Precision-Recall metrics
+- Normalized rating distributions
+- Personalized top-N recommendations (default: 5 warehouses)
+
+### Performance Metrics
+- RMSE (Root Mean Square Error)
+- MAE (Mean Absolute Error)
+- Precision/Recall curves
+- Confusion matrices (TP, FP, FN, TN)
+
+## Shiny Analytics Application
+
+Interactive R Shiny app (MasterShinyApp/app.r) provides:
+- **Geographic Distribution**: Bar charts of users and warehouses per state
+- **Rating Analysis**: Histograms for all rating dimensions
+  - Satisfaction
+  - Quality
+  - Handling
+  - Storage
+  - Consistency
+  - Communication
+
+## User Types
+
+1. **Warehouse Owners (user_type = 1)**
+   - List warehouses
+   - Manage rental contracts
+   - View analytics
+   - Communicate with lessees
+   - Track revenue and capacity
+
+2. **Lessees (user_type = 0)**
+   - Search for warehouses
+   - Submit rental requests
+   - Manage active contracts
+   - Rate warehouses
+   - Receive recommendations
+
+3. **Administrators (user_type = -4)**
+   - Platform management
+   - User oversight
+
+## Key Benefits
+
+### For Warehouse Owners
+- Maintain revenue during off-seasons
+- Optimize capital utilization rates
+- No long-term commitments required
+- Access to flexible short-term renters
+
+### For Lessees
+- Avoid steep premiums for short-term agreements
+- Quickly scale storage needs
+- No long-term capital investment
+- Access to tailored search and recommendations
+
+## Security Features
+- Password hashing
+- Session management
+- SQL injection protection (prepared statements recommended)
+- Secure payment information handling
+- User authentication and authorization
+
+## Analytics Features
+
+Owner dashboard includes R-generated visualizations:
+- Revenue over time
+- Warehouse capacity utilization
+- Renter satisfaction ratings
+- Contract frequency
+- Number of skids/pallets stored
+
+## Contact Information
+
+**Company**: WhereHouse Inc.
+**Email**: wherehouse.8.inc@gmail.com
+**Phone**: +1 555 123 4567
+**Address**: 610 Purdue Mall, West Lafayette, IN 47907
+
+**Social Media**:
+- Facebook
+- Twitter
+- LinkedIn
+- Instagram: @wherehouse.8.inc
+
+## Development Notes
+
+- Commission-based fee structure for warehouse owners
+- Google Analytics integration for user tracking
+- Responsive design for mobile compatibility
+- AJAX-based dynamic content loading
+- Bootstrap modal dialogs for registration and login
+
+## Future Enhancements
+
+Based on the codebase structure, potential areas for improvement:
+- Enhanced security (parameterized queries, CSRF protection)
+- RESTful API architecture
+- Modern frontend framework (React/Vue)
+- Real-time messaging with WebSockets
+- Enhanced recommendation algorithms with deep learning
+- Mobile app development
+- Payment gateway integration
+- Advanced search filters
+- Geolocation-based recommendations
